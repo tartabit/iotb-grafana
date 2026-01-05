@@ -1,0 +1,2 @@
+# Required Python packages for Grafana import and export scripts
+requests

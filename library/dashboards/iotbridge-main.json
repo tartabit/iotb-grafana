@@ -1,0 +1,143 @@
+{
+    "meta": {
+        "type": "db",
+        "canSave": true,
+        "canEdit": true,
+        "canAdmin": true,
+        "canStar": true,
+        "canDelete": true,
+        "slug": "iot-bridge-main",
+        "url": "/d/Z-bavcknz/iot-bridge-main",
+        "expires": "0001-01-01T00:00:00Z",
+        "created": "2026-01-03T16:17:15Z",
+        "updated": "2026-01-04T16:09:14Z",
+        "updatedBy": "admin",
+        "createdBy": "API",
+        "version": 2,
+        "hasAcl": false,
+        "isFolder": false,
+        "apiVersion": "v0alpha1",
+        "folderId": 29,
+        "folderUid": "G6bUnD54k",
+        "folderTitle": "IoT Bridge",
+        "folderUrl": "/dashboards/f/G6bUnD54k/iot-bridge",
+        "provisioned": false,
+        "provisionedExternalId": "",
+        "annotationsPermissions": {
+            "dashboard": {
+                "canAdd": true,
+                "canEdit": true,
+                "canDelete": true
+            },
+            "organization": {
+                "canAdd": true,
+                "canEdit": true,
+                "canDelete": true
+            }
+        }
+    },
+    "dashboard": {
+        "annotations": {
+            "list": [
+                {
+                    "builtIn": 1,
+                    "datasource": {
+                        "type": "datasource",
+                        "uid": "grafana"
+                    },
+                    "enable": true,
+                    "hide": true,
+                    "iconColor": "rgba(0, 211, 255, 1)",
+                    "name": "Annotations & Alerts",
+                    "target": {
+                        "limit": 100,
+                        "matchAny": false,
+                        "tags": [],
+                        "type": "dashboard"
+                    },
+                    "type": "dashboard"
+                }
+            ]
+        },
+        "editable": true,
+        "fiscalYearStartMonth": 0,
+        "graphTooltip": 0,
+        "id": 34,
+        "links": [
+            {
+                "asDropdown": true,
+                "icon": "external link",
+                "includeVars": true,
+                "keepTime": true,
+                "tags": [
+                    "tartabit-iot-bridge"
+                ],
+                "targetBlank": false,
+                "title": "IoT Bridge",
+                "tooltip": "",
+                "type": "dashboards",
+                "url": ""
+            }
+        ],
+        "panels": [
+            {
+                "gridPos": {
+                    "h": 33,
+                    "w": 5,
+                    "x": 0,
+                    "y": 0
+                },
+                "id": 2,
+                "options": {
+                    "alertInstanceLabelFilter": "",
+                    "alertName": "",
+                    "dashboardAlerts": false,
+                    "dashboardTitle": "",
+                    "groupBy": [],
+                    "groupMode": "default",
+                    "maxItems": 15,
+                    "showInactiveAlerts": false,
+                    "showOptions": "current",
+                    "sortOrder": 1,
+                    "stateFilter": {
+                        "alerting": false,
+                        "error": true,
+                        "execution_error": false,
+                        "firing": true,
+                        "noData": false,
+                        "no_data": false,
+                        "normal": false,
+                        "ok": false,
+                        "paused": false,
+                        "pending": false,
+                        "recovering": true
+                    },
+                    "tags": [],
+                    "viewMode": "list"
+                },
+                "pluginVersion": "12.3.1",
+                "title": "Alerts",
+                "type": "alertlist"
+            }
+        ],
+        "preload": false,
+        "refresh": "",
+        "schemaVersion": 42,
+        "tags": [
+            "tartabit-iot-bridge"
+        ],
+        "templating": {
+            "list": []
+        },
+        "time": {
+            "from": "now-6h",
+            "to": "now"
+        },
+        "timepicker": {},
+        "timezone": "",
+        "title": "IoT Bridge / Main",
+        "uid": "Z-bavcknz",
+        "version": 2,
+        "weekStart": ""
+    }
+}

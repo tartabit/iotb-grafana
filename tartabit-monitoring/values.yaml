@@ -1,0 +1,65 @@
+
+traefik:
+  # The hostname to use for routing traffic to grafana, it will only work on the internal interface, it will not
+  # work from an external network.
+  hostname: <url>
+
+# Set the admin user and password for grafana.
+grafana:
+  user: admin
+  password: password123
+
+# SMTP credentials for grafana, uncomment to enable SMTP and specify your user/password for your server.
+#smtp:
+#  user: "<user>>"
+#  password: "<password>"
+
+kube-prometheus-stack:
+  defaultRules:
+    create: true
+  prometheus:
+    prometheusSpec:
+      retentionSize: 5GiB
+      retention: 7d
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            # Set the appropriate storage class for your environment.
+            # gke: premium-rwo
+            # aks: managed-premium
+            # eks: gp2
+            storageClassName: gp2
+            accessModes:
+              - ReadWriteOnce
+            resources:
+              requests:
+                storage: 10Gi
+      podMonitorSelectorNilUsesHelmValues: false
+      serviceMonitorSelectorNilUsesHelmValues: false
+  grafana:
+    admin:
+      existingSecret: grafana-credentials
+      userKey: admin-user
+      passwordKey: admin-password
+    sidecar:
+      skipTlsVerify: true
+    plugins:
+      - redis-datasource
+    persistence:
+      enabled: true
+      # Set the appropriate storage class for your environment.
+      # gke: premium-rwo
+      # aks: managed-premium
+      storageClassName: gp2
+      size: 5Gi
+
+    # Uncomment this section to enable SMTP, you must supply a from_address and host, the other values should not be changed.
+    #grafana.ini:
+    #  smtp:
+    #    enabled: true
+    #    from_address: noreply@tartabit.com
+    #    host: smtp.azurecomm.net:587
+    #smtp:
+    #  existingSecret: grafana-smtp
+    #  userKey: smtp-user
+    #  passwordKey: smtp-password

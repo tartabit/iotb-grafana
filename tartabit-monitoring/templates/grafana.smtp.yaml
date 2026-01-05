@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: grafana-smtp
+type: Opaque
+stringData:
+  smtp-user: "{{ .Values.smtp.user }}"
+  smtp-password: "{{ .Values.smtp.password }}"

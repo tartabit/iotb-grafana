@@ -1,0 +1,10 @@
+{{ if .Values.grafana }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: grafana-credentials
+type: Opaque
+stringData:
+  admin-user: "{{ .Values.smtp.user }}"
+  admin-password: "{{ .Values.smtp.password }}"
+{{ end }}

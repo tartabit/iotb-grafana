@@ -1,0 +1,131 @@
+{
+    "id": 4,
+    "uid": "bfcd4df3-829b-4edb-9432-8ef8cea5903e",
+    "orgID": 1,
+    "folderUID": "G6bUnD54k",
+    "ruleGroup": "iot-bridge",
+    "title": "trigger account trend",
+    "condition": "C",
+    "data": [
+        {
+            "refId": "A",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 21600,
+                "to": 0
+            },
+            "datasourceUid": "prometheus",
+            "model": {
+                "editorMode": "code",
+                "expr": "(\r\n    (\r\n        sum by (accountId) (\r\n            rate(iotbridge_trigger_engine_exectime_count[1h])\r\n        )\r\n        /\r\n        sum by (accountId) (\r\n            rate(iotbridge_trigger_engine_exectime_count[1h] offset 1h)\r\n        )\r\n    ) \r\n    and\r\n    sum by (accountId) (\r\n        rate(iotbridge_trigger_engine_exectime_count[6h] offset 1h)\r\n    ) > 1 / 6\r\n) * on(accountId) group_left(name)iotbridge_account_map{}\r\n\r\n",
+                "instant": true,
+                "intervalMs": 1000,
+                "legendFormat": "{{name}}",
+                "maxDataPoints": 43200,
+                "range": false,
+                "refId": "A"
+            }
+        },
+        {
+            "refId": "B",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 21600,
+                "to": 0
+            },
+            "datasourceUid": "__expr__",
+            "model": {
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "B"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "last"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "datasource": {
+                    "type": "__expr__",
+                    "uid": "__expr__"
+                },
+                "expression": "A",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "reducer": "last",
+                "refId": "B",
+                "type": "reduce"
+            }
+        },
+        {
+            "refId": "C",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 21600,
+                "to": 0
+            },
+            "datasourceUid": "__expr__",
+            "model": {
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                0.5
+                            ],
+                            "type": "lt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "C"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "last"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "datasource": {
+                    "type": "__expr__",
+                    "uid": "__expr__"
+                },
+                "expression": "B",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "refId": "C",
+                "type": "threshold"
+            }
+        }
+    ],
+    "updated": "2026-01-03T16:17:17Z",
+    "noDataState": "NoData",
+    "execErrState": "Error",
+    "for": "5m",
+    "keep_firing_for": "0s",
+    "annotations": {
+        "summary": "Trigger account traffic below 50% of trend."
+    },
+    "labels": {
+        "severity": "critical",
+        "component": "tartabit-iot-bridge"
+    },
+    "provenance": "api",
+    "isPaused": true,
+    "notification_settings": null,
+    "record": null
+}
