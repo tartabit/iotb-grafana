@@ -5,6 +5,6 @@ metadata:
   name: grafana-credentials
 type: Opaque
 stringData:
-  admin-user: "{{ .Values.smtp.user }}"
-  admin-password: "{{ .Values.smtp.password }}"
+  admin-user: "{{ .Values.grafana.user }}"
+  admin-password: "{{ .Values.grafana.password }}"
 {{ end }}
