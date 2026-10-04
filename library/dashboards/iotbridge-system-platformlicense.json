@@ -1,0 +1,991 @@
+{
+    "meta": {
+        "folderUid": "G6bUnD54k",
+        "folderTitle": "IoT Bridge"
+    },
+    "dashboard": {
+        "annotations": {
+            "list": [
+                {
+                    "builtIn": 1,
+                    "datasource": {
+                        "type": "datasource",
+                        "uid": "grafana"
+                    },
+                    "enable": true,
+                    "hide": true,
+                    "iconColor": "rgba(0, 211, 255, 1)",
+                    "name": "Annotations & Alerts",
+                    "target": {
+                        "limit": 100,
+                        "matchAny": false,
+                        "tags": [],
+                        "type": "dashboard"
+                    },
+                    "type": "dashboard"
+                }
+            ]
+        },
+        "editable": true,
+        "fiscalYearStartMonth": 0,
+        "graphTooltip": 1,
+        "id": null,
+        "links": [
+            {
+                "asDropdown": true,
+                "icon": "external link",
+                "includeVars": true,
+                "keepTime": true,
+                "tags": [
+                    "tartabit-iot-bridge"
+                ],
+                "targetBlank": false,
+                "title": "IoT Bridge",
+                "tooltip": "",
+                "type": "dashboards",
+                "url": ""
+            }
+        ],
+        "panels": [
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [
+                            {
+                                "options": {
+                                    "0": {
+                                        "color": "gray",
+                                        "index": 0,
+                                        "text": "Unknown"
+                                    },
+                                    "1": {
+                                        "color": "green",
+                                        "index": 1,
+                                        "text": "Valid"
+                                    },
+                                    "2": {
+                                        "color": "yellow",
+                                        "index": 2,
+                                        "text": "Trial"
+                                    },
+                                    "3": {
+                                        "color": "red",
+                                        "index": 3,
+                                        "text": "Expired"
+                                    },
+                                    "4": {
+                                        "color": "red",
+                                        "index": 4,
+                                        "text": "Trial expired"
+                                    },
+                                    "5": {
+                                        "color": "red",
+                                        "index": 5,
+                                        "text": "Invalid"
+                                    },
+                                    "6": {
+                                        "color": "red",
+                                        "index": 6,
+                                        "text": "Root missing"
+                                    }
+                                },
+                                "type": "value"
+                            }
+                        ],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "gray",
+                                    "value": null
+                                }
+                            ]
+                        },
+                        "unit": "none"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 4,
+                    "x": 0,
+                    "y": 0
+                },
+                "id": 1,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "showPercentChange": false,
+                    "text": {},
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max(iotbridge_platform_license_state)",
+                        "instant": true,
+                        "interval": "",
+                        "legendFormat": "",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "State",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [
+                            {
+                                "options": {
+                                    "0": {
+                                        "color": "red",
+                                        "index": 0,
+                                        "text": "No"
+                                    },
+                                    "1": {
+                                        "color": "green",
+                                        "index": 1,
+                                        "text": "Yes"
+                                    }
+                                },
+                                "type": "value"
+                            }
+                        ],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "red",
+                                    "value": null
+                                },
+                                {
+                                    "color": "green",
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        "unit": "none"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 4,
+                    "x": 4,
+                    "y": 0
+                },
+                "id": 2,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "showPercentChange": false,
+                    "text": {},
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "min(iotbridge_platform_license_valid)",
+                        "instant": true,
+                        "interval": "",
+                        "legendFormat": "",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Valid",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [
+                            {
+                                "options": {
+                                    "0": {
+                                        "color": "gray",
+                                        "index": 0,
+                                        "text": "No expiry / unknown"
+                                    }
+                                },
+                                "type": "value"
+                            }
+                        ],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                }
+                            ]
+                        },
+                        "unit": "dateTimeAsIso"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 6,
+                    "x": 8,
+                    "y": 0
+                },
+                "id": 3,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "showPercentChange": false,
+                    "text": {},
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max(iotbridge_platform_license_expiry_timestamp_seconds) * 1000",
+                        "instant": true,
+                        "interval": "",
+                        "legendFormat": "",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Expires at",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [
+                            {
+                                "options": {
+                                    "0": {
+                                        "color": "gray",
+                                        "index": 0,
+                                        "text": "No expiry / unknown"
+                                    }
+                                },
+                                "type": "value"
+                            }
+                        ],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "red",
+                                    "value": null
+                                },
+                                {
+                                    "color": "orange",
+                                    "value": 604800
+                                },
+                                {
+                                    "color": "green",
+                                    "value": 2592000
+                                }
+                            ]
+                        },
+                        "unit": "s"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 5,
+                    "x": 14,
+                    "y": 0
+                },
+                "id": 4,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "showPercentChange": false,
+                    "text": {},
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max(iotbridge_platform_license_seconds_until_expiry)",
+                        "instant": true,
+                        "interval": "",
+                        "legendFormat": "",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Time remaining",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "yellow",
+                                    "value": 120
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 300
+                                }
+                            ]
+                        },
+                        "unit": "s"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 5,
+                    "x": 19,
+                    "y": 0
+                },
+                "id": 5,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "showPercentChange": false,
+                    "text": {},
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "time() - max(iotbridge_platform_license_metrics_last_refresh_timestamp_seconds)",
+                        "instant": true,
+                        "interval": "",
+                        "legendFormat": "",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Metrics age",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                }
+                            ]
+                        },
+                        "unit": "short"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 5,
+                    "x": 0,
+                    "y": 5
+                },
+                "id": 6,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "showPercentChange": false,
+                    "text": {},
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max(iotbridge_platform_license_daily_events)",
+                        "instant": true,
+                        "interval": "",
+                        "legendFormat": "",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Events today (UTC)",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [
+                            {
+                                "options": {
+                                    "0": {
+                                        "color": "green",
+                                        "index": 0,
+                                        "text": "Unlimited / unavailable"
+                                    }
+                                },
+                                "type": "value"
+                            }
+                        ],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                }
+                            ]
+                        },
+                        "unit": "short"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 5,
+                    "x": 5,
+                    "y": 5
+                },
+                "id": 7,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "showPercentChange": false,
+                    "text": {},
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max(iotbridge_platform_license_daily_event_limit)",
+                        "instant": true,
+                        "interval": "",
+                        "legendFormat": "",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Daily event limit",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "red",
+                                    "value": null
+                                },
+                                {
+                                    "color": "yellow",
+                                    "value": 1
+                                },
+                                {
+                                    "color": "green",
+                                    "value": 20
+                                }
+                            ]
+                        },
+                        "unit": "short"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 5,
+                    "x": 10,
+                    "y": 5
+                },
+                "id": 8,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "showPercentChange": false,
+                    "text": {},
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max(iotbridge_platform_license_daily_events_remaining)",
+                        "instant": true,
+                        "interval": "",
+                        "legendFormat": "",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Events remaining",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "decimals": 1,
+                        "max": 1,
+                        "min": 0,
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "orange",
+                                    "value": 0.8
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        "unit": "percentunit"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 9,
+                    "x": 15,
+                    "y": 5
+                },
+                "id": 9,
+                "options": {
+                    "minVizHeight": 75,
+                    "minVizWidth": 75,
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "showThresholdLabels": false,
+                    "showThresholdMarkers": true,
+                    "sizing": "auto",
+                    "text": {}
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max(iotbridge_platform_license_daily_event_utilization_ratio)",
+                        "instant": true,
+                        "interval": "",
+                        "legendFormat": "",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Daily event utilization",
+                "type": "gauge"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "axisBorderShow": false,
+                            "axisCenteredZero": false,
+                            "axisColorMode": "text",
+                            "axisLabel": "",
+                            "axisPlacement": "auto",
+                            "barAlignment": 0,
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "gradientMode": "none",
+                            "hideFrom": {
+                                "legend": false,
+                                "tooltip": false,
+                                "viz": false
+                            },
+                            "insertNulls": false,
+                            "lineInterpolation": "linear",
+                            "lineWidth": 2,
+                            "pointSize": 5,
+                            "scaleDistribution": {
+                                "type": "linear"
+                            },
+                            "showPoints": "never",
+                            "spanNulls": true,
+                            "stacking": {
+                                "group": "A",
+                                "mode": "none"
+                            },
+                            "thresholdsStyle": {
+                                "mode": "off"
+                            }
+                        },
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                }
+                            ]
+                        },
+                        "unit": "short"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 10,
+                    "w": 24,
+                    "x": 0,
+                    "y": 10
+                },
+                "id": 10,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "hideZeros": false,
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max(iotbridge_platform_license_daily_events)",
+                        "instant": false,
+                        "interval": "",
+                        "legendFormat": "Events today",
+                        "range": true,
+                        "refId": "A"
+                    },
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max(iotbridge_platform_license_daily_event_limit) > 0",
+                        "instant": false,
+                        "interval": "",
+                        "legendFormat": "Daily limit",
+                        "range": true,
+                        "refId": "B"
+                    }
+                ],
+                "title": "Daily usage and licensed limit",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [
+                            {
+                                "options": {
+                                    "0": {
+                                        "color": "red",
+                                        "index": 0,
+                                        "text": "Failed"
+                                    },
+                                    "1": {
+                                        "color": "green",
+                                        "index": 1,
+                                        "text": "Successful"
+                                    }
+                                },
+                                "type": "value"
+                            }
+                        ],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "red",
+                                    "value": null
+                                },
+                                {
+                                    "color": "green",
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        "unit": "none"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 6,
+                    "x": 0,
+                    "y": 20
+                },
+                "id": 11,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "showPercentChange": false,
+                    "text": {},
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "min(iotbridge_platform_license_daily_usage_query_success)",
+                        "instant": true,
+                        "interval": "",
+                        "legendFormat": "",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Daily usage query",
+                "type": "stat"
+            }
+        ],
+        "refresh": "1m",
+        "schemaVersion": 42,
+        "tags": [
+            "tartabit-iot-bridge",
+            "license"
+        ],
+        "templating": {
+            "list": []
+        },
+        "time": {
+            "from": "now-24h",
+            "to": "now"
+        },
+        "timepicker": {
+            "refresh_intervals": [
+                "30s",
+                "1m",
+                "5m",
+                "15m"
+            ]
+        },
+        "timezone": "browser",
+        "title": "IoT Bridge / Platform License",
+        "uid": "iotb-platform-license",
+        "version": 1,
+        "weekStart": ""
+    }
+}

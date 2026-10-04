@@ -1,0 +1,628 @@
+{
+  "meta": {
+    "type": "db",
+    "canSave": true,
+    "canEdit": true,
+    "canAdmin": true,
+    "canStar": true,
+    "canDelete": true,
+    "slug": "iot-bridge-triggers-list",
+    "url": "/d/iotbridge-triggers-list/iot-bridge-triggers-list",
+    "expires": "0001-01-01T00:00:00Z",
+    "created": "2026-01-03T16:17:16Z",
+    "updated": "2026-01-04T16:07:56Z",
+    "updatedBy": "admin",
+    "createdBy": "API",
+    "version": 1,
+    "hasAcl": false,
+    "isFolder": false,
+    "apiVersion": "v0alpha1",
+    "folderId": 29,
+    "folderUid": "G6bUnD54k",
+    "folderTitle": "IoT Bridge",
+    "folderUrl": "/dashboards/f/G6bUnD54k/iot-bridge",
+    "provisioned": false,
+    "provisionedExternalId": "",
+    "annotationsPermissions": {
+      "dashboard": {
+        "canAdd": true,
+        "canEdit": true,
+        "canDelete": true
+      },
+      "organization": {
+        "canAdd": true,
+        "canEdit": true,
+        "canDelete": true
+      }
+    }
+  },
+  "dashboard": {
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": null,
+    "links": [
+      {
+        "title": "overview",
+        "type": "link",
+        "url": "/d/FZTjoZ2Sk/iot-bridge-triggers-overview",
+        "includeVars": true,
+        "keepTime": true,
+        "targetBlank": false
+      },
+      {
+        "title": "single",
+        "type": "link",
+        "url": "/d/a97efa86-05fd-4950-adf0-a67806a01efa/iot-bridge-triggers-single",
+        "includeVars": true,
+        "keepTime": true,
+        "targetBlank": false
+      }
+    ],
+    "panels": [
+      {
+        "id": 1,
+        "title": "trigger performance",
+        "type": "table",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "label_join((((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)) * on (accountId, triggerId) group_left (accountName, triggerName) (topk by (accountId, triggerId) (1, max by (accountId, triggerId, accountName, triggerName) (iotbridge_trigger_map{accountName!=\"\", triggerName!=\"\"})))) or on (accountId, triggerId) (label_replace(label_replace(((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"accountName\", \"$1\", \"accountId\", \"(.+)\"), \"triggerName\", \"$1\", \"triggerId\", \"(.+)\")))), \"rowKey\", \"/\", \"accountId\", \"triggerId\")",
+            "refId": "A",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum by (rowKey) (label_join(((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"rowKey\", \"/\", \"accountId\", \"triggerId\"))",
+            "refId": "B",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum by (rowKey) (label_join(((((histogram_quantile(1, sum by (accountId, triggerId, le) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))) unless on (accountId, triggerId) (((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__range]))) < 1 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))))) or on (accountId, triggerId) ((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__range]))) < 1 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))))) * 0 + 500001)) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"rowKey\", \"/\", \"accountId\", \"triggerId\"))",
+            "refId": "C",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum by (rowKey) (label_join((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) / (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"rowKey\", \"/\", \"accountId\", \"triggerId\"))",
+            "refId": "D",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum by (rowKey) (label_join(((((histogram_quantile(0.95, sum by (accountId, triggerId, le) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))) unless on (accountId, triggerId) (((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__range]))) < 0.95 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))))) or on (accountId, triggerId) ((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__range]))) < 0.95 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))))) * 0 + 500001)) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"rowKey\", \"/\", \"accountId\", \"triggerId\"))",
+            "refId": "E",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum by (rowKey) (label_join(((((histogram_quantile(1, sum by (accountId, triggerId, le) (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))) unless on (accountId, triggerId) (((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__range]))) < 1 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))))) or on (accountId, triggerId) ((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__range]))) < 1 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))))) * 0 + 20001)) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"rowKey\", \"/\", \"accountId\", \"triggerId\"))",
+            "refId": "F",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum by (rowKey) (label_join((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) / (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"rowKey\", \"/\", \"accountId\", \"triggerId\"))",
+            "refId": "G",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum by (rowKey) (label_join(((((histogram_quantile(0.95, sum by (accountId, triggerId, le) (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))) unless on (accountId, triggerId) (((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__range]))) < 0.95 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))))) or on (accountId, triggerId) ((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__range]))) < 0.95 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))))) * 0 + 20001)) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"rowKey\", \"/\", \"accountId\", \"triggerId\"))",
+            "refId": "H",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          }
+        ],
+        "description": "Recorded executions in the selected time range. Complexity is interpreter operations per execution; duration is elapsed execution time, not CPU time. Maxima are histogram bucket estimates and p95 is interpolated. >500,000 ops / >20 s indicate histogram overflow; overflow values sort above finite estimates and tie with each other. Empty cells mean unavailable data. Panic-aborted runs may not record these histograms. Click a trigger to inspect it.",
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "noValue": " ",
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "filterable": true,
+              "minWidth": 110,
+              "wrapHeaderText": true
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "accountId"
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom.viz",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "triggerId"
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom.viz",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "executions"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "total operations"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "max complexity (estimated)"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 0
+                },
+                {
+                  "id": "description",
+                  "value": "Interpreter operations per recorded execution. Percentiles and maxima are histogram estimates."
+                },
+                {
+                  "id": "custom.width",
+                  "value": 145
+                },
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "type": "value",
+                      "options": {
+                        "500001": {
+                          "text": ">500,000 ops",
+                          "color": "orange"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "average complexity"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 1
+                },
+                {
+                  "id": "description",
+                  "value": "Interpreter operations per recorded execution. Percentiles and maxima are histogram estimates."
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "p95 complexity"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 1
+                },
+                {
+                  "id": "description",
+                  "value": "Interpreter operations per recorded execution. Percentiles and maxima are histogram estimates."
+                },
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "type": "value",
+                      "options": {
+                        "500001": {
+                          "text": ">500,000 ops",
+                          "color": "orange"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "max exec time (estimated)"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "ms"
+                },
+                {
+                  "id": "decimals",
+                  "value": 1
+                },
+                {
+                  "id": "custom.width",
+                  "value": 145
+                },
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "type": "value",
+                      "options": {
+                        "20001": {
+                          "text": ">20 s",
+                          "color": "orange"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "average exec time"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "ms"
+                },
+                {
+                  "id": "decimals",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "p95 exec time"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "ms"
+                },
+                {
+                  "id": "decimals",
+                  "value": 1
+                },
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "type": "value",
+                      "options": {
+                        "20001": {
+                          "text": ">20 s",
+                          "color": "orange"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "trigger"
+              },
+              "properties": [
+                {
+                  "id": "links",
+                  "value": [
+                    {
+                      "title": "view trigger performance",
+                      "url": "/d/a97efa86-05fd-4950-adf0-a67806a01efa/iot-bridge-triggers-single?var-accountId=${__data.fields.accountId}&var-triggerId=${__data.fields.triggerId}&from=${__from}&to=${__to}",
+                      "targetBlank": false
+                    }
+                  ]
+                },
+                {
+                  "id": "custom.width",
+                  "value": 190
+                }
+              ]
+            }
+          ]
+        },
+        "options": {
+          "showHeader": true,
+          "cellHeight": "sm",
+          "enablePagination": true,
+          "sortBy": [
+            {
+              "displayName": "total operations",
+              "desc": true
+            }
+          ],
+          "footer": {
+            "show": false
+          }
+        },
+        "transformations": [
+          {
+            "id": "joinByField",
+            "options": {
+              "byField": "rowKey",
+              "mode": "outerTabular"
+            }
+          },
+          {
+            "id": "filterFieldsByName",
+            "options": {
+              "include": {
+                "names": [
+                  "triggerName",
+                  "accountName",
+                  "accountId",
+                  "triggerId",
+                  "Value #A",
+                  "Value #B",
+                  "Value #C",
+                  "Value #D",
+                  "Value #E",
+                  "Value #F",
+                  "Value #G",
+                  "Value #H"
+                ]
+              }
+            }
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {},
+              "indexByName": {
+                "triggerName": 0,
+                "accountName": 1,
+                "accountId": 2,
+                "triggerId": 3,
+                "Value #A": 4,
+                "Value #B": 5,
+                "Value #C": 6,
+                "Value #D": 7,
+                "Value #E": 8,
+                "Value #F": 9,
+                "Value #G": 10,
+                "Value #H": 11
+              },
+              "renameByName": {
+                "triggerName": "trigger",
+                "accountName": "account",
+                "Value #A": "executions",
+                "Value #B": "total operations",
+                "Value #C": "max complexity (estimated)",
+                "Value #D": "average complexity",
+                "Value #E": "p95 complexity",
+                "Value #F": "max exec time (estimated)",
+                "Value #G": "average exec time",
+                "Value #H": "p95 exec time"
+              }
+            }
+          }
+        ],
+        "gridPos": {
+          "x": 0,
+          "y": 0,
+          "w": 24,
+          "h": 22
+        }
+      }
+    ],
+    "preload": false,
+    "refresh": "1m",
+    "schemaVersion": 42,
+    "tags": [
+      "tartabit-iot-bridge"
+    ],
+    "templating": {
+      "list": [
+        {
+          "allValue": ".*",
+          "current": {
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
+          },
+          "definition": "query_result(max by (accountId, accountName) (iotbridge_account_map{accountName!=\"\"}) or on (accountId) label_replace((max by (accountId) (iotbridge_trigger_engine_exectime_count{}) * 0 + 1), \"accountName\", \"$1\", \"accountId\", \"(.+)\"))",
+          "description": "Filter by configured account",
+          "includeAll": true,
+          "label": "Account",
+          "multi": true,
+          "name": "accountId",
+          "options": [],
+          "query": {
+            "qryType": 3,
+            "query": "query_result(max by (accountId, accountName) (iotbridge_account_map{accountName!=\"\"}) or on (accountId) label_replace((max by (accountId) (iotbridge_trigger_engine_exectime_count{}) * 0 + 1), \"accountName\", \"$1\", \"accountId\", \"(.+)\"))",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 2,
+          "sort": 5,
+          "type": "query",
+          "regex": "/.*accountId=\"(?<value>[^\"]+)\".*accountName=\"(?<text>[^\"]+)\".*/"
+        },
+        {
+          "allValue": ".*",
+          "current": {
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
+          },
+          "definition": "query_result(max by (accountId, triggerId, triggerName) (iotbridge_trigger_map{accountId=~\"${accountId:regex}\", triggerName!=\"\"}) or on (accountId, triggerId) label_replace((max by (accountId, triggerId) (iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\"}) * 0 + 1), \"triggerName\", \"$1\", \"triggerId\", \"(.+)\"))",
+          "description": "Filter by configured trigger",
+          "includeAll": true,
+          "label": "Trigger",
+          "multi": true,
+          "name": "triggerId",
+          "options": [],
+          "query": {
+            "qryType": 3,
+            "query": "query_result(max by (accountId, triggerId, triggerName) (iotbridge_trigger_map{accountId=~\"${accountId:regex}\", triggerName!=\"\"}) or on (accountId, triggerId) label_replace((max by (accountId, triggerId) (iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\"}) * 0 + 1), \"triggerName\", \"$1\", \"triggerId\", \"(.+)\"))",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 2,
+          "sort": 5,
+          "type": "query",
+          "regex": "/.*triggerId=\"(?<value>[^\"]+)\".*triggerName=\"(?<text>[^\"]+)\".*/"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-12h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "IoT Bridge / Triggers / List",
+    "uid": "iotbridge-triggers-list",
+    "version": 1,
+    "weekStart": "",
+    "description": "Sortable selected-range performance for triggers with recorded executions."
+  }
+}

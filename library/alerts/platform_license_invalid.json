@@ -1,0 +1,92 @@
+{
+    "uid": "iotb-platform-license-invalid",
+    "orgID": 1,
+    "folderUID": "G6bUnD54k",
+    "ruleGroup": "iot-bridge-license",
+    "title": "platform license invalid",
+    "condition": "C",
+    "data": [
+        {
+            "refId": "A",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+            },
+            "datasourceUid": "prometheus",
+            "model": {
+                "editorMode": "code",
+                "exemplar": false,
+                "expr": "1 - min(iotbridge_platform_license_valid)",
+                "format": "time_series",
+                "instant": true,
+                "intervalMs": 1000,
+                "legendFormat": "",
+                "maxDataPoints": 43200,
+                "range": false,
+                "refId": "A"
+            }
+        },
+        {
+            "refId": "C",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+            },
+            "datasourceUid": "__expr__",
+            "model": {
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                0.5
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "C"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "last"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "datasource": {
+                    "type": "__expr__",
+                    "uid": "__expr__"
+                },
+                "expression": "A",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "refId": "C",
+                "type": "threshold"
+            }
+        }
+    ],
+    "updated": "2026-08-24T00:00:00Z",
+    "noDataState": "NoData",
+    "execErrState": "Error",
+    "for": "5m",
+    "keep_firing_for": "5m",
+    "annotations": {
+        "description": "The platform license is expired, invalid, missing after its trial, or cannot be validated. Check the Platform License dashboard and core-events logs.",
+        "summary": "The IoT Bridge platform license is not valid."
+    },
+    "labels": {
+        "severity": "critical",
+        "component": "tartabit-iot-bridge",
+        "category": "platform-license"
+    },
+    "provenance": "api",
+    "isPaused": false,
+    "notification_settings": null,
+    "record": null
+}

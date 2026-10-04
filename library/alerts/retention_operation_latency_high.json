@@ -1,0 +1,92 @@
+{
+    "uid": "iotb-retention-operation-latency-high",
+    "orgID": 1,
+    "folderUID": "G6bUnD54k",
+    "ruleGroup": "iot-bridge-retention",
+    "title": "retention MongoDB operation latency high",
+    "condition": "C",
+    "data": [
+        {
+            "refId": "A",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 3600,
+                "to": 0
+            },
+            "datasourceUid": "prometheus",
+            "model": {
+                "editorMode": "code",
+                "exemplar": false,
+                "expr": "histogram_quantile(0.95, sum by (le, target, operation) (rate(iotbridge_retention_operation_duration_seconds_bucket[15m]))) / on (target) group_left () max by (target) (iotbridge_retention_config_operation_timeout_seconds) >= bool 0.8",
+                "format": "time_series",
+                "instant": true,
+                "intervalMs": 1000,
+                "legendFormat": "",
+                "maxDataPoints": 43200,
+                "range": false,
+                "refId": "A"
+            }
+        },
+        {
+            "refId": "C",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 3600,
+                "to": 0
+            },
+            "datasourceUid": "__expr__",
+            "model": {
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                0.5
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "C"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "last"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "datasource": {
+                    "type": "__expr__",
+                    "uid": "__expr__"
+                },
+                "expression": "A",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "refId": "C",
+                "type": "threshold"
+            }
+        }
+    ],
+    "updated": "2026-08-24T00:00:00Z",
+    "noDataState": "OK",
+    "execErrState": "Error",
+    "for": "15m",
+    "keep_firing_for": "5m",
+    "annotations": {
+        "description": "Review MongoDB latency, replication and disk pressure, retention indexes, and the configured operation timeout before increasing worker pressure.",
+        "summary": "Retention {{ $labels.target }} {{ $labels.operation }} p95 latency is at least 80% of its timeout."
+    },
+    "labels": {
+        "severity": "warning",
+        "component": "tartabit-iot-bridge",
+        "category": "retention"
+    },
+    "provenance": "api",
+    "isPaused": false,
+    "notification_settings": null,
+    "record": null
+}

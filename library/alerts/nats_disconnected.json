@@ -1,0 +1,35 @@
+{
+  "uid": "iotb-nats-disconnected",
+  "orgID": 1,
+  "folderUID": "G6bUnD54k",
+  "ruleGroup": "iot-bridge-nats",
+  "title": "NATS client disconnected",
+  "condition": "C",
+  "data": [
+    {
+      "refId": "A",
+      "queryType": "",
+      "relativeTimeRange": {"from": 600, "to": 0},
+      "datasourceUid": "prometheus",
+      "model": {"editorMode": "code", "exemplar": false, "expr": "iotbridge_nats_connected", "format": "time_series", "instant": true, "intervalMs": 1000, "legendFormat": "{{job}} {{instance}}", "maxDataPoints": 43200, "range": false, "refId": "A"}
+    },
+    {
+      "refId": "C",
+      "queryType": "",
+      "relativeTimeRange": {"from": 600, "to": 0},
+      "datasourceUid": "__expr__",
+      "model": {"conditions": [{"evaluator": {"params": [0.5], "type": "lt"}, "operator": {"type": "and"}, "query": {"params": ["C"]}, "reducer": {"params": [], "type": "last"}, "type": "query"}], "datasource": {"type": "__expr__", "uid": "__expr__"}, "expression": "A", "intervalMs": 1000, "maxDataPoints": 43200, "refId": "C", "type": "threshold"}
+    }
+  ],
+  "updated": "2026-08-30T00:00:00Z",
+  "noDataState": "OK",
+  "execErrState": "Error",
+  "for": "5m",
+  "keep_firing_for": "5m",
+  "annotations": {"description": "An IoT Bridge process has reported its NATS connection down for five minutes. Check NATS availability, networking, TLS, and the affected pod logs.", "summary": "NATS is disconnected for {{ $labels.job }} {{ $labels.instance }}."},
+  "labels": {"severity": "critical", "component": "tartabit-iot-bridge", "category": "nats"},
+  "provenance": "api",
+  "isPaused": false,
+  "notification_settings": null,
+  "record": null
+}

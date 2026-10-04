@@ -180,7 +180,7 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum by (pod,type)(rate(iotbridge_trigger_action_exectime_count{pod=~\"svc-azure-servicebus-.+\"}[$__rate_interval])) * 60",
+                        "expr": "sum by (pod,type)(rate(iotbridge_trigger_action_exectime_count{pod=~\"svc-azure-servicebus-.+\", accountId=~\"${account:regex}\"}[$__rate_interval])) * 60",
                         "interval": "",
                         "legendFormat": "{{pod}}/{{type}}",
                         "range": true,
@@ -472,7 +472,7 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum by (accountId,type)(rate(iotbridge_trigger_action_exectime_count{pod=~\"svc-azure-servicebus-.+\", accountId=~\"$account\"}[$__rate_interval])) * 60 * on(accountId) group_left(accountName) iotbridge_account_map>0",
+                        "expr": "sum by (accountId,type)(rate(iotbridge_trigger_action_exectime_count{pod=~\"svc-azure-servicebus-.+\", accountId=~\"${account:regex}\"}[$__rate_interval])) * 60 * on(accountId) group_left(accountName) max by (accountId, accountName) (iotbridge_account_map)>0",
                         "interval": "",
                         "legendFormat": "{{accountName}}/{{type}}",
                         "range": true,
@@ -546,14 +546,14 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "(sum by (accountId) (increase(iotbridge_azure_servicebus_processing_time_count[1m]))) * on(accountId) group_left(accountName) iotbridge_account_map>0",
+                        "expr": "sum by (accountId, serviceId) (rate(iotbridge_azure_servicebus_processing_time_count{accountId=~\"${account:regex}\", serviceId=~\"${serviceId:regex}\"}[$__rate_interval])) * 60 * on(accountId,serviceId) group_left(accountName,serviceName) max by (accountId, serviceId, accountName, serviceName) (iotbridge_service_map{accountId=~\"${account:regex}\", serviceId=~\"${serviceId:regex}\"})",
                         "interval": "",
-                        "legendFormat": "{{accountName}}",
+                        "legendFormat": "{{accountName}} / {{serviceName}}",
                         "range": true,
                         "refId": "A"
                     }
                 ],
-                "title": "msg rcv/min per account",
+                "title": "messages received/min by service",
                 "type": "bargauge"
             },
             {
@@ -647,14 +647,14 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "(sum by (accountId, serviceId) (rate(iotbridge_azure_servicebus_send_time_sum[1m]))/sum by (accountId, serviceId) (rate(iotbridge_azure_servicebus_send_time_count[1m]))) * on(accountId) group_left(accountName) iotbridge_account_map",
+                        "expr": "(sum by (accountId, serviceId) (rate(iotbridge_azure_servicebus_send_time_sum{accountId=~\"${account:regex}\", serviceId=~\"${serviceId:regex}\"}[$__rate_interval])) / sum by (accountId, serviceId) (rate(iotbridge_azure_servicebus_send_time_count{accountId=~\"${account:regex}\", serviceId=~\"${serviceId:regex}\"}[$__rate_interval]))) * on(accountId,serviceId) group_left(accountName,serviceName) max by (accountId, serviceId, accountName, serviceName) (iotbridge_service_map{accountId=~\"${account:regex}\", serviceId=~\"${serviceId:regex}\"})",
                         "interval": "",
-                        "legendFormat": "{{accountName}}",
+                        "legendFormat": "{{accountName}} / {{serviceName}}",
                         "range": true,
                         "refId": "A"
                     }
                 ],
-                "title": "send time",
+                "title": "average send time by service",
                 "type": "timeseries"
             },
             {
@@ -748,14 +748,14 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "(sum by (accountId, serviceId) (rate(iotbridge_azure_servicebus_processing_time_sum[1m]))/sum by (accountId, serviceId) (rate(iotbridge_azure_servicebus_processing_time_count[1m]))) * on(accountId) group_left(accountName) iotbridge_account_map",
+                        "expr": "(sum by (accountId, serviceId) (rate(iotbridge_azure_servicebus_processing_time_sum{accountId=~\"${account:regex}\", serviceId=~\"${serviceId:regex}\"}[$__rate_interval])) / sum by (accountId, serviceId) (rate(iotbridge_azure_servicebus_processing_time_count{accountId=~\"${account:regex}\", serviceId=~\"${serviceId:regex}\"}[$__rate_interval]))) * on(accountId,serviceId) group_left(accountName,serviceName) max by (accountId, serviceId, accountName, serviceName) (iotbridge_service_map{accountId=~\"${account:regex}\", serviceId=~\"${serviceId:regex}\"})",
                         "interval": "",
-                        "legendFormat": "{{accountName}}",
+                        "legendFormat": "{{accountName}} / {{serviceName}}",
                         "range": true,
                         "refId": "A"
                     }
                 ],
-                "title": "processing time",
+                "title": "average processing time by service",
                 "type": "timeseries"
             },
             {
@@ -825,14 +825,14 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "(sum by (accountId) (increase(iotbridge_azure_servicebus_send_time_count[1m]))) * on(accountId) group_left(accountName) iotbridge_account_map>0",
+                        "expr": "sum by (accountId, serviceId) (rate(iotbridge_azure_servicebus_send_time_count{accountId=~\"${account:regex}\", serviceId=~\"${serviceId:regex}\"}[$__rate_interval])) * 60 * on(accountId,serviceId) group_left(accountName,serviceName) max by (accountId, serviceId, accountName, serviceName) (iotbridge_service_map{accountId=~\"${account:regex}\", serviceId=~\"${serviceId:regex}\"})",
                         "interval": "",
-                        "legendFormat": "{{accountName}}",
+                        "legendFormat": "{{accountName}} / {{serviceName}}",
                         "range": true,
                         "refId": "A"
                     }
                 ],
-                "title": "msg rcv/min per account",
+                "title": "messages sent/min by service",
                 "type": "bargauge"
             },
             {
@@ -909,7 +909,7 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum(rate(iotbridge_azure_servicebus_send_time_bucket[1m])) by (le)",
+                        "expr": "sum(rate(iotbridge_azure_servicebus_send_time_bucket{accountId=~\"${account:regex}\", serviceId=~\"${serviceId:regex}\"}[1m])) by (le)",
                         "format": "heatmap",
                         "interval": "",
                         "legendFormat": "{{le}}",
@@ -994,7 +994,7 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum(rate(iotbridge_azure_servicebus_processing_time_bucket[1m])) by (le)",
+                        "expr": "sum(rate(iotbridge_azure_servicebus_processing_time_bucket{accountId=~\"${account:regex}\", serviceId=~\"${serviceId:regex}\"}[1m])) by (le)",
                         "format": "heatmap",
                         "interval": "",
                         "legendFormat": "{{le}}",
@@ -1028,6 +1028,7 @@
         "templating": {
             "list": [
                 {
+                    "allValue": ".*",
                     "current": {
                         "text": [
                             "All"
@@ -1036,20 +1037,49 @@
                             "$__all"
                         ]
                     },
-                    "definition": "label_values(iotbridge_account_map,accountId)",
+                    "definition": "query_result(max by (accountId, accountName) (iotbridge_account_map))",
+                    "description": "Filter by configured account",
                     "includeAll": true,
                     "label": "Account",
                     "multi": true,
                     "name": "account",
                     "options": [],
                     "query": {
-                        "query": "label_values(iotbridge_account_map,accountId)",
+                        "qryType": 3,
+                        "query": "query_result(max by (accountId, accountName) (iotbridge_account_map))",
                         "refId": "PrometheusVariableQueryEditor-VariableQuery"
                     },
                     "refresh": 1,
-                    "regex": "",
-                    "sort": 1,
-                    "type": "query"
+                    "sort": 5,
+                    "type": "query",
+                    "regex": "/.*accountId=\"(?<value>[^\"]+)\".*accountName=\"(?<text>[^\"]+)\".*/"
+                },
+                {
+                    "allValue": ".*",
+                    "current": {
+                        "text": [
+                            "All"
+                        ],
+                        "value": [
+                            "$__all"
+                        ]
+                    },
+                    "definition": "query_result(max by (accountId, serviceId, serviceName) (iotbridge_service_map{accountId=~\"${account:regex}\"}))",
+                    "description": "Filter by configured service",
+                    "includeAll": true,
+                    "label": "Service",
+                    "multi": true,
+                    "name": "serviceId",
+                    "options": [],
+                    "query": {
+                        "qryType": 3,
+                        "query": "query_result(max by (accountId, serviceId, serviceName) (iotbridge_service_map{accountId=~\"${account:regex}\"}))",
+                        "refId": "PrometheusVariableQueryEditor-VariableQuery"
+                    },
+                    "refresh": 1,
+                    "sort": 5,
+                    "type": "query",
+                    "regex": "/.*serviceId=\"(?<value>[^\"]+)\".*serviceName=\"(?<text>[^\"]+)\".*/"
                 }
             ]
         },

@@ -150,7 +150,7 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum(iotbridge_azure_iot_connections)",
+                        "expr": "sum(iotbridge_azure_iot_connections{accountId=~\"${accountId:regex}\", serviceId=~\"${serviceId:regex}\"})",
                         "interval": "",
                         "legendFormat": "{{pod}}",
                         "refId": "A"
@@ -216,7 +216,7 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum by (pod)(iotbridge_azure_iot_connections)",
+                        "expr": "sum by (pod)(iotbridge_azure_iot_connections{accountId=~\"${accountId:regex}\", serviceId=~\"${serviceId:regex}\"})",
                         "interval": "",
                         "legendFormat": "{{pod}}",
                         "refId": "A"
@@ -282,9 +282,9 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "topk(5,sum by (accountId)(iotbridge_azure_iot_connections)) + on(accountId) group_left(name) sum by (accountId,name)(iotbridge_account_map{})",
+                        "expr": "topk(5,sum by (accountId)(iotbridge_azure_iot_connections{accountId=~\"${accountId:regex}\", serviceId=~\"${serviceId:regex}\"})) * on(accountId) group_left(accountName) max by (accountId, accountName) (iotbridge_account_map)",
                         "interval": "",
-                        "legendFormat": "{{name}}",
+                        "legendFormat": "{{accountName}}",
                         "refId": "A"
                     }
                 ],
@@ -348,7 +348,7 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum by (pod)(increase(iotbridge_azure_iot_connect_time_sum[1m]))/sum by (pod)(increase(iotbridge_azure_iot_connect_time_count[1m]))",
+                        "expr": "sum by (pod)(increase(iotbridge_azure_iot_connect_time_sum{serviceId=~\"${serviceId:regex}\"}[1m]))/sum by (pod)(increase(iotbridge_azure_iot_connect_time_count{serviceId=~\"${serviceId:regex}\"}[1m]))",
                         "interval": "",
                         "legendFormat": "{{pod}}",
                         "refId": "A"
@@ -511,7 +511,7 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum (rate(iotbridge_trigger_action_exectime_count{pod=~\"svc-azure-iot-.+\"}[1m]))",
+                        "expr": "sum (rate(iotbridge_trigger_action_exectime_count{pod=~\"svc-azure-iot-.+\", accountId=~\"${accountId:regex}\"}[1m]))",
                         "interval": "",
                         "legendFormat": "{{type}}",
                         "refId": "A"
@@ -577,7 +577,7 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum by (pod)(rate(iotbridge_trigger_action_exectime_count{pod=~\"svc-azure-iot-.+\"}[1m]))",
+                        "expr": "sum by (pod)(rate(iotbridge_trigger_action_exectime_count{pod=~\"svc-azure-iot-.+\", accountId=~\"${accountId:regex}\"}[1m]))",
                         "interval": "",
                         "legendFormat": "{{pod}}",
                         "refId": "A"
@@ -643,13 +643,13 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "topk(5,sum by (accountId)(iotbridge_trigger_action_receive{container=\"svc-azure-iot\"}))  + on(accountId) group_left(name) sum by (accountId,name)(iotbridge_account_map{})",
+                        "expr": "topk(5, sum by (accountId) (rate(iotbridge_trigger_action_exectime_count{pod=~\"svc-azure-iot-.+\", accountId=~\"${accountId:regex}\"}[$__rate_interval]))) * on(accountId) group_left(accountName) max by (accountId, accountName) (iotbridge_account_map)",
                         "interval": "",
-                        "legendFormat": "{{name}}",
+                        "legendFormat": "{{accountName}}",
                         "refId": "A"
                     }
                 ],
-                "title": "connections per account",
+                "title": "action executions/sec per account",
                 "type": "stat"
             },
             {
@@ -709,7 +709,7 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum by (type)(rate(iotbridge_trigger_action_exectime_count{pod=~\"svc-azure-iot-.+\"}[1m]))",
+                        "expr": "sum by (type)(rate(iotbridge_trigger_action_exectime_count{pod=~\"svc-azure-iot-.+\", accountId=~\"${accountId:regex}\"}[1m]))",
                         "interval": "",
                         "legendFormat": "{{type}}",
                         "refId": "A"
@@ -902,108 +902,13 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum by (pod)(iotbridge_azure_iot_connections)",
+                        "expr": "sum by (accountId, serviceId) (iotbridge_azure_iot_connections{accountId=~\"${accountId:regex}\", serviceId=~\"${serviceId:regex}\"}) * on(accountId,serviceId) group_left(accountName,serviceName) max by (accountId, serviceId, accountName, serviceName) (iotbridge_service_map{accountId=~\"${accountId:regex}\", serviceId=~\"${serviceId:regex}\"})",
                         "interval": "",
-                        "legendFormat": "{{pod}}",
+                        "legendFormat": "{{accountName}} / {{serviceName}}",
                         "refId": "A"
                     }
                 ],
-                "title": "azure iot hub connections per pod",
-                "type": "timeseries"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "palette-classic"
-                        },
-                        "custom": {
-                            "axisBorderShow": false,
-                            "axisCenteredZero": false,
-                            "axisColorMode": "text",
-                            "axisLabel": "",
-                            "axisPlacement": "auto",
-                            "axisSoftMin": 0,
-                            "barAlignment": 0,
-                            "barWidthFactor": 0.6,
-                            "drawStyle": "line",
-                            "fillOpacity": 4,
-                            "gradientMode": "none",
-                            "hideFrom": {
-                                "legend": false,
-                                "tooltip": false,
-                                "viz": false
-                            },
-                            "insertNulls": false,
-                            "lineInterpolation": "linear",
-                            "lineWidth": 1,
-                            "pointSize": 5,
-                            "scaleDistribution": {
-                                "type": "linear"
-                            },
-                            "showPoints": "auto",
-                            "showValues": false,
-                            "spanNulls": false,
-                            "stacking": {
-                                "group": "A",
-                                "mode": "normal"
-                            },
-                            "thresholdsStyle": {
-                                "mode": "off"
-                            }
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        }
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 4,
-                    "w": 5,
-                    "x": 19,
-                    "y": 9
-                },
-                "id": 7,
-                "options": {
-                    "legend": {
-                        "calcs": [],
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": false
-                    },
-                    "tooltip": {
-                        "hideZeros": false,
-                        "mode": "multi",
-                        "sort": "none"
-                    }
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "exemplar": true,
-                        "expr": "sum by (accountId)(iotbridge_azure_iot_connections)  + on(accountId) group_left(name) sum by (accountId,name)(iotbridge_account_map{})",
-                        "interval": "",
-                        "legendFormat": "{{name}}",
-                        "refId": "A"
-                    }
-                ],
-                "title": "azure iot hub connections by accountId",
+                "title": "connections per configured service",
                 "type": "timeseries"
             },
             {
@@ -1105,7 +1010,7 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum by (pod)(rate(iotbridge_trigger_action_exectime_count{pod=~\"svc-azure-iot-.+\"}[$__rate_interval]))",
+                        "expr": "sum by (pod)(rate(iotbridge_trigger_action_exectime_count{pod=~\"svc-azure-iot-.+\", accountId=~\"${accountId:regex}\"}[$__rate_interval]))",
                         "interval": "",
                         "legendFormat": "{{pod}}",
                         "refId": "A"
@@ -1205,7 +1110,7 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "rate(iotbridge_azure_iot_lock_time_sum[$__rate_interval])>0",
+                        "expr": "rate(iotbridge_azure_iot_lock_time_sum{serviceId=~\"${serviceId:regex}\"}[$__rate_interval])>0",
                         "interval": "",
                         "legendFormat": "",
                         "range": true,
@@ -1301,7 +1206,7 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum by (pod,method,result)(rate(iotbridge_azure_iot_create_time_count[1m]))",
+                        "expr": "sum by (pod,method,result)(rate(iotbridge_azure_iot_create_time_count{serviceId=~\"${serviceId:regex}\"}[1m]))",
                         "interval": "",
                         "legendFormat": "{{name}}",
                         "refId": "A"
@@ -1383,7 +1288,7 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum(rate(iotbridge_azure_iot_create_time_bucket[1m])) by (le)",
+                        "expr": "sum(rate(iotbridge_azure_iot_create_time_bucket{serviceId=~\"${serviceId:regex}\"}[1m])) by (le)",
                         "format": "heatmap",
                         "interval": "",
                         "legendFormat": "{{le}}",
@@ -1580,7 +1485,7 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum by (pod,result)(rate(iotbridge_azure_iot_connect_time_count[1m]))",
+                        "expr": "sum by (pod,result)(rate(iotbridge_azure_iot_connect_time_count{serviceId=~\"${serviceId:regex}\"}[1m]))",
                         "interval": "",
                         "legendFormat": "{{name}}",
                         "refId": "A"
@@ -1662,7 +1567,7 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum(rate(iotbridge_azure_iot_connect_time_bucket[1m])) by (le)",
+                        "expr": "sum(rate(iotbridge_azure_iot_connect_time_bucket{serviceId=~\"${serviceId:regex}\"}[1m])) by (le)",
                         "format": "heatmap",
                         "interval": "",
                         "legendFormat": "{{le}}",
@@ -1860,14 +1765,14 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum by (pod,result)(rate(iotbridge_azure_iot_reconnects[1m]))",
+                        "expr": "sum by (pod) (rate(iotbridge_azure_iot_reconnects{accountId=~\"${accountId:regex}\"}[$__rate_interval])) * 60",
                         "interval": "",
-                        "legendFormat": "{{name}}",
+                        "legendFormat": "{{pod}}",
                         "range": true,
                         "refId": "A"
                     }
                 ],
-                "title": "reconnect attempts",
+                "title": "reconnects/min per pod",
                 "type": "timeseries"
             },
             {
@@ -1956,94 +1861,13 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum by (pod,result)(rate(iotbridge_azure_iot_connect_time_count{result=~\"^failed.+\"}[1m]))",
+                        "expr": "sum by (pod,result)(rate(iotbridge_azure_iot_connect_time_count{result=~\"^failed.+\", serviceId=~\"${serviceId:regex}\"}[1m]))",
                         "interval": "",
                         "legendFormat": "{{name}}",
                         "refId": "A"
                     }
                 ],
                 "title": "failed connection attempts",
-                "type": "timeseries"
-            },
-            {
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "palette-classic"
-                        },
-                        "custom": {
-                            "axisBorderShow": false,
-                            "axisCenteredZero": false,
-                            "axisColorMode": "text",
-                            "axisLabel": "",
-                            "axisPlacement": "auto",
-                            "barAlignment": 0,
-                            "barWidthFactor": 0.6,
-                            "drawStyle": "line",
-                            "fillOpacity": 0,
-                            "gradientMode": "none",
-                            "hideFrom": {
-                                "legend": false,
-                                "tooltip": false,
-                                "viz": false
-                            },
-                            "insertNulls": false,
-                            "lineInterpolation": "linear",
-                            "lineWidth": 1,
-                            "pointSize": 5,
-                            "scaleDistribution": {
-                                "type": "linear"
-                            },
-                            "showPoints": "auto",
-                            "showValues": false,
-                            "spanNulls": false,
-                            "stacking": {
-                                "group": "A",
-                                "mode": "none"
-                            },
-                            "thresholdsStyle": {
-                                "mode": "off"
-                            }
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                },
-                                {
-                                    "color": "red",
-                                    "value": 80
-                                }
-                            ]
-                        }
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 6,
-                    "w": 9,
-                    "x": 15,
-                    "y": 32
-                },
-                "id": 38,
-                "options": {
-                    "legend": {
-                        "calcs": [],
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": true
-                    },
-                    "tooltip": {
-                        "hideZeros": false,
-                        "mode": "single",
-                        "sort": "none"
-                    }
-                },
-                "pluginVersion": "12.3.1",
-                "title": "Panel Title",
                 "type": "timeseries"
             },
             {
@@ -2133,7 +1957,7 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{type=\"azure-iot-send\"}[1m])) by (le)",
+                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{type=\"azure-iot-send\", accountId=~\"${accountId:regex}\"}[1m])) by (le)",
                         "format": "heatmap",
                         "interval": "",
                         "legendFormat": "{{le}}",
@@ -2218,7 +2042,7 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{type=\"azure-iot-twin-update\"}[1m])) by (le)",
+                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{type=\"azure-iot-twin-update\", accountId=~\"${accountId:regex}\"}[1m])) by (le)",
                         "format": "heatmap",
                         "interval": "",
                         "legendFormat": "{{le}}",
@@ -2303,7 +2127,7 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{type=\"azure-iot-device-update\"}[1m])) by (le)",
+                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{type=\"azure-iot-device-update\", accountId=~\"${accountId:regex}\"}[1m])) by (le)",
                         "format": "heatmap",
                         "interval": "",
                         "legendFormat": "{{le}}",
@@ -2388,7 +2212,7 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{type=\"azure-iot-direct-method-complete\"}[1m])) by (le)",
+                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{type=\"azure-iot-direct-method-complete\", accountId=~\"${accountId:regex}\"}[1m])) by (le)",
                         "format": "heatmap",
                         "interval": "",
                         "legendFormat": "{{le}}",
@@ -2473,7 +2297,7 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{type=\"azure-iot-twin-get\"}[1m])) by (le)",
+                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{type=\"azure-iot-twin-get\", accountId=~\"${accountId:regex}\"}[1m])) by (le)",
                         "format": "heatmap",
                         "interval": "",
                         "legendFormat": "{{le}}",
@@ -2558,7 +2382,7 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{type=\"azure-iot-device-get\"}[1m])) by (le)",
+                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{type=\"azure-iot-device-get\", accountId=~\"${accountId:regex}\"}[1m])) by (le)",
                         "format": "heatmap",
                         "interval": "",
                         "legendFormat": "{{le}}",
@@ -2643,7 +2467,7 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{type=\"azure-iot-twin-retrieve\"}[1m])) by (le)",
+                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{type=\"azure-iot-twin-retrieve\", accountId=~\"${accountId:regex}\"}[1m])) by (le)",
                         "format": "heatmap",
                         "interval": "",
                         "legendFormat": "{{le}}",
@@ -2662,7 +2486,62 @@
             "tartabit-iot-bridge"
         ],
         "templating": {
-            "list": []
+            "list": [
+                {
+                    "allValue": ".*",
+                    "current": {
+                        "text": [
+                            "All"
+                        ],
+                        "value": [
+                            "$__all"
+                        ]
+                    },
+                    "definition": "query_result(max by (accountId, accountName) (iotbridge_account_map))",
+                    "description": "Filter by configured account",
+                    "includeAll": true,
+                    "label": "Account",
+                    "multi": true,
+                    "name": "accountId",
+                    "options": [],
+                    "query": {
+                        "qryType": 3,
+                        "query": "query_result(max by (accountId, accountName) (iotbridge_account_map))",
+                        "refId": "PrometheusVariableQueryEditor-VariableQuery"
+                    },
+                    "refresh": 1,
+                    "sort": 5,
+                    "type": "query",
+                    "regex": "/.*accountId=\"(?<value>[^\"]+)\".*accountName=\"(?<text>[^\"]+)\".*/"
+                },
+                {
+                    "allValue": ".*",
+                    "current": {
+                        "text": [
+                            "All"
+                        ],
+                        "value": [
+                            "$__all"
+                        ]
+                    },
+                    "definition": "query_result(max by (accountId, serviceId, serviceName) (iotbridge_service_map{accountId=~\"${accountId:regex}\"}))",
+                    "description": "Filter by configured service",
+                    "includeAll": true,
+                    "label": "Service",
+                    "multi": true,
+                    "name": "serviceId",
+                    "options": [],
+                    "query": {
+                        "qryType": 3,
+                        "query": "query_result(max by (accountId, serviceId, serviceName) (iotbridge_service_map{accountId=~\"${accountId:regex}\"}))",
+                        "refId": "PrometheusVariableQueryEditor-VariableQuery"
+                    },
+                    "refresh": 1,
+                    "sort": 5,
+                    "type": "query",
+                    "regex": "/.*serviceId=\"(?<value>[^\"]+)\".*serviceName=\"(?<text>[^\"]+)\".*/"
+                }
+            ]
         },
         "time": {
             "from": "now-6h",

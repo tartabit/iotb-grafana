@@ -1,0 +1,92 @@
+{
+    "uid": "iotb-retention-falling-behind",
+    "orgID": 1,
+    "folderUID": "G6bUnD54k",
+    "ruleGroup": "iot-bridge-retention",
+    "title": "retention falling behind",
+    "condition": "C",
+    "data": [
+        {
+            "refId": "A",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 3600,
+                "to": 0
+            },
+            "datasourceUid": "prometheus",
+            "model": {
+                "editorMode": "code",
+                "exemplar": false,
+                "expr": "(iotbridge_retention_progress_trend{trend=\"falling_behind\"} == bool 1) and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds)",
+                "format": "time_series",
+                "instant": true,
+                "intervalMs": 1000,
+                "legendFormat": "",
+                "maxDataPoints": 43200,
+                "range": false,
+                "refId": "A"
+            }
+        },
+        {
+            "refId": "C",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 3600,
+                "to": 0
+            },
+            "datasourceUid": "__expr__",
+            "model": {
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                0.5
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "C"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "last"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "datasource": {
+                    "type": "__expr__",
+                    "uid": "__expr__"
+                },
+                "expression": "A",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "refId": "C",
+                "type": "threshold"
+            }
+        }
+    ],
+    "updated": "2026-08-24T00:00:00Z",
+    "noDataState": "OK",
+    "execErrState": "Error",
+    "for": "30m",
+    "keep_firing_for": "5m",
+    "annotations": {
+        "description": "The retention cutoff is advancing faster than this rule's oldest matching record. Review deletion throughput, MongoDB load, indexes, and worker tuning.",
+        "summary": "Retention {{ $labels.target }} rule {{ $labels.rule_id }} has been falling behind for 30 minutes."
+    },
+    "labels": {
+        "severity": "warning",
+        "component": "tartabit-iot-bridge",
+        "category": "retention"
+    },
+    "provenance": "api",
+    "isPaused": false,
+    "notification_settings": null,
+    "record": null
+}

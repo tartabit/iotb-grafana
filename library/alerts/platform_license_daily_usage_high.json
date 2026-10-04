@@ -1,0 +1,92 @@
+{
+    "uid": "iotb-platform-license-usage-high",
+    "orgID": 1,
+    "folderUID": "G6bUnD54k",
+    "ruleGroup": "iot-bridge-license",
+    "title": "platform license daily usage high",
+    "condition": "C",
+    "data": [
+        {
+            "refId": "A",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+            },
+            "datasourceUid": "prometheus",
+            "model": {
+                "editorMode": "code",
+                "exemplar": false,
+                "expr": "(max(iotbridge_platform_license_daily_event_utilization_ratio) >= bool 0.8) * (max(iotbridge_platform_license_daily_event_utilization_ratio) <= bool 1)",
+                "format": "time_series",
+                "instant": true,
+                "intervalMs": 1000,
+                "legendFormat": "",
+                "maxDataPoints": 43200,
+                "range": false,
+                "refId": "A"
+            }
+        },
+        {
+            "refId": "C",
+            "queryType": "",
+            "relativeTimeRange": {
+                "from": 600,
+                "to": 0
+            },
+            "datasourceUid": "__expr__",
+            "model": {
+                "conditions": [
+                    {
+                        "evaluator": {
+                            "params": [
+                                0.5
+                            ],
+                            "type": "gt"
+                        },
+                        "operator": {
+                            "type": "and"
+                        },
+                        "query": {
+                            "params": [
+                                "C"
+                            ]
+                        },
+                        "reducer": {
+                            "params": [],
+                            "type": "last"
+                        },
+                        "type": "query"
+                    }
+                ],
+                "datasource": {
+                    "type": "__expr__",
+                    "uid": "__expr__"
+                },
+                "expression": "A",
+                "intervalMs": 1000,
+                "maxDataPoints": 43200,
+                "refId": "C",
+                "type": "threshold"
+            }
+        }
+    ],
+    "updated": "2026-08-24T00:00:00Z",
+    "noDataState": "NoData",
+    "execErrState": "Error",
+    "for": "15m",
+    "keep_firing_for": "5m",
+    "annotations": {
+        "description": "Platform-wide event usage is nearing the licensed UTC daily limit. Review traffic growth and license capacity.",
+        "summary": "Platform-wide daily event usage is at least 80% of the licensed limit."
+    },
+    "labels": {
+        "severity": "warning",
+        "component": "tartabit-iot-bridge",
+        "category": "platform-license"
+    },
+    "provenance": "api",
+    "isPaused": false,
+    "notification_settings": null,
+    "record": null
+}

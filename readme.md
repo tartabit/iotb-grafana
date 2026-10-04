@@ -27,3 +27,12 @@ Import all dashboards from a folder to your Grafana instance.
 ```
 python3 grafana-import.py --url http://<grafana-url>/api --token gls***b0fd8 <folder>
 ```
+
+### Dashboard Validation
+Validate every exported dashboard before importing it. The validator uses only the Python standard library.
+```
+python validate-dashboards.py
+```
+
+Trigger dashboard calculations, filtering, drilldown, and optional Prometheus
+regression checks are documented in [docs/trigger-dashboards.md](docs/trigger-dashboards.md).

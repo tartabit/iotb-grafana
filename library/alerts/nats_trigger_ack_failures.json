@@ -1,0 +1,35 @@
+{
+  "uid": "iotb-nats-ack-failures",
+  "orgID": 1,
+  "folderUID": "G6bUnD54k",
+  "ruleGroup": "iot-bridge-nats",
+  "title": "NATS trigger ACK failures",
+  "condition": "C",
+  "data": [
+    {
+      "refId": "A",
+      "queryType": "",
+      "relativeTimeRange": {"from": 900, "to": 0},
+      "datasourceUid": "prometheus",
+      "model": {"editorMode": "code", "exemplar": false, "expr": "sum by (stream, consumer) (rate(iotbridge_trigger_event_ack_failures[5m]))", "format": "time_series", "instant": true, "intervalMs": 1000, "legendFormat": "{{stream}} {{consumer}}", "maxDataPoints": 43200, "range": false, "refId": "A"}
+    },
+    {
+      "refId": "C",
+      "queryType": "",
+      "relativeTimeRange": {"from": 900, "to": 0},
+      "datasourceUid": "__expr__",
+      "model": {"conditions": [{"evaluator": {"params": [0], "type": "gt"}, "operator": {"type": "and"}, "query": {"params": ["C"]}, "reducer": {"params": [], "type": "last"}, "type": "query"}], "datasource": {"type": "__expr__", "uid": "__expr__"}, "expression": "A", "intervalMs": 1000, "maxDataPoints": 43200, "refId": "C", "type": "threshold"}
+    }
+  ],
+  "updated": "2026-08-30T00:00:00Z",
+  "noDataState": "OK",
+  "execErrState": "Error",
+  "for": "5m",
+  "keep_firing_for": "5m",
+  "annotations": {"description": "core-trigger is completing callbacks but failing to ACK messages. Expect redelivery and possible duplicate trigger side effects; inspect NATS connectivity and core-trigger logs.", "summary": "NATS ACK failures are occurring for {{ $labels.consumer }} on {{ $labels.stream }}."},
+  "labels": {"severity": "critical", "component": "tartabit-iot-bridge", "category": "nats"},
+  "provenance": "api",
+  "isPaused": false,
+  "notification_settings": null,
+  "record": null
+}

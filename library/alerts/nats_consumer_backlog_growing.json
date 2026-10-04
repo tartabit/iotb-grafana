@@ -1,0 +1,35 @@
+{
+  "uid": "iotb-nats-backlog-growing",
+  "orgID": 1,
+  "folderUID": "G6bUnD54k",
+  "ruleGroup": "iot-bridge-nats",
+  "title": "NATS consumer backlog growing",
+  "condition": "C",
+  "data": [
+    {
+      "refId": "A",
+      "queryType": "",
+      "relativeTimeRange": {"from": 1800, "to": 0},
+      "datasourceUid": "prometheus",
+      "model": {"editorMode": "code", "exemplar": false, "expr": "max by (stream, consumer) (deriv(iotbridge_nats_consumer_pending[15m]))", "format": "time_series", "instant": true, "intervalMs": 1000, "legendFormat": "{{stream}} {{consumer}}", "maxDataPoints": 43200, "range": false, "refId": "A"}
+    },
+    {
+      "refId": "C",
+      "queryType": "",
+      "relativeTimeRange": {"from": 1800, "to": 0},
+      "datasourceUid": "__expr__",
+      "model": {"conditions": [{"evaluator": {"params": [0.1], "type": "gt"}, "operator": {"type": "and"}, "query": {"params": ["C"]}, "reducer": {"params": [], "type": "last"}, "type": "query"}], "datasource": {"type": "__expr__", "uid": "__expr__"}, "expression": "A", "intervalMs": 1000, "maxDataPoints": 43200, "refId": "C", "type": "threshold"}
+    }
+  ],
+  "updated": "2026-08-30T00:00:00Z",
+  "noDataState": "OK",
+  "execErrState": "Error",
+  "for": "15m",
+  "keep_firing_for": "5m",
+  "annotations": {"description": "Pending messages have grown by more than 0.1 messages per second over a 15-minute window and remained above that rate for 15 minutes. Compare production, ACK rate, queue delay, worker saturation, and dependency health.", "summary": "NATS consumer {{ $labels.consumer }} on {{ $labels.stream }} has a sustained growing backlog."},
+  "labels": {"severity": "warning", "component": "tartabit-iot-bridge", "category": "nats"},
+  "provenance": "api",
+  "isPaused": false,
+  "notification_settings": null,
+  "record": null
+}

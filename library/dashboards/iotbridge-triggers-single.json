@@ -1,1832 +1,2997 @@
 {
-    "meta": {
-        "type": "db",
-        "canSave": true,
+  "meta": {
+    "type": "db",
+    "canSave": true,
+    "canEdit": true,
+    "canAdmin": true,
+    "canStar": true,
+    "canDelete": true,
+    "slug": "iot-bridge-triggers-single",
+    "url": "/d/a97efa86-05fd-4950-adf0-a67806a01efa/iot-bridge-triggers-single",
+    "expires": "0001-01-01T00:00:00Z",
+    "created": "2026-01-03T16:17:16Z",
+    "updated": "2026-01-04T16:07:56Z",
+    "updatedBy": "admin",
+    "createdBy": "API",
+    "version": 4,
+    "hasAcl": false,
+    "isFolder": false,
+    "apiVersion": "v0alpha1",
+    "folderId": 29,
+    "folderUid": "G6bUnD54k",
+    "folderTitle": "IoT Bridge",
+    "folderUrl": "/dashboards/f/G6bUnD54k/iot-bridge",
+    "provisioned": false,
+    "provisionedExternalId": "",
+    "annotationsPermissions": {
+      "dashboard": {
+        "canAdd": true,
         "canEdit": true,
-        "canAdmin": true,
-        "canStar": true,
-        "canDelete": true,
-        "slug": "iot-bridge-triggers-single",
-        "url": "/d/a97efa86-05fd-4950-adf0-a67806a01efa/iot-bridge-triggers-single",
-        "expires": "0001-01-01T00:00:00Z",
-        "created": "2026-01-03T16:17:16Z",
-        "updated": "2026-01-04T16:07:56Z",
-        "updatedBy": "admin",
-        "createdBy": "API",
-        "version": 4,
-        "hasAcl": false,
-        "isFolder": false,
-        "apiVersion": "v0alpha1",
-        "folderId": 29,
-        "folderUid": "G6bUnD54k",
-        "folderTitle": "IoT Bridge",
-        "folderUrl": "/dashboards/f/G6bUnD54k/iot-bridge",
-        "provisioned": false,
-        "provisionedExternalId": "",
-        "annotationsPermissions": {
-            "dashboard": {
-                "canAdd": true,
-                "canEdit": true,
-                "canDelete": true
-            },
-            "organization": {
-                "canAdd": true,
-                "canEdit": true,
-                "canDelete": true
-            }
-        }
-    },
-    "dashboard": {
-        "annotations": {
-            "list": [
-                {
-                    "builtIn": 1,
-                    "datasource": {
-                        "type": "datasource",
-                        "uid": "grafana"
-                    },
-                    "enable": true,
-                    "hide": true,
-                    "iconColor": "rgba(0, 211, 255, 1)",
-                    "name": "Annotations & Alerts",
-                    "target": {
-                        "limit": 100,
-                        "matchAny": false,
-                        "tags": [],
-                        "type": "dashboard"
-                    },
-                    "type": "dashboard"
-                }
-            ]
-        },
-        "editable": true,
-        "fiscalYearStartMonth": 0,
-        "graphTooltip": 0,
-        "id": 39,
-        "links": [
-            {
-                "asDropdown": true,
-                "icon": "external link",
-                "includeVars": true,
-                "keepTime": true,
-                "tags": [
-                    "tartabit-iot-bridge"
-                ],
-                "targetBlank": false,
-                "title": "IoT Bridge",
-                "tooltip": "",
-                "type": "dashboards",
-                "url": ""
-            }
-        ],
-        "panels": [
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "thresholds"
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        },
-                        "unit": "short"
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 4,
-                    "w": 2,
-                    "x": 0,
-                    "y": 0
-                },
-                "id": 6,
-                "interval": "1m",
-                "options": {
-                    "colorMode": "value",
-                    "graphMode": "none",
-                    "justifyMode": "center",
-                    "orientation": "auto",
-                    "percentChangeColorMode": "standard",
-                    "reduceOptions": {
-                        "calcs": [
-                            "lastNotNull"
-                        ],
-                        "fields": "",
-                        "values": false
-                    },
-                    "showPercentChange": false,
-                    "text": {},
-                    "textMode": "value",
-                    "wideLayout": true
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "sum(increase(iotbridge_trigger_engine_exectime_count{pod=~\"core-trigger-.+\", accountId=~\"$accountId\"}[1m]))",
-                        "interval": "",
-                        "legendFormat": "__auto",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "triggers per minute",
-                "type": "stat"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "thresholds"
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        },
-                        "unit": "ms"
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 4,
-                    "w": 2,
-                    "x": 2,
-                    "y": 0
-                },
-                "id": 30,
-                "interval": "1m",
-                "options": {
-                    "colorMode": "value",
-                    "graphMode": "none",
-                    "justifyMode": "center",
-                    "orientation": "auto",
-                    "percentChangeColorMode": "standard",
-                    "reduceOptions": {
-                        "calcs": [
-                            "lastNotNull"
-                        ],
-                        "fields": "",
-                        "values": false
-                    },
-                    "showPercentChange": false,
-                    "text": {},
-                    "textMode": "value",
-                    "wideLayout": true
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "sum(increase(iotbridge_trigger_engine_exectime_sum{accountId=~\"$accountId\"}[1m]))",
-                        "interval": "",
-                        "legendFormat": "__auto",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "triggers exec time",
-                "type": "stat"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "thresholds"
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        },
-                        "unit": "short"
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 4,
-                    "w": 2,
-                    "x": 4,
-                    "y": 0
-                },
-                "id": 31,
-                "interval": "1m",
-                "options": {
-                    "colorMode": "value",
-                    "graphMode": "none",
-                    "justifyMode": "center",
-                    "orientation": "auto",
-                    "percentChangeColorMode": "standard",
-                    "reduceOptions": {
-                        "calcs": [
-                            "lastNotNull"
-                        ],
-                        "fields": "",
-                        "values": false
-                    },
-                    "showPercentChange": false,
-                    "text": {},
-                    "textMode": "value",
-                    "wideLayout": true
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "sum(increase(iotbridge_trigger_engine_execcount_sum{accountId=~\"$accountId\"}[1m]))",
-                        "interval": "",
-                        "legendFormat": "__auto",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "triggers exec ops",
-                "type": "stat"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "palette-classic"
-                        },
-                        "custom": {
-                            "hideFrom": {
-                                "legend": false,
-                                "tooltip": false,
-                                "viz": false
-                            }
-                        },
-                        "mappings": [],
-                        "unit": "short"
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 8,
-                    "w": 3,
-                    "x": 6,
-                    "y": 0
-                },
-                "id": 33,
-                "options": {
-                    "displayLabels": [],
-                    "legend": {
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": false
-                    },
-                    "pieType": "donut",
-                    "reduceOptions": {
-                        "calcs": [
-                            "sum"
-                        ],
-                        "fields": "",
-                        "values": false
-                    },
-                    "sort": "desc",
-                    "tooltip": {
-                        "hideZeros": false,
-                        "mode": "single",
-                        "sort": "desc"
-                    }
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "topk(10,(sum by (accountId)(increase(iotbridge_trigger_engine_execcount_count{accountId=~\"$account2\"}[1m])) * on(accountId) group_left(name)iotbridge_account_map{}))",
-                        "interval": "",
-                        "legendFormat": "{{name}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "trigger exec per account",
-                "type": "piechart"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "palette-classic"
-                        },
-                        "custom": {
-                            "hideFrom": {
-                                "legend": false,
-                                "tooltip": false,
-                                "viz": false
-                            }
-                        },
-                        "mappings": [],
-                        "unit": "ms"
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 8,
-                    "w": 3,
-                    "x": 9,
-                    "y": 0
-                },
-                "id": 34,
-                "options": {
-                    "displayLabels": [],
-                    "legend": {
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": false
-                    },
-                    "pieType": "donut",
-                    "reduceOptions": {
-                        "calcs": [
-                            "sum"
-                        ],
-                        "fields": "",
-                        "values": false
-                    },
-                    "sort": "desc",
-                    "tooltip": {
-                        "hideZeros": false,
-                        "mode": "single",
-                        "sort": "desc"
-                    }
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "topk(10,(sum by (accountId)(increase(iotbridge_trigger_engine_exectime_sum{accountId=~\"$accountId\"}[1m])) * on(accountId) group_left(name) iotbridge_account_map{}))",
-                        "interval": "",
-                        "legendFormat": "{{name}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "trigger exec time per account",
-                "type": "piechart"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "palette-classic"
-                        },
-                        "custom": {
-                            "hideFrom": {
-                                "legend": false,
-                                "tooltip": false,
-                                "viz": false
-                            }
-                        },
-                        "mappings": [],
-                        "unit": "short"
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 8,
-                    "w": 3,
-                    "x": 12,
-                    "y": 0
-                },
-                "id": 32,
-                "options": {
-                    "displayLabels": [],
-                    "legend": {
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": false
-                    },
-                    "pieType": "donut",
-                    "reduceOptions": {
-                        "calcs": [
-                            "sum"
-                        ],
-                        "fields": "",
-                        "values": false
-                    },
-                    "sort": "desc",
-                    "tooltip": {
-                        "hideZeros": false,
-                        "mode": "single",
-                        "sort": "desc"
-                    }
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "topk(10,(sum by (accountId)(increase(iotbridge_trigger_engine_execdensity_sum{accountId=~\"$accountId\"}[1m])) * on(accountId) group_left(name)iotbridge_account_map{}))",
-                        "interval": "",
-                        "legendFormat": "{{name}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "trigger exec ops density per account",
-                "type": "piechart"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "palette-classic"
-                        },
-                        "custom": {
-                            "hideFrom": {
-                                "legend": false,
-                                "tooltip": false,
-                                "viz": false
-                            }
-                        },
-                        "mappings": [],
-                        "unit": "short"
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 8,
-                    "w": 3,
-                    "x": 15,
-                    "y": 0
-                },
-                "id": 35,
-                "options": {
-                    "displayLabels": [],
-                    "legend": {
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": false
-                    },
-                    "pieType": "donut",
-                    "reduceOptions": {
-                        "calcs": [
-                            "sum"
-                        ],
-                        "fields": "",
-                        "values": false
-                    },
-                    "sort": "desc",
-                    "tooltip": {
-                        "hideZeros": false,
-                        "mode": "single",
-                        "sort": "desc"
-                    }
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "topk(10,(sum by (accountId)(increase(iotbridge_trigger_engine_execcount_sum{accountId=~\"$accountId\"}[1m])) * on(accountId) group_left(name)iotbridge_account_map{}))",
-                        "interval": "",
-                        "legendFormat": "{{name}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "trigger exec ops per account",
-                "type": "piechart"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "palette-classic"
-                        },
-                        "custom": {
-                            "axisBorderShow": false,
-                            "axisCenteredZero": false,
-                            "axisColorMode": "text",
-                            "axisLabel": "",
-                            "axisPlacement": "auto",
-                            "axisSoftMin": 0,
-                            "barAlignment": 0,
-                            "barWidthFactor": 0.6,
-                            "drawStyle": "line",
-                            "fillOpacity": 4,
-                            "gradientMode": "none",
-                            "hideFrom": {
-                                "legend": false,
-                                "tooltip": false,
-                                "viz": false
-                            },
-                            "insertNulls": false,
-                            "lineInterpolation": "linear",
-                            "lineWidth": 1,
-                            "pointSize": 5,
-                            "scaleDistribution": {
-                                "type": "linear"
-                            },
-                            "showPoints": "auto",
-                            "showValues": false,
-                            "spanNulls": false,
-                            "stacking": {
-                                "group": "A",
-                                "mode": "normal"
-                            },
-                            "thresholdsStyle": {
-                                "mode": "off"
-                            }
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        }
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 4,
-                    "w": 6,
-                    "x": 18,
-                    "y": 0
-                },
-                "id": 2,
-                "options": {
-                    "legend": {
-                        "calcs": [],
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": false
-                    },
-                    "tooltip": {
-                        "hideZeros": false,
-                        "mode": "multi",
-                        "sort": "none"
-                    }
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "go_goroutines{pod=~\"core-trigger-.+\"}",
-                        "interval": "",
-                        "legendFormat": "__auto",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "go routines",
-                "type": "timeseries"
-            },
-            {
-                "gridPos": {
-                    "h": 4,
-                    "w": 6,
-                    "x": 0,
-                    "y": 4
-                },
-                "id": 38,
-                "options": {
-                    "code": {
-                        "language": "plaintext",
-                        "showLineNumbers": false,
-                        "showMiniMap": false
-                    },
-                    "content": "# Title\n\nFor markdown syntax help: [commonmark.org/help](https://commonmark.org/help/)",
-                    "mode": "markdown"
-                },
-                "pluginVersion": "12.3.1",
-                "title": "Panel Title",
-                "type": "text"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "palette-classic"
-                        },
-                        "custom": {
-                            "axisBorderShow": false,
-                            "axisCenteredZero": false,
-                            "axisColorMode": "text",
-                            "axisLabel": "",
-                            "axisPlacement": "auto",
-                            "axisSoftMin": 0,
-                            "barAlignment": 0,
-                            "barWidthFactor": 0.6,
-                            "drawStyle": "line",
-                            "fillOpacity": 4,
-                            "gradientMode": "none",
-                            "hideFrom": {
-                                "legend": false,
-                                "tooltip": false,
-                                "viz": false
-                            },
-                            "insertNulls": false,
-                            "lineInterpolation": "linear",
-                            "lineWidth": 1,
-                            "pointSize": 5,
-                            "scaleDistribution": {
-                                "type": "linear"
-                            },
-                            "showPoints": "auto",
-                            "showValues": false,
-                            "spanNulls": false,
-                            "stacking": {
-                                "group": "A",
-                                "mode": "normal"
-                            },
-                            "thresholdsStyle": {
-                                "mode": "off"
-                            }
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        },
-                        "unit": "decbytes"
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 4,
-                    "w": 6,
-                    "x": 18,
-                    "y": 4
-                },
-                "id": 7,
-                "options": {
-                    "legend": {
-                        "calcs": [],
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": false
-                    },
-                    "tooltip": {
-                        "hideZeros": false,
-                        "mode": "multi",
-                        "sort": "none"
-                    }
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "topk(20,avg by (namespace,pod)(container_memory_working_set_bytes{namespace!=\"kube-system\", container!=\"POD\", pod=~\"core-trigger-.+\"}))",
-                        "interval": "",
-                        "legendFormat": "{{pod}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "memory usage",
-                "type": "timeseries"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "thresholds"
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        },
-                        "unit": "short"
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 5,
-                    "w": 6,
-                    "x": 0,
-                    "y": 8
-                },
-                "id": 36,
-                "interval": "1m",
-                "options": {
-                    "colorMode": "value",
-                    "graphMode": "none",
-                    "justifyMode": "center",
-                    "orientation": "auto",
-                    "percentChangeColorMode": "standard",
-                    "reduceOptions": {
-                        "calcs": [
-                            "lastNotNull"
-                        ],
-                        "fields": "",
-                        "values": false
-                    },
-                    "showPercentChange": false,
-                    "text": {},
-                    "textMode": "value_and_name",
-                    "wideLayout": true
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "sum by (pod)(increase(iotbridge_trigger_engine_exectime_count{pod=~\"core-trigger-.+\", accountId=~\"$accountId\"}[1m]))",
-                        "interval": "",
-                        "legendFormat": "{{pod}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "trigs/min by pod",
-                "type": "stat"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "thresholds"
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        },
-                        "unit": "short"
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 5,
-                    "w": 6,
-                    "x": 6,
-                    "y": 8
-                },
-                "id": 37,
-                "interval": "1m",
-                "options": {
-                    "colorMode": "value",
-                    "graphMode": "none",
-                    "justifyMode": "center",
-                    "orientation": "auto",
-                    "percentChangeColorMode": "standard",
-                    "reduceOptions": {
-                        "calcs": [
-                            "lastNotNull"
-                        ],
-                        "fields": "",
-                        "values": false
-                    },
-                    "showPercentChange": false,
-                    "text": {},
-                    "textMode": "value_and_name",
-                    "wideLayout": true
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "sum by (pod)(increase(iotbridge_trigger_engine_execcount_sum{pod=~\"core-trigger-.+\", accountId=~\"$accountId\"}[1m]))",
-                        "interval": "",
-                        "legendFormat": "{{pod}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "ops/min by pod",
-                "type": "stat"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "custom": {
-                            "hideFrom": {
-                                "legend": false,
-                                "tooltip": false,
-                                "viz": false
-                            },
-                            "scaleDistribution": {
-                                "type": "linear"
-                            }
-                        }
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 12,
-                    "y": 8
-                },
-                "id": 4,
-                "options": {
-                    "calculate": false,
-                    "calculation": {},
-                    "cellGap": 2,
-                    "cellValues": {},
-                    "color": {
-                        "exponent": 0.5,
-                        "fill": "#b4ff00",
-                        "mode": "scheme",
-                        "reverse": false,
-                        "scale": "exponential",
-                        "scheme": "Spectral",
-                        "steps": 128
-                    },
-                    "exemplars": {
-                        "color": "rgba(255,0,255,0.7)"
-                    },
-                    "filterValues": {
-                        "le": 1e-09
-                    },
-                    "legend": {
-                        "show": false
-                    },
-                    "rowsFrame": {
-                        "layout": "auto"
-                    },
-                    "showValue": "never",
-                    "tooltip": {
-                        "mode": "single",
-                        "showColorScale": false,
-                        "yHistogram": false
-                    },
-                    "yAxis": {
-                        "axisPlacement": "left",
-                        "reverse": false,
-                        "unit": "ms"
-                    }
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "sum(rate(iotbridge_trigger_engine_exectime_bucket{accountId=~\"$accountId\",triggerId=~\"$triggerId\"}[1m])) by (le)",
-                        "format": "heatmap",
-                        "interval": "",
-                        "legendFormat": "{{le}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "trigger execution time",
-                "type": "heatmap"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "palette-classic"
-                        },
-                        "custom": {
-                            "axisBorderShow": false,
-                            "axisCenteredZero": false,
-                            "axisColorMode": "text",
-                            "axisLabel": "",
-                            "axisPlacement": "auto",
-                            "axisSoftMin": 0,
-                            "barAlignment": 0,
-                            "barWidthFactor": 0.6,
-                            "drawStyle": "line",
-                            "fillOpacity": 4,
-                            "gradientMode": "none",
-                            "hideFrom": {
-                                "legend": false,
-                                "tooltip": false,
-                                "viz": false
-                            },
-                            "insertNulls": false,
-                            "lineInterpolation": "linear",
-                            "lineWidth": 1,
-                            "pointSize": 5,
-                            "scaleDistribution": {
-                                "type": "linear"
-                            },
-                            "showPoints": "auto",
-                            "showValues": false,
-                            "spanNulls": false,
-                            "stacking": {
-                                "group": "A",
-                                "mode": "none"
-                            },
-                            "thresholdsStyle": {
-                                "mode": "off"
-                            }
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        }
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 6,
-                    "w": 12,
-                    "x": 0,
-                    "y": 13
-                },
-                "id": 23,
-                "options": {
-                    "legend": {
-                        "calcs": [],
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": false
-                    },
-                    "tooltip": {
-                        "hideZeros": false,
-                        "mode": "single",
-                        "sort": "desc"
-                    }
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "sum by (accountId)(increase(iotbridge_trigger_engine_exectime_count{accountId=~\"$accountId\"}[1m])) * on(accountId) group_left(name)iotbridge_account_map{}>1",
-                        "interval": "",
-                        "legendFormat": "{{name}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "trigger exec per minute per account",
-                "type": "timeseries"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "custom": {
-                            "hideFrom": {
-                                "legend": false,
-                                "tooltip": false,
-                                "viz": false
-                            },
-                            "scaleDistribution": {
-                                "type": "linear"
-                            }
-                        }
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 7,
-                    "w": 12,
-                    "x": 12,
-                    "y": 16
-                },
-                "id": 29,
-                "options": {
-                    "calculate": false,
-                    "calculation": {},
-                    "cellGap": 2,
-                    "cellValues": {},
-                    "color": {
-                        "exponent": 0.5,
-                        "fill": "#b4ff00",
-                        "mode": "scheme",
-                        "reverse": false,
-                        "scale": "exponential",
-                        "scheme": "Spectral",
-                        "steps": 128
-                    },
-                    "exemplars": {
-                        "color": "rgba(255,0,255,0.7)"
-                    },
-                    "filterValues": {
-                        "le": 1e-09
-                    },
-                    "legend": {
-                        "show": false
-                    },
-                    "rowsFrame": {
-                        "layout": "auto"
-                    },
-                    "showValue": "never",
-                    "tooltip": {
-                        "mode": "single",
-                        "showColorScale": false,
-                        "yHistogram": false
-                    },
-                    "yAxis": {
-                        "axisPlacement": "left",
-                        "reverse": false,
-                        "unit": "short"
-                    }
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "sum(rate(iotbridge_trigger_engine_execcount_bucket{accountId=~\"$accountId\"}[1m])) by (le)",
-                        "format": "heatmap",
-                        "interval": "",
-                        "legendFormat": "{{le}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "trigger execution complexity",
-                "type": "heatmap"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "palette-classic"
-                        },
-                        "custom": {
-                            "axisBorderShow": false,
-                            "axisCenteredZero": false,
-                            "axisColorMode": "text",
-                            "axisLabel": "",
-                            "axisPlacement": "auto",
-                            "axisSoftMin": 0,
-                            "barAlignment": 0,
-                            "barWidthFactor": 0.6,
-                            "drawStyle": "line",
-                            "fillOpacity": 4,
-                            "gradientMode": "none",
-                            "hideFrom": {
-                                "legend": false,
-                                "tooltip": false,
-                                "viz": false
-                            },
-                            "insertNulls": false,
-                            "lineInterpolation": "linear",
-                            "lineWidth": 1,
-                            "pointSize": 5,
-                            "scaleDistribution": {
-                                "type": "linear"
-                            },
-                            "showPoints": "auto",
-                            "showValues": false,
-                            "spanNulls": false,
-                            "stacking": {
-                                "group": "A",
-                                "mode": "none"
-                            },
-                            "thresholdsStyle": {
-                                "mode": "off"
-                            }
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        }
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 6,
-                    "w": 12,
-                    "x": 0,
-                    "y": 19
-                },
-                "id": 41,
-                "options": {
-                    "legend": {
-                        "calcs": [],
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": false
-                    },
-                    "tooltip": {
-                        "hideZeros": false,
-                        "mode": "single",
-                        "sort": "desc"
-                    }
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "sum by (accountId,triggerId)(increase(iotbridge_trigger_engine_exectime_count{accountId=~\"$accountId\"}[1m])) * on(accountId,triggerId) group_left(accountName,triggerName)iotbridge_trigger_map{}>10",
-                        "interval": "",
-                        "legendFormat": "{{accountName}}/{{triggerName}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "trigger exec per minute per trigger",
-                "type": "timeseries"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "palette-classic"
-                        },
-                        "custom": {
-                            "axisBorderShow": false,
-                            "axisCenteredZero": false,
-                            "axisColorMode": "text",
-                            "axisLabel": "",
-                            "axisPlacement": "auto",
-                            "barAlignment": 0,
-                            "barWidthFactor": 0.6,
-                            "drawStyle": "points",
-                            "fillOpacity": 0,
-                            "gradientMode": "none",
-                            "hideFrom": {
-                                "legend": false,
-                                "tooltip": false,
-                                "viz": false
-                            },
-                            "insertNulls": false,
-                            "lineInterpolation": "linear",
-                            "lineWidth": 1,
-                            "pointSize": 3,
-                            "scaleDistribution": {
-                                "log": 2,
-                                "type": "log"
-                            },
-                            "showPoints": "auto",
-                            "showValues": false,
-                            "spanNulls": false,
-                            "stacking": {
-                                "group": "A",
-                                "mode": "none"
-                            },
-                            "thresholdsStyle": {
-                                "mode": "off"
-                            }
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                },
-                                {
-                                    "color": "red",
-                                    "value": 80
-                                }
-                            ]
-                        },
-                        "unit": "ms"
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 12,
-                    "y": 23
-                },
-                "id": 42,
-                "options": {
-                    "legend": {
-                        "calcs": [],
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": false
-                    },
-                    "tooltip": {
-                        "hideZeros": false,
-                        "mode": "single",
-                        "sort": "none"
-                    }
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "expr": "(sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_sum{accountId=~\"$accountId\"}[1m]))\r\n/\r\nsum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_count{accountId=~\"$accountId\"}[1m]))) + on(accountId,triggerId) group_left(accountName,triggerName) iotbridge_trigger_map{}",
-                        "instant": false,
-                        "legendFormat": "{{accountName}}/{{triggerName}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "Trigger Execution Time",
-                "type": "timeseries"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "palette-classic"
-                        },
-                        "custom": {
-                            "axisBorderShow": false,
-                            "axisCenteredZero": false,
-                            "axisColorMode": "text",
-                            "axisLabel": "",
-                            "axisPlacement": "auto",
-                            "axisSoftMin": 0,
-                            "barAlignment": 0,
-                            "barWidthFactor": 0.6,
-                            "drawStyle": "line",
-                            "fillOpacity": 4,
-                            "gradientMode": "none",
-                            "hideFrom": {
-                                "legend": false,
-                                "tooltip": false,
-                                "viz": false
-                            },
-                            "insertNulls": false,
-                            "lineInterpolation": "linear",
-                            "lineWidth": 1,
-                            "pointSize": 5,
-                            "scaleDistribution": {
-                                "log": 2,
-                                "type": "log"
-                            },
-                            "showPoints": "auto",
-                            "showValues": false,
-                            "spanNulls": false,
-                            "stacking": {
-                                "group": "A",
-                                "mode": "none"
-                            },
-                            "thresholdsStyle": {
-                                "mode": "off"
-                            }
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        },
-                        "unit": "short"
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 6,
-                    "w": 12,
-                    "x": 0,
-                    "y": 25
-                },
-                "id": 28,
-                "options": {
-                    "legend": {
-                        "calcs": [],
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": false
-                    },
-                    "tooltip": {
-                        "hideZeros": false,
-                        "mode": "single",
-                        "sort": "desc"
-                    }
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "(sum by (accountId)(increase(iotbridge_trigger_engine_execcount_sum{accountId=~\"$accountId\"}[1m])) * on(accountId) group_left(name)iotbridge_account_map{})>200",
-                        "interval": "",
-                        "legendFormat": "{{name}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "trigger exec ops per minute per account",
-                "type": "timeseries"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "palette-classic"
-                        },
-                        "custom": {
-                            "axisBorderShow": false,
-                            "axisCenteredZero": false,
-                            "axisColorMode": "text",
-                            "axisLabel": "",
-                            "axisPlacement": "auto",
-                            "axisSoftMin": 0,
-                            "barAlignment": 0,
-                            "barWidthFactor": 0.6,
-                            "drawStyle": "line",
-                            "fillOpacity": 4,
-                            "gradientMode": "none",
-                            "hideFrom": {
-                                "legend": false,
-                                "tooltip": false,
-                                "viz": false
-                            },
-                            "insertNulls": false,
-                            "lineInterpolation": "linear",
-                            "lineWidth": 1,
-                            "pointSize": 5,
-                            "scaleDistribution": {
-                                "type": "linear"
-                            },
-                            "showPoints": "auto",
-                            "showValues": false,
-                            "spanNulls": false,
-                            "stacking": {
-                                "group": "A",
-                                "mode": "normal"
-                            },
-                            "thresholdsStyle": {
-                                "mode": "off"
-                            }
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "absolute",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                }
-                            ]
-                        }
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 6,
-                    "w": 12,
-                    "x": 0,
-                    "y": 31
-                },
-                "id": 3,
-                "options": {
-                    "legend": {
-                        "calcs": [],
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": false
-                    },
-                    "tooltip": {
-                        "hideZeros": false,
-                        "mode": "multi",
-                        "sort": "none"
-                    }
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": true,
-                        "expr": "sum by (pod)(rate(iotbridge_trigger_action_exectime_count[$__rate_interval]))",
-                        "interval": "",
-                        "legendFormat": "{{pod}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "actions/sec per pod",
-                "type": "timeseries"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "thresholds"
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "percentage",
-                            "steps": [
-                                {
-                                    "color": "green",
-                                    "value": 0
-                                },
-                                {
-                                    "color": "red",
-                                    "value": 80
-                                }
-                            ]
-                        }
-                    },
-                    "overrides": [
-                        {
-                            "matcher": {
-                                "id": "byName",
-                                "options": "Value"
-                            },
-                            "properties": [
-                                {
-                                    "id": "displayName"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 12,
-                    "y": 31
-                },
-                "id": 39,
-                "options": {
-                    "displayMode": "gradient",
-                    "legend": {
-                        "calcs": [],
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": false
-                    },
-                    "maxVizHeight": 300,
-                    "minVizHeight": 10,
-                    "minVizWidth": 0,
-                    "namePlacement": "auto",
-                    "orientation": "horizontal",
-                    "reduceOptions": {
-                        "calcs": [
-                            "max"
-                        ],
-                        "fields": "",
-                        "values": false
-                    },
-                    "showUnfilled": true,
-                    "sizing": "auto",
-                    "text": {
-                        "titleSize": 20,
-                        "valueSize": 20
-                    },
-                    "valueMode": "color"
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": false,
-                        "expr": "((((sum(increase(iotbridge_trigger_engine_execcount_bucket{le=\"+Inf\", accountId=~\"$accountId\"}[$__range])) by (accountId,triggerId) - sum(increase(iotbridge_trigger_engine_execcount_bucket{le=\"500000\", accountId=~\"$accountId\"}[$__range])) by (accountId,triggerId))))>0) + on(triggerId) group_left(name) iotbridge_trigger_map{}",
-                        "format": "time_series",
-                        "instant": false,
-                        "legendFormat": "{{name}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "Critically complex triggers",
-                "type": "bargauge"
-            },
-            {
-                "datasource": {
-                    "type": "prometheus",
-                    "uid": "prometheus"
-                },
-                "fieldConfig": {
-                    "defaults": {
-                        "color": {
-                            "mode": "thresholds"
-                        },
-                        "mappings": [],
-                        "thresholds": {
-                            "mode": "percentage",
-                            "steps": [
-                                {
-                                    "color": "yellow",
-                                    "value": 0
-                                },
-                                {
-                                    "color": "red",
-                                    "value": 80
-                                }
-                            ]
-                        }
-                    },
-                    "overrides": []
-                },
-                "gridPos": {
-                    "h": 8,
-                    "w": 12,
-                    "x": 12,
-                    "y": 39
-                },
-                "id": 40,
-                "options": {
-                    "displayMode": "gradient",
-                    "legend": {
-                        "calcs": [],
-                        "displayMode": "list",
-                        "placement": "bottom",
-                        "showLegend": false
-                    },
-                    "maxVizHeight": 300,
-                    "minVizHeight": 10,
-                    "minVizWidth": 0,
-                    "namePlacement": "auto",
-                    "orientation": "horizontal",
-                    "reduceOptions": {
-                        "calcs": [
-                            "max"
-                        ],
-                        "fields": "",
-                        "values": false
-                    },
-                    "showUnfilled": true,
-                    "sizing": "auto",
-                    "text": {
-                        "titleSize": 20,
-                        "valueSize": 20
-                    },
-                    "valueMode": "color"
-                },
-                "pluginVersion": "12.3.1",
-                "targets": [
-                    {
-                        "datasource": {
-                            "type": "prometheus",
-                            "uid": "prometheus"
-                        },
-                        "editorMode": "code",
-                        "exemplar": false,
-                        "expr": "((((sum(increase(iotbridge_trigger_engine_execcount_bucket{le=\"+Inf\", accountId=~\"$accountId\"}[$__range])) by (accountId,triggerId) - sum(increase(iotbridge_trigger_engine_execcount_bucket{le=\"20000\", accountId=~\"$accountId\"}[$__range])) by (accountId,triggerId))))>0) + on(triggerId) group_left(accountName,triggerName) iotbridge_trigger_map{}",
-                        "format": "time_series",
-                        "instant": false,
-                        "legendFormat": "{{accountName}}/{{triggerName}}",
-                        "range": true,
-                        "refId": "A"
-                    }
-                ],
-                "title": "Overly complex triggers",
-                "type": "bargauge"
-            }
-        ],
-        "preload": false,
-        "refresh": "1m",
-        "schemaVersion": 42,
-        "tags": [
-            "tartabit-iot-bridge"
-        ],
-        "templating": {
-            "list": [
-                {
-                    "current": {
-                        "text": [
-                            "All"
-                        ],
-                        "value": [
-                            "$__all"
-                        ]
-                    },
-                    "definition": "query_result(count by (accountName, accountId) (iotbridge_trigger_map))",
-                    "description": "Filter by account",
-                    "includeAll": true,
-                    "label": "Account",
-                    "multi": true,
-                    "name": "accountId",
-                    "options": [],
-                    "query": {
-                        "qryType": 3,
-                        "query": "query_result(count by (accountName, accountId) (iotbridge_trigger_map))",
-                        "refId": "PrometheusVariableQueryEditor-VariableQuery"
-                    },
-                    "refresh": 1,
-                    "regex": "/.*accountId=\"(?<value>[^\"]+)\".*accountName=\"(?<text>[^\"]+)\".*/",
-                    "sort": 5,
-                    "type": "query"
-                },
-                {
-                    "allValue": ".*",
-                    "current": {
-                        "text": "All",
-                        "value": "$__all"
-                    },
-                    "definition": "query_result(count by (triggerName, triggerId) (iotbridge_trigger_map{accountId=~\"${accountId:regex}\"}))",
-                    "description": "Filter by trigger",
-                    "includeAll": true,
-                    "label": "Trigger",
-                    "multi": true,
-                    "name": "triggerId",
-                    "options": [],
-                    "query": {
-                        "qryType": 3,
-                        "query": "query_result(count by (triggerName, triggerId) (iotbridge_trigger_map{accountId=~\"${accountId:regex}\"}))",
-                        "refId": "PrometheusVariableQueryEditor-VariableQuery"
-                    },
-                    "refresh": 1,
-                    "regex": "/.*triggerId=\"(?<value>[^\"]+)\".*triggerName=\"(?<text>[^\"]+)\".*/",
-                    "sort": 5,
-                    "type": "query"
-                }
-            ]
-        },
-        "time": {
-            "from": "now-12h",
-            "to": "now"
-        },
-        "timepicker": {},
-        "timezone": "",
-        "title": "IoT Bridge / Triggers / Single",
-        "uid": "a97efa86-05fd-4950-adf0-a67806a01efa",
-        "version": 4,
-        "weekStart": ""
+        "canDelete": true
+      },
+      "organization": {
+        "canAdd": true,
+        "canEdit": true,
+        "canDelete": true
+      }
     }
+  },
+  "dashboard": {
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {
+            "type": "datasource",
+            "uid": "grafana"
+          },
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {
+            "limit": 100,
+            "matchAny": false,
+            "tags": [],
+            "type": "dashboard"
+          },
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 0,
+    "id": 39,
+    "links": [
+      {
+        "title": "overview",
+        "type": "link",
+        "url": "/d/FZTjoZ2Sk/iot-bridge-triggers-overview",
+        "includeVars": true,
+        "keepTime": true,
+        "targetBlank": false
+      },
+      {
+        "title": "list",
+        "type": "link",
+        "url": "/d/iotbridge-triggers-list/iot-bridge-triggers-list",
+        "includeVars": true,
+        "keepTime": true,
+        "targetBlank": false
+      },
+      {
+        "asDropdown": true,
+        "icon": "external link",
+        "includeVars": true,
+        "keepTime": true,
+        "tags": [
+          "tartabit-iot-bridge"
+        ],
+        "targetBlank": false,
+        "title": "IoT Bridge",
+        "tooltip": "",
+        "type": "dashboards",
+        "url": ""
+      }
+    ],
+    "panels": [
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "short",
+            "noValue": " "
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 0,
+          "y": 0,
+          "w": 8,
+          "h": 4
+        },
+        "id": 50,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))",
+            "refId": "A",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "time_series"
+          }
+        ],
+        "title": "executions in range",
+        "type": "stat",
+        "description": "Selected-range statistic for all selected triggers combined. Counts and histogram buckets are aggregated before averages / quantiles. Missing observations remain blank. Maxima are histogram bucket estimates; p95 is interpolated. Overflow displays as >500,000 ops or >20 s. Operations/time histograms can omit panic-aborted runs."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "short",
+            "noValue": " "
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 8,
+          "y": 0,
+          "w": 8,
+          "h": 4
+        },
+        "id": 51,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum (increase(iotbridge_trigger_engine_execcount_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))",
+            "refId": "A",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "time_series"
+          }
+        ],
+        "title": "total operations in range",
+        "type": "stat",
+        "description": "Selected-range statistic for all selected triggers combined. Counts and histogram buckets are aggregated before averages / quantiles. Missing observations remain blank. Maxima are histogram bucket estimates; p95 is interpolated. Overflow displays as >500,000 ops or >20 s. Operations/time histograms can omit panic-aborted runs."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "ms",
+            "noValue": " "
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 16,
+          "y": 0,
+          "w": 8,
+          "h": 4
+        },
+        "id": 52,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum (increase(iotbridge_trigger_engine_exectime_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))",
+            "refId": "A",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "time_series"
+          }
+        ],
+        "title": "execution time accumulated in range",
+        "type": "stat",
+        "description": "Selected-range statistic for all selected triggers combined. Counts and histogram buckets are aggregated before averages / quantiles. Missing observations remain blank. Maxima are histogram bucket estimates; p95 is interpolated. Overflow displays as >500,000 ops or >20 s. Operations/time histograms can omit panic-aborted runs."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "short",
+            "noValue": " "
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 0,
+          "y": 4,
+          "w": 8,
+          "h": 4
+        },
+        "id": 53,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "(sum (increase(iotbridge_trigger_engine_execcount_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) / (sum (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)",
+            "refId": "A",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "time_series"
+          }
+        ],
+        "title": "average complexity",
+        "type": "stat",
+        "description": "Selected-range statistic for all selected triggers combined. Counts and histogram buckets are aggregated before averages / quantiles. Missing observations remain blank. Maxima are histogram bucket estimates; p95 is interpolated. Overflow displays as >500,000 ops or >20 s. Operations/time histograms can omit panic-aborted runs."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [
+              {
+                "type": "value",
+                "options": {
+                  "500001": {
+                    "text": ">500,000 ops",
+                    "color": "orange"
+                  }
+                }
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "short",
+            "noValue": " "
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 8,
+          "y": 4,
+          "w": 8,
+          "h": 4
+        },
+        "id": 54,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "((histogram_quantile(0.95, sum by (le) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))) unless on () (((sum (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on () ((sum (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__range]))) < 0.95 * (sum (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))))) or on () ((((sum (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on () ((sum (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__range]))) < 0.95 * (sum (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))))) * 0 + 500001)",
+            "refId": "A",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "time_series"
+          }
+        ],
+        "title": "p95 complexity",
+        "type": "stat",
+        "description": "Selected-range statistic for all selected triggers combined. Counts and histogram buckets are aggregated before averages / quantiles. Missing observations remain blank. Maxima are histogram bucket estimates; p95 is interpolated. Overflow displays as >500,000 ops or >20 s. Operations/time histograms can omit panic-aborted runs."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [
+              {
+                "type": "value",
+                "options": {
+                  "500001": {
+                    "text": ">500,000 ops",
+                    "color": "orange"
+                  }
+                }
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "short",
+            "noValue": " "
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 16,
+          "y": 4,
+          "w": 8,
+          "h": 4
+        },
+        "id": 55,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "((histogram_quantile(1, sum by (le) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))) unless on () (((sum (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on () ((sum (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__range]))) < 1 * (sum (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))))) or on () ((((sum (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on () ((sum (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__range]))) < 1 * (sum (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))))) * 0 + 500001)",
+            "refId": "A",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "time_series"
+          }
+        ],
+        "title": "max complexity (estimated)",
+        "type": "stat",
+        "description": "Selected-range statistic for all selected triggers combined. Counts and histogram buckets are aggregated before averages / quantiles. Missing observations remain blank. Maxima are histogram bucket estimates; p95 is interpolated. Overflow displays as >500,000 ops or >20 s. Operations/time histograms can omit panic-aborted runs."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "ms",
+            "noValue": " "
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 0,
+          "y": 8,
+          "w": 8,
+          "h": 4
+        },
+        "id": 56,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "(sum (increase(iotbridge_trigger_engine_exectime_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) / (sum (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)",
+            "refId": "A",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "time_series"
+          }
+        ],
+        "title": "average exec time",
+        "type": "stat",
+        "description": "Selected-range statistic for all selected triggers combined. Counts and histogram buckets are aggregated before averages / quantiles. Missing observations remain blank. Maxima are histogram bucket estimates; p95 is interpolated. Overflow displays as >500,000 ops or >20 s. Operations/time histograms can omit panic-aborted runs."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [
+              {
+                "type": "value",
+                "options": {
+                  "20001": {
+                    "text": ">20 s",
+                    "color": "orange"
+                  }
+                }
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "ms",
+            "noValue": " "
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 8,
+          "y": 8,
+          "w": 8,
+          "h": 4
+        },
+        "id": 57,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "((histogram_quantile(0.95, sum by (le) (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))) unless on () (((sum (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on () ((sum (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__range]))) < 0.95 * (sum (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))))) or on () ((((sum (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on () ((sum (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__range]))) < 0.95 * (sum (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))))) * 0 + 20001)",
+            "refId": "A",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "time_series"
+          }
+        ],
+        "title": "p95 exec time",
+        "type": "stat",
+        "description": "Selected-range statistic for all selected triggers combined. Counts and histogram buckets are aggregated before averages / quantiles. Missing observations remain blank. Maxima are histogram bucket estimates; p95 is interpolated. Overflow displays as >500,000 ops or >20 s. Operations/time histograms can omit panic-aborted runs."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [
+              {
+                "type": "value",
+                "options": {
+                  "20001": {
+                    "text": ">20 s",
+                    "color": "orange"
+                  }
+                }
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "ms",
+            "noValue": " "
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 16,
+          "y": 8,
+          "w": 8,
+          "h": 4
+        },
+        "id": 58,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "((histogram_quantile(1, sum by (le) (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))) unless on () (((sum (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on () ((sum (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__range]))) < 1 * (sum (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))))) or on () ((((sum (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on () ((sum (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__range]))) < 1 * (sum (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))))) * 0 + 20001)",
+            "refId": "A",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "time_series"
+          }
+        ],
+        "title": "max exec time (estimated)",
+        "type": "stat",
+        "description": "Selected-range statistic for all selected triggers combined. Counts and histogram buckets are aggregated before averages / quantiles. Missing observations remain blank. Maxima are histogram bucket estimates; p95 is interpolated. Overflow displays as >500,000 ops or >20 s. Operations/time histograms can omit panic-aborted runs."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "percent",
+            "noValue": " "
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 0,
+          "y": 12,
+          "w": 8,
+          "h": 4
+        },
+        "id": 59,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "100 * ((sum (increase(iotbridge_trigger_engine_errors{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", error!=\"none\"}[$__range]))) or (sum (increase(iotbridge_trigger_engine_errors{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) * 0) / (sum (increase(iotbridge_trigger_engine_errors{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)",
+            "refId": "A",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "time_series"
+          }
+        ],
+        "title": "recorded failure percentage",
+        "type": "stat",
+        "description": "Selected-range statistic for all selected triggers combined. Counts and histogram buckets are aggregated before averages / quantiles. Missing observations remain blank. Maxima are histogram bucket estimates; p95 is interpolated. Overflow displays as >500,000 ops or >20 s. Operations/time histograms can omit panic-aborted runs."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "short",
+            "noValue": " "
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 8,
+          "y": 12,
+          "w": 16,
+          "h": 4
+        },
+        "id": 60,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value_and_name",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum by (error) (increase(iotbridge_trigger_engine_errors{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", error!=\"none\"}[$__range]))",
+            "refId": "A",
+            "legendFormat": "{{error}}",
+            "instant": true,
+            "range": false,
+            "format": "time_series"
+          }
+        ],
+        "title": "failures by error category",
+        "type": "stat",
+        "description": "Recorded failures over the selected range. Successful outcomes (error=\"none\") are excluded."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 0,
+          "y": 16,
+          "w": 8,
+          "h": 5
+        },
+        "id": 6,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "sum((rate(iotbridge_trigger_engine_exectime_count{pod=~\"core-trigger-.+\", accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]) * 60))",
+            "interval": "",
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "triggers per minute",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "ms"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 8,
+          "y": 16,
+          "w": 8,
+          "h": 5
+        },
+        "id": 30,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "sum((rate(iotbridge_trigger_engine_exectime_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]) * 60))",
+            "interval": "",
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "execution time accumulated per minute",
+        "type": "stat",
+        "description": "Elapsed execution time accumulated per minute; concurrent executions add together. This is not CPU usage."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 16,
+          "y": 16,
+          "w": 8,
+          "h": 5
+        },
+        "id": 31,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "sum((rate(iotbridge_trigger_engine_execcount_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]) * 60))",
+            "interval": "",
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "execution operations per minute",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 0,
+          "y": 21,
+          "w": 12,
+          "h": 5
+        },
+        "id": 36,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value_and_name",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "sum by (pod)((rate(iotbridge_trigger_engine_exectime_count{pod=~\"core-trigger-.+\", accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]) * 60))",
+            "interval": "",
+            "legendFormat": "{{pod}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "trigs/min by pod",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 12,
+          "y": 21,
+          "w": 12,
+          "h": 5
+        },
+        "id": 37,
+        "interval": "1m",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "none",
+          "justifyMode": "center",
+          "orientation": "auto",
+          "percentChangeColorMode": "standard",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showPercentChange": false,
+          "text": {},
+          "textMode": "value_and_name",
+          "wideLayout": true
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "sum by (pod)((rate(iotbridge_trigger_engine_execcount_sum{pod=~\"core-trigger-.+\", accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]) * 60))",
+            "interval": "",
+            "legendFormat": "{{pod}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "ops/min by pod",
+        "type": "stat"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "axisSoftMin": 0,
+              "barAlignment": 0,
+              "barWidthFactor": 0.6,
+              "drawStyle": "line",
+              "fillOpacity": 4,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "showValues": false,
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 0,
+          "y": 26,
+          "w": 12,
+          "h": 7
+        },
+        "id": 23,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "desc"
+          }
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "sum by (accountId)((rate(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]) * 60)) * on(accountId) group_left(accountName) max by (accountId, accountName) (iotbridge_account_map)>1",
+            "interval": "",
+            "legendFormat": "{{accountName}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "trigger exec per minute per account",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "axisSoftMin": 0,
+              "barAlignment": 0,
+              "barWidthFactor": 0.6,
+              "drawStyle": "line",
+              "fillOpacity": 4,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "showValues": false,
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 12,
+          "y": 26,
+          "w": 12,
+          "h": 7
+        },
+        "id": 41,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "desc"
+          }
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "sum by (accountId,triggerId)((rate(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]) * 60)) * on(accountId,triggerId) group_left(accountName,triggerName) max by (accountId, triggerId, accountName, triggerName) (iotbridge_trigger_map{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"})>10",
+            "interval": "",
+            "legendFormat": "{{accountName}}/{{triggerName}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "trigger exec per minute per trigger",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "axisSoftMin": 0,
+              "barAlignment": 0,
+              "barWidthFactor": 0.6,
+              "drawStyle": "line",
+              "fillOpacity": 4,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "log": 2,
+                "type": "log"
+              },
+              "showPoints": "auto",
+              "showValues": false,
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "short"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 0,
+          "y": 33,
+          "w": 12,
+          "h": 7
+        },
+        "id": 28,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "single",
+            "sort": "desc"
+          }
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "(sum by (accountId)((rate(iotbridge_trigger_engine_execcount_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]) * 60)) * on(accountId) group_left(accountName) max by (accountId, accountName) (iotbridge_account_map))>200",
+            "interval": "",
+            "legendFormat": "{{accountName}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "trigger exec ops per minute per account",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "axisSoftMin": 0,
+              "barAlignment": 0,
+              "barWidthFactor": 0.6,
+              "drawStyle": "line",
+              "fillOpacity": 4,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "showValues": false,
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "normal"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 12,
+          "y": 33,
+          "w": 12,
+          "h": 7
+        },
+        "id": 3,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "sum by (pod)(rate(iotbridge_trigger_action_exectime_count{accountId=~\"${accountId:regex}\"}[$__rate_interval]))",
+            "interval": "",
+            "legendFormat": "{{pod}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "(x) actions/sec per pod",
+        "type": "timeseries",
+        "description": "Action execution rate filtered by account only. Action metrics have no triggerId, so trigger selection does not filter this panel."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "scaleDistribution": {
+                "type": "linear"
+              }
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 0,
+          "y": 40,
+          "w": 12,
+          "h": 8
+        },
+        "id": 4,
+        "options": {
+          "calculate": false,
+          "calculation": {},
+          "cellGap": 2,
+          "cellValues": {},
+          "color": {
+            "exponent": 0.5,
+            "fill": "#b4ff00",
+            "mode": "scheme",
+            "reverse": false,
+            "scale": "exponential",
+            "scheme": "Spectral",
+            "steps": 128
+          },
+          "exemplars": {
+            "color": "rgba(255,0,255,0.7)"
+          },
+          "filterValues": {
+            "le": 1e-09
+          },
+          "legend": {
+            "show": false
+          },
+          "rowsFrame": {
+            "layout": "auto"
+          },
+          "showValue": "never",
+          "tooltip": {
+            "mode": "single",
+            "showColorScale": false,
+            "yHistogram": false
+          },
+          "yAxis": {
+            "axisPlacement": "left",
+            "reverse": false,
+            "unit": "ms"
+          }
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "sum(rate(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval])) by (le)",
+            "format": "heatmap",
+            "interval": "",
+            "legendFormat": "{{le}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "trigger execution time",
+        "type": "heatmap"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "scaleDistribution": {
+                "type": "linear"
+              }
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 12,
+          "y": 40,
+          "w": 12,
+          "h": 8
+        },
+        "id": 29,
+        "options": {
+          "calculate": false,
+          "calculation": {},
+          "cellGap": 2,
+          "cellValues": {},
+          "color": {
+            "exponent": 0.5,
+            "fill": "#b4ff00",
+            "mode": "scheme",
+            "reverse": false,
+            "scale": "exponential",
+            "scheme": "Spectral",
+            "steps": 128
+          },
+          "exemplars": {
+            "color": "rgba(255,0,255,0.7)"
+          },
+          "filterValues": {
+            "le": 1e-09
+          },
+          "legend": {
+            "show": false
+          },
+          "rowsFrame": {
+            "layout": "auto"
+          },
+          "showValue": "never",
+          "tooltip": {
+            "mode": "single",
+            "showColorScale": false,
+            "yHistogram": false
+          },
+          "yAxis": {
+            "axisPlacement": "left",
+            "reverse": false,
+            "unit": "short"
+          }
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "sum(rate(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval])) by (le)",
+            "format": "heatmap",
+            "interval": "",
+            "legendFormat": "{{le}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "trigger execution complexity",
+        "type": "heatmap"
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "Value"
+              },
+              "properties": []
+            }
+          ]
+        },
+        "gridPos": {
+          "x": 0,
+          "y": 48,
+          "w": 12,
+          "h": 8
+        },
+        "id": 39,
+        "options": {
+          "displayMode": "gradient",
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "maxVizHeight": 300,
+          "minVizHeight": 10,
+          "minVizWidth": 0,
+          "namePlacement": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true,
+          "sizing": "auto",
+          "text": {
+            "titleSize": 20,
+            "valueSize": 20
+          },
+          "valueMode": "color"
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "(((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=\"+Inf\"}[$__range]))) - (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__range])))) > 0) * on (accountId, triggerId) group_left (accountName, triggerName) (topk by (accountId, triggerId) (1, max by (accountId, triggerId, accountName, triggerName) (iotbridge_trigger_map{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", accountName!=\"\", triggerName!=\"\"})))) or on (accountId, triggerId) (label_replace(label_replace((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=\"+Inf\"}[$__range]))) - (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__range])))) > 0), \"accountName\", \"$1\", \"accountId\", \"(.+)\"), \"triggerName\", \"$1\", \"triggerId\", \"(.+)\")))",
+            "format": "time_series",
+            "instant": true,
+            "legendFormat": "{{accountName}} / {{triggerName}}",
+            "range": false,
+            "refId": "A"
+          }
+        ],
+        "title": "executions exceeding 500,000 operations",
+        "type": "bargauge",
+        "description": "Recorded executions strictly exceeding 500,000 interpreter operations during the selected range. Both integer and decimal histogram bucket labels are supported. Missing names fall back to IDs. Executions aborted by the configured operation limit do not enter this histogram; see recorded failure categories for exec-limit errors."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "thresholds"
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "percentage",
+              "steps": [
+                {
+                  "color": "yellow",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 12,
+          "y": 48,
+          "w": 12,
+          "h": 8
+        },
+        "id": 40,
+        "options": {
+          "displayMode": "gradient",
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "maxVizHeight": 300,
+          "minVizHeight": 10,
+          "minVizWidth": 0,
+          "namePlacement": "auto",
+          "orientation": "horizontal",
+          "reduceOptions": {
+            "calcs": [
+              "lastNotNull"
+            ],
+            "fields": "",
+            "values": false
+          },
+          "showUnfilled": true,
+          "sizing": "auto",
+          "text": {
+            "titleSize": 20,
+            "valueSize": 20
+          },
+          "valueMode": "color"
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": false,
+            "expr": "(((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=\"+Inf\"}[$__range]))) - (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__range])))) > 0) * on (accountId, triggerId) group_left (accountName, triggerName) (topk by (accountId, triggerId) (1, max by (accountId, triggerId, accountName, triggerName) (iotbridge_trigger_map{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", accountName!=\"\", triggerName!=\"\"})))) or on (accountId, triggerId) (label_replace(label_replace((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=\"+Inf\"}[$__range]))) - (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__range])))) > 0), \"accountName\", \"$1\", \"accountId\", \"(.+)\"), \"triggerName\", \"$1\", \"triggerId\", \"(.+)\")))",
+            "format": "time_series",
+            "instant": true,
+            "legendFormat": "{{accountName}} / {{triggerName}}",
+            "range": false,
+            "refId": "A"
+          }
+        ],
+        "title": "executions exceeding 20,000 operations",
+        "type": "bargauge",
+        "description": "Recorded executions strictly exceeding 20,000 interpreter operations during the selected range. Both integer and decimal histogram bucket labels are supported. Missing names fall back to IDs. Executions aborted by the configured operation limit do not enter this histogram; see recorded failure categories for exec-limit errors."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "barWidthFactor": 0.6,
+              "drawStyle": "line",
+              "fillOpacity": 4,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 3,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "showValues": false,
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [
+              {
+                "type": "value",
+                "options": {
+                  "500001": {
+                    "text": ">500,000 ops",
+                    "color": "orange"
+                  }
+                }
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "short",
+            "noValue": " "
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 0,
+          "y": 56,
+          "w": 12,
+          "h": 8
+        },
+        "id": 61,
+        "options": {
+          "legend": {
+            "showLegend": true,
+            "displayMode": "table",
+            "placement": "bottom",
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "tooltip": {
+            "mode": "multi",
+            "sort": "desc",
+            "hideZeros": false
+          }
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "((((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))) / (sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval])) > 0)) * on (accountId, triggerId) group_left (accountName, triggerName) (topk by (accountId, triggerId) (1, max by (accountId, triggerId, accountName, triggerName) (iotbridge_trigger_map{accountName!=\"\", triggerName!=\"\"})))) or on (accountId, triggerId) (label_replace(label_replace(((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))) / (sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval])) > 0)), \"accountName\", \"$1\", \"accountId\", \"(.+)\"), \"triggerName\", \"$1\", \"triggerId\", \"(.+)\")))",
+            "refId": "A",
+            "legendFormat": "{{accountName}} / {{triggerName}} average",
+            "instant": false,
+            "range": true,
+            "format": "time_series"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "(((((histogram_quantile(0.95, sum by (accountId, triggerId, le) (rate(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval])))) unless on (accountId, triggerId) (((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__rate_interval]))) < 0.95 * (sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval])))))) or on (accountId, triggerId) ((((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__rate_interval]))) < 0.95 * (sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))))) * 0 + 500001)) * on (accountId, triggerId) group_left (accountName, triggerName) (topk by (accountId, triggerId) (1, max by (accountId, triggerId, accountName, triggerName) (iotbridge_trigger_map{accountName!=\"\", triggerName!=\"\"})))) or on (accountId, triggerId) (label_replace(label_replace((((histogram_quantile(0.95, sum by (accountId, triggerId, le) (rate(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval])))) unless on (accountId, triggerId) (((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__rate_interval]))) < 0.95 * (sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval])))))) or on (accountId, triggerId) ((((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__rate_interval]))) < 0.95 * (sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))))) * 0 + 500001)), \"accountName\", \"$1\", \"accountId\", \"(.+)\"), \"triggerName\", \"$1\", \"triggerId\", \"(.+)\")))",
+            "refId": "B",
+            "legendFormat": "{{accountName}} / {{triggerName}} p95",
+            "instant": false,
+            "range": true,
+            "format": "time_series"
+          }
+        ],
+        "title": "complexity by trigger",
+        "type": "timeseries",
+        "description": "Per-trigger rolling average and estimated p95. Values beyond histogram bounds are marked as overflow."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "barAlignment": 0,
+              "barWidthFactor": 0.6,
+              "drawStyle": "line",
+              "fillOpacity": 4,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 3,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "never",
+              "showValues": false,
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "none"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [
+              {
+                "type": "value",
+                "options": {
+                  "20001": {
+                    "text": ">20 s",
+                    "color": "orange"
+                  }
+                }
+              }
+            ],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                },
+                {
+                  "color": "red",
+                  "value": 80
+                }
+              ]
+            },
+            "unit": "ms",
+            "noValue": " "
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 12,
+          "y": 56,
+          "w": 12,
+          "h": 8
+        },
+        "id": 42,
+        "options": {
+          "legend": {
+            "showLegend": true,
+            "displayMode": "table",
+            "placement": "bottom",
+            "calcs": [
+              "lastNotNull"
+            ]
+          },
+          "tooltip": {
+            "mode": "multi",
+            "sort": "desc",
+            "hideZeros": false
+          }
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "((((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))) / (sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval])) > 0)) * on (accountId, triggerId) group_left (accountName, triggerName) (topk by (accountId, triggerId) (1, max by (accountId, triggerId, accountName, triggerName) (iotbridge_trigger_map{accountName!=\"\", triggerName!=\"\"})))) or on (accountId, triggerId) (label_replace(label_replace(((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))) / (sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval])) > 0)), \"accountName\", \"$1\", \"accountId\", \"(.+)\"), \"triggerName\", \"$1\", \"triggerId\", \"(.+)\")))",
+            "refId": "A",
+            "legendFormat": "{{accountName}} / {{triggerName}} average",
+            "instant": false,
+            "range": true,
+            "format": "time_series"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "(((((histogram_quantile(0.95, sum by (accountId, triggerId, le) (rate(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval])))) unless on (accountId, triggerId) (((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__rate_interval]))) < 0.95 * (sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval])))))) or on (accountId, triggerId) ((((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__rate_interval]))) < 0.95 * (sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))))) * 0 + 20001)) * on (accountId, triggerId) group_left (accountName, triggerName) (topk by (accountId, triggerId) (1, max by (accountId, triggerId, accountName, triggerName) (iotbridge_trigger_map{accountName!=\"\", triggerName!=\"\"})))) or on (accountId, triggerId) (label_replace(label_replace((((histogram_quantile(0.95, sum by (accountId, triggerId, le) (rate(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval])))) unless on (accountId, triggerId) (((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__rate_interval]))) < 0.95 * (sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval])))))) or on (accountId, triggerId) ((((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__rate_interval]))) < 0.95 * (sum by (accountId, triggerId) (rate(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__rate_interval]))))) * 0 + 20001)), \"accountName\", \"$1\", \"accountId\", \"(.+)\"), \"triggerName\", \"$1\", \"triggerId\", \"(.+)\")))",
+            "refId": "B",
+            "legendFormat": "{{accountName}} / {{triggerName}} p95",
+            "instant": false,
+            "range": true,
+            "format": "time_series"
+          }
+        ],
+        "title": "execution duration by trigger",
+        "type": "timeseries",
+        "description": "Per-trigger rolling average and estimated p95. Values beyond histogram bounds are marked as overflow."
+      },
+      {
+        "id": 62,
+        "title": "trigger performance",
+        "type": "table",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "label_join((((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)) * on (accountId, triggerId) group_left (accountName, triggerName) (topk by (accountId, triggerId) (1, max by (accountId, triggerId, accountName, triggerName) (iotbridge_trigger_map{accountName!=\"\", triggerName!=\"\"})))) or on (accountId, triggerId) (label_replace(label_replace(((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"accountName\", \"$1\", \"accountId\", \"(.+)\"), \"triggerName\", \"$1\", \"triggerId\", \"(.+)\")))), \"rowKey\", \"/\", \"accountId\", \"triggerId\")",
+            "refId": "A",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum by (rowKey) (label_join(((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"rowKey\", \"/\", \"accountId\", \"triggerId\"))",
+            "refId": "B",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum by (rowKey) (label_join(((((histogram_quantile(1, sum by (accountId, triggerId, le) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))) unless on (accountId, triggerId) (((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__range]))) < 1 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))))) or on (accountId, triggerId) ((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__range]))) < 1 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))))) * 0 + 500001)) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"rowKey\", \"/\", \"accountId\", \"triggerId\"))",
+            "refId": "C",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum by (rowKey) (label_join((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) / (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"rowKey\", \"/\", \"accountId\", \"triggerId\"))",
+            "refId": "D",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum by (rowKey) (label_join(((((histogram_quantile(0.95, sum by (accountId, triggerId, le) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))) unless on (accountId, triggerId) (((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__range]))) < 0.95 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))))) or on (accountId, triggerId) ((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"500000([.]0+)?\"}[$__range]))) < 0.95 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_execcount_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))))) * 0 + 500001)) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"rowKey\", \"/\", \"accountId\", \"triggerId\"))",
+            "refId": "E",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum by (rowKey) (label_join(((((histogram_quantile(1, sum by (accountId, triggerId, le) (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))) unless on (accountId, triggerId) (((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__range]))) < 1 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))))) or on (accountId, triggerId) ((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__range]))) < 1 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))))) * 0 + 20001)) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"rowKey\", \"/\", \"accountId\", \"triggerId\"))",
+            "refId": "F",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum by (rowKey) (label_join((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_sum{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) / (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"rowKey\", \"/\", \"accountId\", \"triggerId\"))",
+            "refId": "G",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          },
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "expr": "sum by (rowKey) (label_join(((((histogram_quantile(0.95, sum by (accountId, triggerId, le) (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))) unless on (accountId, triggerId) (((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__range]))) < 0.95 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])))))) or on (accountId, triggerId) ((((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))) > 0) and on (accountId, triggerId) ((sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_bucket{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\", le=~\"20000([.]0+)?\"}[$__range]))) < 0.95 * (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range]))))) * 0 + 20001)) and on (accountId, triggerId) (sum by (accountId, triggerId) (increase(iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\", triggerId=~\"${triggerId:regex}\"}[$__range])) > 0)), \"rowKey\", \"/\", \"accountId\", \"triggerId\"))",
+            "refId": "H",
+            "legendFormat": "__auto",
+            "instant": true,
+            "range": false,
+            "format": "table"
+          }
+        ],
+        "description": "Recorded executions in the selected time range. Complexity is interpreter operations per execution; duration is elapsed execution time, not CPU time. Maxima are histogram bucket estimates and p95 is interpolated. >500,000 ops / >20 s indicate histogram overflow; overflow values sort above finite estimates and tie with each other. Empty cells mean unavailable data. Panic-aborted runs may not record these histograms. Click a trigger to inspect it.",
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "noValue": " ",
+            "custom": {
+              "align": "auto",
+              "cellOptions": {
+                "type": "auto"
+              },
+              "filterable": true,
+              "minWidth": 110,
+              "wrapHeaderText": true
+            }
+          },
+          "overrides": [
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "accountId"
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom.viz",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "triggerId"
+              },
+              "properties": [
+                {
+                  "id": "custom.hideFrom.viz",
+                  "value": true
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "executions"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "total operations"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 0
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "max complexity (estimated)"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 0
+                },
+                {
+                  "id": "description",
+                  "value": "Interpreter operations per recorded execution. Percentiles and maxima are histogram estimates."
+                },
+                {
+                  "id": "custom.width",
+                  "value": 145
+                },
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "type": "value",
+                      "options": {
+                        "500001": {
+                          "text": ">500,000 ops",
+                          "color": "orange"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "average complexity"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 1
+                },
+                {
+                  "id": "description",
+                  "value": "Interpreter operations per recorded execution. Percentiles and maxima are histogram estimates."
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "p95 complexity"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "short"
+                },
+                {
+                  "id": "decimals",
+                  "value": 1
+                },
+                {
+                  "id": "description",
+                  "value": "Interpreter operations per recorded execution. Percentiles and maxima are histogram estimates."
+                },
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "type": "value",
+                      "options": {
+                        "500001": {
+                          "text": ">500,000 ops",
+                          "color": "orange"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "max exec time (estimated)"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "ms"
+                },
+                {
+                  "id": "decimals",
+                  "value": 1
+                },
+                {
+                  "id": "custom.width",
+                  "value": 145
+                },
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "type": "value",
+                      "options": {
+                        "20001": {
+                          "text": ">20 s",
+                          "color": "orange"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "average exec time"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "ms"
+                },
+                {
+                  "id": "decimals",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "p95 exec time"
+              },
+              "properties": [
+                {
+                  "id": "unit",
+                  "value": "ms"
+                },
+                {
+                  "id": "decimals",
+                  "value": 1
+                },
+                {
+                  "id": "mappings",
+                  "value": [
+                    {
+                      "type": "value",
+                      "options": {
+                        "20001": {
+                          "text": ">20 s",
+                          "color": "orange"
+                        }
+                      }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "matcher": {
+                "id": "byName",
+                "options": "trigger"
+              },
+              "properties": [
+                {
+                  "id": "links",
+                  "value": [
+                    {
+                      "title": "view trigger performance",
+                      "url": "/d/a97efa86-05fd-4950-adf0-a67806a01efa/iot-bridge-triggers-single?var-accountId=${__data.fields.accountId}&var-triggerId=${__data.fields.triggerId}&from=${__from}&to=${__to}",
+                      "targetBlank": false
+                    }
+                  ]
+                },
+                {
+                  "id": "custom.width",
+                  "value": 190
+                }
+              ]
+            }
+          ]
+        },
+        "options": {
+          "showHeader": true,
+          "cellHeight": "sm",
+          "enablePagination": true,
+          "sortBy": [
+            {
+              "displayName": "total operations",
+              "desc": true
+            }
+          ],
+          "footer": {
+            "show": false
+          }
+        },
+        "transformations": [
+          {
+            "id": "joinByField",
+            "options": {
+              "byField": "rowKey",
+              "mode": "outerTabular"
+            }
+          },
+          {
+            "id": "filterFieldsByName",
+            "options": {
+              "include": {
+                "names": [
+                  "triggerName",
+                  "accountName",
+                  "accountId",
+                  "triggerId",
+                  "Value #A",
+                  "Value #B",
+                  "Value #C",
+                  "Value #D",
+                  "Value #E",
+                  "Value #F",
+                  "Value #G",
+                  "Value #H"
+                ]
+              }
+            }
+          },
+          {
+            "id": "organize",
+            "options": {
+              "excludeByName": {},
+              "indexByName": {
+                "triggerName": 0,
+                "accountName": 1,
+                "accountId": 2,
+                "triggerId": 3,
+                "Value #A": 4,
+                "Value #B": 5,
+                "Value #C": 6,
+                "Value #D": 7,
+                "Value #E": 8,
+                "Value #F": 9,
+                "Value #G": 10,
+                "Value #H": 11
+              },
+              "renameByName": {
+                "triggerName": "trigger",
+                "accountName": "account",
+                "Value #A": "executions",
+                "Value #B": "total operations",
+                "Value #C": "max complexity (estimated)",
+                "Value #D": "average complexity",
+                "Value #E": "p95 complexity",
+                "Value #F": "max exec time (estimated)",
+                "Value #G": "average exec time",
+                "Value #H": "p95 exec time"
+              }
+            }
+          }
+        ],
+        "gridPos": {
+          "x": 0,
+          "y": 64,
+          "w": 24,
+          "h": 14
+        }
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "axisSoftMin": 0,
+              "barAlignment": 0,
+              "barWidthFactor": 0.6,
+              "drawStyle": "line",
+              "fillOpacity": 4,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "showValues": false,
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "normal"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            }
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 0,
+          "y": 78,
+          "w": 12,
+          "h": 7
+        },
+        "id": 2,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "go_goroutines{pod=~\"core-trigger-.+\"}",
+            "interval": "",
+            "legendFormat": "__auto",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "(x) go routines",
+        "type": "timeseries",
+        "description": "System-wide core-trigger process metric. Account and trigger selections do not filter this panel."
+      },
+      {
+        "datasource": {
+          "type": "prometheus",
+          "uid": "prometheus"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "color": {
+              "mode": "palette-classic"
+            },
+            "custom": {
+              "axisBorderShow": false,
+              "axisCenteredZero": false,
+              "axisColorMode": "text",
+              "axisLabel": "",
+              "axisPlacement": "auto",
+              "axisSoftMin": 0,
+              "barAlignment": 0,
+              "barWidthFactor": 0.6,
+              "drawStyle": "line",
+              "fillOpacity": 4,
+              "gradientMode": "none",
+              "hideFrom": {
+                "legend": false,
+                "tooltip": false,
+                "viz": false
+              },
+              "insertNulls": false,
+              "lineInterpolation": "linear",
+              "lineWidth": 1,
+              "pointSize": 5,
+              "scaleDistribution": {
+                "type": "linear"
+              },
+              "showPoints": "auto",
+              "showValues": false,
+              "spanNulls": false,
+              "stacking": {
+                "group": "A",
+                "mode": "normal"
+              },
+              "thresholdsStyle": {
+                "mode": "off"
+              }
+            },
+            "mappings": [],
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {
+                  "color": "green",
+                  "value": 0
+                }
+              ]
+            },
+            "unit": "decbytes"
+          },
+          "overrides": []
+        },
+        "gridPos": {
+          "x": 12,
+          "y": 78,
+          "w": 12,
+          "h": 7
+        },
+        "id": 7,
+        "options": {
+          "legend": {
+            "calcs": [],
+            "displayMode": "list",
+            "placement": "bottom",
+            "showLegend": false
+          },
+          "tooltip": {
+            "hideZeros": false,
+            "mode": "multi",
+            "sort": "none"
+          }
+        },
+        "pluginVersion": "12.3.1",
+        "targets": [
+          {
+            "datasource": {
+              "type": "prometheus",
+              "uid": "prometheus"
+            },
+            "editorMode": "code",
+            "exemplar": true,
+            "expr": "topk(20, sum by (namespace, pod) (max by (namespace, pod, container) (container_memory_working_set_bytes{namespace!=\"kube-system\", container!=\"POD\", container!=\"\", pod=~\"core-trigger-.+\"})))",
+            "interval": "",
+            "legendFormat": "{{pod}}",
+            "range": true,
+            "refId": "A"
+          }
+        ],
+        "title": "(x) memory usage",
+        "type": "timeseries",
+        "description": "System-wide core-trigger process metric. Account and trigger selections do not filter this panel."
+      }
+    ],
+    "preload": false,
+    "refresh": "1m",
+    "schemaVersion": 42,
+    "tags": [
+      "tartabit-iot-bridge"
+    ],
+    "templating": {
+      "list": [
+        {
+          "allValue": ".*",
+          "current": {
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
+          },
+          "definition": "query_result(max by (accountId, accountName) (iotbridge_account_map{accountName!=\"\"}) or on (accountId) label_replace((max by (accountId) (iotbridge_trigger_engine_exectime_count{}) * 0 + 1), \"accountName\", \"$1\", \"accountId\", \"(.+)\"))",
+          "description": "Filter by configured account",
+          "includeAll": true,
+          "label": "Account",
+          "multi": true,
+          "name": "accountId",
+          "options": [],
+          "query": {
+            "qryType": 3,
+            "query": "query_result(max by (accountId, accountName) (iotbridge_account_map{accountName!=\"\"}) or on (accountId) label_replace((max by (accountId) (iotbridge_trigger_engine_exectime_count{}) * 0 + 1), \"accountName\", \"$1\", \"accountId\", \"(.+)\"))",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 2,
+          "sort": 5,
+          "type": "query",
+          "regex": "/.*accountId=\"(?<value>[^\"]+)\".*accountName=\"(?<text>[^\"]+)\".*/"
+        },
+        {
+          "allValue": ".*",
+          "current": {
+            "text": [
+              "All"
+            ],
+            "value": [
+              "$__all"
+            ]
+          },
+          "definition": "query_result(max by (accountId, triggerId, triggerName) (iotbridge_trigger_map{accountId=~\"${accountId:regex}\", triggerName!=\"\"}) or on (accountId, triggerId) label_replace((max by (accountId, triggerId) (iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\"}) * 0 + 1), \"triggerName\", \"$1\", \"triggerId\", \"(.+)\"))",
+          "description": "Filter by configured trigger",
+          "includeAll": true,
+          "label": "Trigger",
+          "multi": true,
+          "name": "triggerId",
+          "options": [],
+          "query": {
+            "qryType": 3,
+            "query": "query_result(max by (accountId, triggerId, triggerName) (iotbridge_trigger_map{accountId=~\"${accountId:regex}\", triggerName!=\"\"}) or on (accountId, triggerId) label_replace((max by (accountId, triggerId) (iotbridge_trigger_engine_exectime_count{accountId=~\"${accountId:regex}\"}) * 0 + 1), \"triggerName\", \"$1\", \"triggerId\", \"(.+)\"))",
+            "refId": "PrometheusVariableQueryEditor-VariableQuery"
+          },
+          "refresh": 2,
+          "sort": 5,
+          "type": "query",
+          "regex": "/.*triggerId=\"(?<value>[^\"]+)\".*triggerName=\"(?<text>[^\"]+)\".*/"
+        }
+      ]
+    },
+    "time": {
+      "from": "now-12h",
+      "to": "now"
+    },
+    "timepicker": {},
+    "timezone": "",
+    "title": "IoT Bridge / Triggers / Single",
+    "uid": "a97efa86-05fd-4950-adf0-a67806a01efa",
+    "version": 4,
+    "weekStart": "",
+    "description": "Panels prefixed with (x) expose process or action metrics that cannot be filtered by the selected trigger."
+  }
 }

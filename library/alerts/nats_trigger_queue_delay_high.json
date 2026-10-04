@@ -1,0 +1,35 @@
+{
+  "uid": "iotb-nats-queue-delay-high",
+  "orgID": 1,
+  "folderUID": "G6bUnD54k",
+  "ruleGroup": "iot-bridge-nats",
+  "title": "NATS trigger queue delay high",
+  "condition": "C",
+  "data": [
+    {
+      "refId": "A",
+      "queryType": "",
+      "relativeTimeRange": {"from": 900, "to": 0},
+      "datasourceUid": "prometheus",
+      "model": {"editorMode": "code", "exemplar": false, "expr": "histogram_quantile(0.95, sum by (le, stream, consumer) (rate(iotbridge_trigger_event_queue_delay_milliseconds_bucket[5m])))", "format": "time_series", "instant": true, "intervalMs": 1000, "legendFormat": "{{stream}} {{consumer}}", "maxDataPoints": 43200, "range": false, "refId": "A"}
+    },
+    {
+      "refId": "C",
+      "queryType": "",
+      "relativeTimeRange": {"from": 900, "to": 0},
+      "datasourceUid": "__expr__",
+      "model": {"conditions": [{"evaluator": {"params": [10000], "type": "gt"}, "operator": {"type": "and"}, "query": {"params": ["C"]}, "reducer": {"params": [], "type": "last"}, "type": "query"}], "datasource": {"type": "__expr__", "uid": "__expr__"}, "expression": "A", "intervalMs": 1000, "maxDataPoints": 43200, "refId": "C", "type": "threshold"}
+    }
+  ],
+  "updated": "2026-08-30T00:00:00Z",
+  "noDataState": "OK",
+  "execErrState": "Error",
+  "for": "10m",
+  "keep_firing_for": "5m",
+  "annotations": {"description": "The p95 delay between event publication and core-trigger delivery is above 10 seconds. Investigate backlog growth, worker utilization, slow triggers, and MongoDB or Redis pressure.", "summary": "NATS trigger queue delay is above 10 seconds for {{ $labels.consumer }} on {{ $labels.stream }}."},
+  "labels": {"severity": "warning", "component": "tartabit-iot-bridge", "category": "nats"},
+  "provenance": "api",
+  "isPaused": false,
+  "notification_settings": null,
+  "record": null
+}

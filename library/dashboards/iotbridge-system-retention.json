@@ -1,0 +1,2556 @@
+{
+    "meta": {
+        "folderUid": "G6bUnD54k",
+        "folderTitle": "IoT Bridge"
+    },
+    "dashboard": {
+        "annotations": {
+            "list": [
+                {
+                    "builtIn": 1,
+                    "datasource": {
+                        "type": "datasource",
+                        "uid": "grafana"
+                    },
+                    "enable": true,
+                    "hide": true,
+                    "iconColor": "rgba(0, 211, 255, 1)",
+                    "name": "Annotations & Alerts",
+                    "target": {
+                        "limit": 100,
+                        "matchAny": false,
+                        "tags": [],
+                        "type": "dashboard"
+                    },
+                    "type": "dashboard"
+                }
+            ]
+        },
+        "editable": true,
+        "fiscalYearStartMonth": 0,
+        "graphTooltip": 1,
+        "id": null,
+        "links": [],
+        "panels": [
+            {
+                "collapsed": false,
+                "gridPos": {
+                    "h": 1,
+                    "w": 24,
+                    "x": 0,
+                    "y": 0
+                },
+                "id": 1,
+                "panels": [],
+                "title": "Health",
+                "type": "row"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [
+                            {
+                                "options": {
+                                    "0": {
+                                        "color": "red",
+                                        "index": 0,
+                                        "text": "No"
+                                    },
+                                    "1": {
+                                        "color": "green",
+                                        "index": 1,
+                                        "text": "Yes"
+                                    }
+                                },
+                                "type": "value"
+                            }
+                        ],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "red",
+                                    "value": null
+                                },
+                                {
+                                    "color": "green",
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        "unit": "none"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 4,
+                    "x": 0,
+                    "y": 1
+                },
+                "id": 2,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target) (iotbridge_retention_caught_up{target=~\"$target\"} and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"}))",
+                        "instant": true,
+                        "legendFormat": "{{target}}",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Caught up",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "yellow",
+                                    "value": 180
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 300
+                                }
+                            ]
+                        },
+                        "unit": "s"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 4,
+                    "x": 4,
+                    "y": 1
+                },
+                "id": 3,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "area",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "time() - max by (target) (iotbridge_retention_last_success_timestamp_seconds{target=~\"$target\"})",
+                        "instant": true,
+                        "legendFormat": "{{target}}",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Last success age",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "yellow",
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        "unit": "s"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 4,
+                    "x": 8,
+                    "y": 1
+                },
+                "id": 4,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "area",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target) (iotbridge_retention_progress_backlog_seconds{target=~\"$target\"} and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"}))",
+                        "instant": true,
+                        "legendFormat": "{{target}}",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Largest backlog",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "continuous-GrYlRd"
+                        },
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                }
+                            ]
+                        },
+                        "unit": "ops"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 4,
+                    "x": 12,
+                    "y": 1
+                },
+                "id": 5,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "area",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "sum by (target) (rate(iotbridge_retention_deleted_records_total{target=~\"$target\"}[5m]))",
+                        "instant": true,
+                        "legendFormat": "{{target}}",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Records deleted / second",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "yellow",
+                                    "value": 45
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 60
+                                }
+                            ]
+                        },
+                        "unit": "s"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 4,
+                    "x": 16,
+                    "y": 1
+                },
+                "id": 6,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "area",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target) (iotbridge_retention_last_run_duration_seconds{target=~\"$target\"} and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"}))",
+                        "instant": true,
+                        "legendFormat": "{{target}}",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Latest run duration",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [
+                            {
+                                "options": {
+                                    "0": {
+                                        "color": "green",
+                                        "index": 0,
+                                        "text": "No"
+                                    },
+                                    "1": {
+                                        "color": "yellow",
+                                        "index": 1,
+                                        "text": "Yes"
+                                    }
+                                },
+                                "type": "value"
+                            }
+                        ],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "yellow",
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        "unit": "none"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 5,
+                    "w": 4,
+                    "x": 20,
+                    "y": 1
+                },
+                "id": 7,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target) (iotbridge_retention_last_run_budget_exhausted{target=~\"$target\"} and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"}))",
+                        "instant": true,
+                        "legendFormat": "{{target}}",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Run budget exhausted",
+                "type": "stat"
+            },
+            {
+                "id": 29,
+                "title": "Rollover and accelerated draining",
+                "type": "row",
+                "collapsed": false,
+                "panels": [],
+                "gridPos": {
+                    "x": 0,
+                    "y": 6,
+                    "w": 24,
+                    "h": 1
+                }
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "mappings": [
+                            {
+                                "type": "value",
+                                "options": {
+                                    "0": {
+                                        "text": "Idle",
+                                        "color": "green",
+                                        "index": 0
+                                    },
+                                    "1": {
+                                        "text": "Preparing",
+                                        "color": "blue",
+                                        "index": 1
+                                    },
+                                    "2": {
+                                        "text": "Switching",
+                                        "color": "purple",
+                                        "index": 2
+                                    },
+                                    "3": {
+                                        "text": "Draining",
+                                        "color": "orange",
+                                        "index": 3
+                                    },
+                                    "4": {
+                                        "text": "Dropping",
+                                        "color": "yellow",
+                                        "index": 4
+                                    }
+                                }
+                            }
+                        ],
+                        "unit": "none",
+                        "noValue": "No telemetry"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "x": 0,
+                    "y": 7,
+                    "w": 6,
+                    "h": 5
+                },
+                "id": 31,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "sum by (target, pod) (max by (target, pod, phase) (iotbridge_retention_rollover_phase{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\", phase=\"idle\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}))) * 0 or max by (target, pod, phase) (iotbridge_retention_rollover_phase{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\", phase=\"preparing\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}))) * 1 or max by (target, pod, phase) (iotbridge_retention_rollover_phase{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\", phase=\"switching\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}))) * 2 or max by (target, pod, phase) (iotbridge_retention_rollover_phase{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\", phase=\"draining\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}))) * 3 or max by (target, pod, phase) (iotbridge_retention_rollover_phase{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\", phase=\"dropping\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}))) * 4)",
+                        "instant": true,
+                        "legendFormat": "{{target}} / {{pod}}",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Rollover phase",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "mappings": [],
+                        "unit": "short",
+                        "noValue": "No telemetry"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "x": 6,
+                    "y": 7,
+                    "w": 6,
+                    "h": 5
+                },
+                "id": 32,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod) (iotbridge_retention_rollover_draining_records{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"})))",
+                        "instant": true,
+                        "legendFormat": "{{target}} / {{pod}}",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Draining records remaining",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "mappings": [],
+                        "unit": "s",
+                        "noValue": "No active rollover / no telemetry"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "x": 12,
+                    "y": 7,
+                    "w": 6,
+                    "h": 5
+                },
+                "id": 33,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod) (iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}))) and on (target, pod) (max by (target, pod) (iotbridge_retention_rollover_phase{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\", phase!=\"idle\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}))) == 1)",
+                        "instant": true,
+                        "legendFormat": "{{target}} / {{pod}}",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Rollover elapsed",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "mappings": [],
+                        "unit": "short",
+                        "noValue": "No telemetry",
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 0.001
+                                }
+                            ]
+                        }
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "x": 18,
+                    "y": 7,
+                    "w": 6,
+                    "h": 5
+                },
+                "id": 34,
+                "options": {
+                    "colorMode": "value",
+                    "graphMode": "none",
+                    "justifyMode": "auto",
+                    "orientation": "auto",
+                    "reduceOptions": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "fields": "",
+                        "values": false
+                    },
+                    "textMode": "auto",
+                    "wideLayout": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "sum by (target, pod) (increase(iotbridge_retention_rollover_errors_total{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}[10m])) or on (target, pod) (max by (target, pod) (iotbridge_retention_rollover_phase{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}))) * 0)",
+                        "instant": true,
+                        "legendFormat": "{{target}} / {{pod}}",
+                        "range": false,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Rollover errors (10m)",
+                "type": "stat"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineInterpolation": "linear",
+                            "lineWidth": 2,
+                            "pointSize": 5,
+                            "showPoints": "never",
+                            "spanNulls": false
+                        },
+                        "unit": "short",
+                        "noValue": "No telemetry",
+                        "mappings": []
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "x": 0,
+                    "y": 12,
+                    "w": 12,
+                    "h": 8
+                },
+                "id": 35,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod) (iotbridge_retention_rollover_draining_records{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"})))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Draining records over time",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineInterpolation": "linear",
+                            "lineWidth": 2,
+                            "pointSize": 5,
+                            "showPoints": "never",
+                            "spanNulls": false
+                        },
+                        "unit": "suffix:records/s",
+                        "noValue": "No telemetry",
+                        "mappings": []
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "x": 12,
+                    "y": 12,
+                    "w": 12,
+                    "h": 8
+                },
+                "id": 36,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "-deriv((max by (target, pod) (iotbridge_retention_rollover_draining_records{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}))))[5m:1m]) and on (target, pod) (max by (target, pod) (iotbridge_retention_rollover_phase{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\", phase=\"draining\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}))) == 1)",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Net drain rate (5m estimate)",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineInterpolation": "linear",
+                            "lineWidth": 2,
+                            "pointSize": 5,
+                            "showPoints": "never",
+                            "spanNulls": false
+                        },
+                        "unit": "bytes",
+                        "noValue": "No telemetry",
+                        "mappings": []
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "x": 0,
+                    "y": 20,
+                    "w": 12,
+                    "h": 8
+                },
+                "id": 37,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod, generation) (iotbridge_retention_rollover_allocation_bytes{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\", kind=\"total\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"})))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}} / {{generation}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Allocated bytes by generation",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineInterpolation": "linear",
+                            "lineWidth": 2,
+                            "pointSize": 5,
+                            "showPoints": "never",
+                            "spanNulls": false
+                        },
+                        "unit": "bytes",
+                        "noValue": "No telemetry",
+                        "mappings": []
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "x": 12,
+                    "y": 20,
+                    "w": 12,
+                    "h": 8
+                },
+                "id": 38,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod, generation) (iotbridge_retention_rollover_allocation_bytes{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\", kind=\"reusable\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"})))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}} / {{generation}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Reusable bytes inside collections",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineInterpolation": "linear",
+                            "lineWidth": 2,
+                            "pointSize": 5,
+                            "showPoints": "never",
+                            "spanNulls": false
+                        },
+                        "unit": "bytes",
+                        "noValue": "No telemetry",
+                        "mappings": []
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "x": 0,
+                    "y": 28,
+                    "w": 12,
+                    "h": 8
+                },
+                "id": 39,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod, generation, kind) (iotbridge_retention_rollover_allocation_bytes{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\", kind=~\"data|index\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"})))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}} / {{generation}} / {{kind}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Data and index bytes",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "mappings": [
+                            {
+                                "type": "value",
+                                "options": {
+                                    "0": {
+                                        "text": "Idle",
+                                        "color": "green",
+                                        "index": 0
+                                    },
+                                    "1": {
+                                        "text": "Preparing",
+                                        "color": "blue",
+                                        "index": 1
+                                    },
+                                    "2": {
+                                        "text": "Switching",
+                                        "color": "purple",
+                                        "index": 2
+                                    },
+                                    "3": {
+                                        "text": "Draining",
+                                        "color": "orange",
+                                        "index": 3
+                                    },
+                                    "4": {
+                                        "text": "Dropping",
+                                        "color": "yellow",
+                                        "index": 4
+                                    }
+                                }
+                            }
+                        ],
+                        "unit": "none",
+                        "noValue": "No telemetry"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "x": 12,
+                    "y": 28,
+                    "w": 12,
+                    "h": 8
+                },
+                "id": 40,
+                "options": {
+                    "colWidth": 0.9,
+                    "legend": {
+                        "displayMode": "list",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "mergeValues": true,
+                    "rowHeight": 0.9,
+                    "showValue": "never",
+                    "tooltip": {
+                        "mode": "single",
+                        "sort": "none"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "sum by (target, pod) (max by (target, pod, phase) (iotbridge_retention_rollover_phase{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\", phase=\"idle\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}))) * 0 or max by (target, pod, phase) (iotbridge_retention_rollover_phase{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\", phase=\"preparing\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}))) * 1 or max by (target, pod, phase) (iotbridge_retention_rollover_phase{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\", phase=\"switching\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}))) * 2 or max by (target, pod, phase) (iotbridge_retention_rollover_phase{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\", phase=\"draining\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}))) * 3 or max by (target, pod, phase) (iotbridge_retention_rollover_phase{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\", phase=\"dropping\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"}))) * 4)",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Rollover phase history",
+                "type": "state-timeline"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineInterpolation": "linear",
+                            "lineWidth": 2,
+                            "pointSize": 5,
+                            "showPoints": "never",
+                            "spanNulls": false
+                        },
+                        "unit": "short",
+                        "noValue": "No telemetry",
+                        "mappings": []
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "x": 0,
+                    "y": 36,
+                    "w": 12,
+                    "h": 8
+                },
+                "id": 41,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod) (iotbridge_retention_rollover_transfer_limit_records{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"})))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}} / next limit",
+                        "range": true,
+                        "refId": "A"
+                    },
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod) (iotbridge_retention_rollover_transfer_records{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"})))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}} / last committed",
+                        "range": true,
+                        "refId": "B"
+                    }
+                ],
+                "title": "Adaptive transfer batch size",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineInterpolation": "linear",
+                            "lineWidth": 2,
+                            "pointSize": 5,
+                            "showPoints": "never",
+                            "spanNulls": false,
+                            "thresholdsStyle": {
+                                "mode": "line"
+                            }
+                        },
+                        "unit": "s",
+                        "noValue": "No telemetry",
+                        "mappings": [],
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "orange",
+                                    "value": 1
+                                }
+                            ]
+                        }
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "x": 12,
+                    "y": 36,
+                    "w": 12,
+                    "h": 8
+                },
+                "id": 42,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod) (iotbridge_retention_rollover_transfer_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"} and on (target, pod, instance) topk by (target, pod) (1, timestamp(iotbridge_retention_rollover_duration_seconds{target=~\"${target:regex}\", pod=~\"${rollover_pod:regex}\"})))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Transfer batch duration",
+                "type": "timeseries"
+            },
+            {
+                "collapsed": false,
+                "gridPos": {
+                    "h": 1,
+                    "w": 24,
+                    "x": 0,
+                    "y": 44
+                },
+                "id": 8,
+                "panels": [],
+                "title": "Rule progress",
+                "type": "row"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineInterpolation": "linear",
+                            "lineWidth": 2,
+                            "pointSize": 5,
+                            "showPoints": "never",
+                            "spanNulls": true
+                        },
+                        "unit": "s"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 45
+                },
+                "id": 9,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod, rule_id) (iotbridge_retention_progress_backlog_seconds{target=~\"$target\"} and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"}))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}} / {{rule_id}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Backlog age by rule",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineInterpolation": "linear",
+                            "lineWidth": 2,
+                            "pointSize": 5,
+                            "showPoints": "never",
+                            "spanNulls": true
+                        },
+                        "unit": "s"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 45
+                },
+                "id": 10,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod, rule_id) (iotbridge_retention_progress_backlog_change_seconds{target=~\"$target\"} and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"}))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}} / {{rule_id}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Backlog reduction per trend window",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 0,
+                            "lineWidth": 1,
+                            "showPoints": "never",
+                            "spanNulls": true
+                        },
+                        "unit": "s"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 8,
+                    "x": 0,
+                    "y": 53
+                },
+                "id": 11,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod, rule_id) (time() - (iotbridge_retention_progress_oldest_record_timestamp_seconds{target=~\"$target\"} and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"})))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}} / {{rule_id}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Oldest matching record age",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "yellow",
+                                    "value": 600
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 1800
+                                }
+                            ]
+                        },
+                        "unit": "s"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 8,
+                    "x": 8,
+                    "y": 53
+                },
+                "id": 12,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod, rule_id) (time() - (iotbridge_retention_progress_observed_timestamp_seconds{target=~\"$target\"} and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"})))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}} / {{rule_id}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Progress observation age",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "mappings": [],
+                        "unit": "none"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 8,
+                    "x": 16,
+                    "y": 53
+                },
+                "id": 13,
+                "options": {
+                    "colWidth": 0.9,
+                    "legend": {
+                        "displayMode": "list",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "mergeValues": true,
+                    "rowHeight": 0.9,
+                    "showValue": "never",
+                    "tooltip": {
+                        "mode": "single",
+                        "sort": "none"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod, rule_id, trend) (iotbridge_retention_progress_trend{target=~\"$target\"} == 1 and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"}))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}} / {{rule_id}} / {{trend}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Progress trend",
+                "type": "state-timeline"
+            },
+            {
+                "collapsed": false,
+                "gridPos": {
+                    "h": 1,
+                    "w": 24,
+                    "x": 0,
+                    "y": 61
+                },
+                "id": 14,
+                "panels": [],
+                "title": "Throughput and scheduling",
+                "type": "row"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineWidth": 2,
+                            "showPoints": "never",
+                            "spanNulls": true
+                        },
+                        "unit": "ops"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 62
+                },
+                "id": 15,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull",
+                            "mean"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "sum by (target, rule_id) (rate(iotbridge_retention_deleted_records_total{target=~\"$target\"}[5m]))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{rule_id}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Deletion throughput by rule",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineWidth": 2,
+                            "showPoints": "never",
+                            "spanNulls": true
+                        },
+                        "unit": "short"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 62
+                },
+                "id": 16,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull",
+                            "mean"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "sum by (target) (rate(iotbridge_retention_deleted_records_total{target=~\"$target\"}[5m])) / sum by (target) (rate(iotbridge_retention_operations_total{target=~\"$target\", operation=\"delete\", result=\"success\"}[5m]))",
+                        "instant": false,
+                        "legendFormat": "{{target}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Average records per delete operation",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineWidth": 2,
+                            "showPoints": "never",
+                            "spanNulls": true
+                        },
+                        "unit": "short"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 8,
+                    "x": 0,
+                    "y": 70
+                },
+                "id": 17,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod, kind) (iotbridge_retention_last_run_work_items{target=~\"$target\"} and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"}))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}} / {{kind}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Latest-run work items",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineWidth": 2,
+                            "showPoints": "never",
+                            "spanNulls": true
+                        },
+                        "unit": "short"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 8,
+                    "x": 8,
+                    "y": 70
+                },
+                "id": 18,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod, kind) (iotbridge_retention_last_run_batches{target=~\"$target\"} and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"}))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}} / {{kind}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Latest-run batches",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineWidth": 2,
+                            "showPoints": "never",
+                            "spanNulls": true
+                        },
+                        "unit": "short"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 8,
+                    "x": 16,
+                    "y": 70
+                },
+                "id": 19,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod) (iotbridge_retention_last_run_cycles_completed{target=~\"$target\"} and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"}))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Logical cycles completed",
+                "type": "timeseries"
+            },
+            {
+                "collapsed": false,
+                "gridPos": {
+                    "h": 1,
+                    "w": 24,
+                    "x": 0,
+                    "y": 78
+                },
+                "id": 20,
+                "panels": [],
+                "title": "MongoDB timing",
+                "type": "row"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineWidth": 2,
+                            "showPoints": "never",
+                            "spanNulls": true
+                        },
+                        "unit": "s"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 9,
+                    "w": 12,
+                    "x": 0,
+                    "y": 79
+                },
+                "id": 21,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull",
+                            "mean"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "histogram_quantile(0.50, sum by (le, target, operation) (rate(iotbridge_retention_operation_duration_seconds_bucket{target=~\"$target\"}[15m])))",
+                        "instant": false,
+                        "legendFormat": "p50 {{target}} / {{operation}}",
+                        "range": true,
+                        "refId": "A"
+                    },
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "histogram_quantile(0.95, sum by (le, target, operation) (rate(iotbridge_retention_operation_duration_seconds_bucket{target=~\"$target\"}[15m])))",
+                        "instant": false,
+                        "legendFormat": "p95 {{target}} / {{operation}}",
+                        "range": true,
+                        "refId": "B"
+                    }
+                ],
+                "title": "MongoDB operation latency",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 20,
+                            "lineWidth": 2,
+                            "showPoints": "never",
+                            "spanNulls": true,
+                            "stacking": {
+                                "group": "A",
+                                "mode": "normal"
+                            }
+                        },
+                        "unit": "s"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 9,
+                    "w": 12,
+                    "x": 12,
+                    "y": 79
+                },
+                "id": 22,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod, phase) (iotbridge_retention_last_run_phase_duration_seconds{target=~\"$target\"} and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"}))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{pod}} / {{phase}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Latest-run phase time",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 5,
+                            "lineWidth": 2,
+                            "showPoints": "never",
+                            "spanNulls": true
+                        },
+                        "unit": "s"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 0,
+                    "y": 88
+                },
+                "id": 23,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target, pod) (iotbridge_retention_last_run_duration_seconds{target=~\"$target\"} and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"}))",
+                        "instant": false,
+                        "legendFormat": "run {{target}} / {{pod}}",
+                        "range": true,
+                        "refId": "A"
+                    },
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target) (iotbridge_retention_config_run_budget_seconds{target=~\"$target\"})",
+                        "instant": false,
+                        "legendFormat": "budget {{target}}",
+                        "range": true,
+                        "refId": "B"
+                    }
+                ],
+                "title": "Run duration versus budget",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "thresholds"
+                        },
+                        "thresholds": {
+                            "mode": "absolute",
+                            "steps": [
+                                {
+                                    "color": "green",
+                                    "value": null
+                                },
+                                {
+                                    "color": "yellow",
+                                    "value": 0.8
+                                },
+                                {
+                                    "color": "red",
+                                    "value": 1
+                                }
+                            ]
+                        },
+                        "unit": "percentunit"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 12,
+                    "x": 12,
+                    "y": 88
+                },
+                "id": 24,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull",
+                            "mean"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "histogram_quantile(0.95, sum by (le, target, operation) (rate(iotbridge_retention_operation_duration_seconds_bucket{target=~\"$target\"}[15m]))) / on (target) group_left max by (target) (iotbridge_retention_config_operation_timeout_seconds{target=~\"$target\"})",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{operation}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "p95 latency / operation timeout",
+                "type": "timeseries"
+            },
+            {
+                "collapsed": false,
+                "gridPos": {
+                    "h": 1,
+                    "w": 24,
+                    "x": 0,
+                    "y": 96
+                },
+                "id": 25,
+                "panels": [],
+                "title": "Reliability and configuration",
+                "type": "row"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "bars",
+                            "fillOpacity": 30,
+                            "lineWidth": 1,
+                            "showPoints": "never",
+                            "spanNulls": true
+                        },
+                        "unit": "short"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 8,
+                    "x": 0,
+                    "y": 97
+                },
+                "id": 26,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull",
+                            "sum"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "sum by (target, stage) (increase(iotbridge_retention_errors_total{target=~\"$target\"}[10m]))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{stage}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Errors by stage (10m)",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "custom": {
+                            "drawStyle": "line",
+                            "fillOpacity": 10,
+                            "lineWidth": 2,
+                            "showPoints": "never",
+                            "spanNulls": true
+                        },
+                        "unit": "ops"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 8,
+                    "x": 8,
+                    "y": 97
+                },
+                "id": 27,
+                "options": {
+                    "legend": {
+                        "calcs": [
+                            "lastNotNull"
+                        ],
+                        "displayMode": "table",
+                        "placement": "bottom",
+                        "showLegend": true
+                    },
+                    "tooltip": {
+                        "mode": "multi",
+                        "sort": "desc"
+                    }
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "sum by (target, result) (rate(iotbridge_retention_runs_total{target=~\"$target\"}[10m]))",
+                        "instant": false,
+                        "legendFormat": "{{target}} / {{result}}",
+                        "range": true,
+                        "refId": "A"
+                    }
+                ],
+                "title": "Run outcomes",
+                "type": "timeseries"
+            },
+            {
+                "datasource": {
+                    "type": "prometheus",
+                    "uid": "prometheus"
+                },
+                "fieldConfig": {
+                    "defaults": {
+                        "color": {
+                            "mode": "palette-classic"
+                        },
+                        "mappings": [],
+                        "unit": "short"
+                    },
+                    "overrides": []
+                },
+                "gridPos": {
+                    "h": 8,
+                    "w": 8,
+                    "x": 16,
+                    "y": 97
+                },
+                "id": 28,
+                "options": {
+                    "cellHeight": "sm",
+                    "footer": {
+                        "countRows": false,
+                        "fields": "",
+                        "reducer": [
+                            "sum"
+                        ],
+                        "show": false
+                    },
+                    "showHeader": true
+                },
+                "targets": [
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target) (iotbridge_retention_config_batch_size{target=~\"$target\"})",
+                        "instant": true,
+                        "legendFormat": "batch size {{target}}",
+                        "range": false,
+                        "refId": "A"
+                    },
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target) (iotbridge_retention_config_run_budget_seconds{target=~\"$target\"})",
+                        "instant": true,
+                        "legendFormat": "run budget seconds {{target}}",
+                        "range": false,
+                        "refId": "B"
+                    },
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target) (iotbridge_retention_config_operation_timeout_seconds{target=~\"$target\"})",
+                        "instant": true,
+                        "legendFormat": "operation timeout seconds {{target}}",
+                        "range": false,
+                        "refId": "C"
+                    },
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target) (iotbridge_retention_config_batch_pause_seconds{target=~\"$target\"})",
+                        "instant": true,
+                        "legendFormat": "batch pause seconds {{target}}",
+                        "range": false,
+                        "refId": "D"
+                    },
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target) (iotbridge_retention_config_idle_recheck_interval_seconds{target=~\"$target\"})",
+                        "instant": true,
+                        "legendFormat": "idle recheck seconds {{target}}",
+                        "range": false,
+                        "refId": "E"
+                    },
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target) (iotbridge_retention_active_policy_revision{target=~\"$target\"} and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"}))",
+                        "instant": true,
+                        "legendFormat": "active policy revision {{target}}",
+                        "range": false,
+                        "refId": "F"
+                    },
+                    {
+                        "datasource": {
+                            "type": "prometheus",
+                            "uid": "prometheus"
+                        },
+                        "editorMode": "code",
+                        "expr": "max by (target) (iotbridge_retention_last_run_deleted_records{target=~\"$target\"} and on (target, instance) topk by (target) (1, iotbridge_retention_last_run_completed_timestamp_seconds{target=~\"$target\"}))",
+                        "instant": true,
+                        "legendFormat": "last run deleted records {{target}}",
+                        "range": false,
+                        "refId": "G"
+                    }
+                ],
+                "title": "Effective configuration and latest run",
+                "type": "table"
+            }
+        ],
+        "refresh": "30s",
+        "schemaVersion": 42,
+        "tags": [
+            "tartabit-iot-bridge",
+            "retention"
+        ],
+        "templating": {
+            "list": [
+                {
+                    "current": {
+                        "text": [
+                            "All"
+                        ],
+                        "value": [
+                            "$__all"
+                        ]
+                    },
+                    "definition": "label_values(iotbridge_retention_config_batch_size,target)",
+                    "includeAll": true,
+                    "label": "Target",
+                    "multi": true,
+                    "name": "target",
+                    "options": [],
+                    "query": {
+                        "query": "label_values(iotbridge_retention_config_batch_size,target)",
+                        "refId": "PrometheusVariableQueryEditor-VariableQuery"
+                    },
+                    "refresh": 1,
+                    "regex": "",
+                    "sort": 1,
+                    "type": "query"
+                },
+                {
+                    "name": "rollover_pod",
+                    "label": "Rollover pod",
+                    "type": "query",
+                    "datasource": {
+                        "type": "prometheus",
+                        "uid": "prometheus"
+                    },
+                    "query": {
+                        "query": "label_values(iotbridge_retention_rollover_phase{target=~\"${target:regex}\"}, pod)",
+                        "refId": "PrometheusVariableQueryEditor-VariableQuery"
+                    },
+                    "definition": "label_values(iotbridge_retention_rollover_phase{target=~\"${target:regex}\"}, pod)",
+                    "refresh": 1,
+                    "sort": 1,
+                    "regex": "",
+                    "multi": false,
+                    "includeAll": true,
+                    "allValue": ".*",
+                    "options": [],
+                    "current": {
+                        "text": "All",
+                        "value": "$__all"
+                    }
+                }
+            ]
+        },
+        "time": {
+            "from": "now-6h",
+            "to": "now"
+        },
+        "timepicker": {},
+        "timezone": "browser",
+        "title": "IoT Bridge / System / Retention",
+        "uid": "iotb-system-retention",
+        "version": 1,
+        "weekStart": ""
+    }
+}

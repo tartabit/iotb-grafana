@@ -161,7 +161,7 @@
                             "uid": "prometheus"
                         },
                         "editorMode": "code",
-                        "expr": "sum by (container)(increase(iotbridge_trigger_action_exectime_count{container=~\"$service\"}[1m]))",
+                        "expr": "sum by (container)(increase(iotbridge_trigger_action_exectime_count{container=~\"${service:regex}\", accountId=~\"${accountId:regex}\"}[1m]))",
                         "instant": false,
                         "interval": "",
                         "legendFormat": "__auto",
@@ -169,7 +169,7 @@
                         "refId": "A"
                     }
                 ],
-                "title": "Action exec/min by Service",
+                "title": "Action exec/min by runtime service",
                 "type": "timeseries"
             },
             {
@@ -261,7 +261,7 @@
                             "uid": "prometheus"
                         },
                         "editorMode": "code",
-                        "expr": "sum by (type)(increase(iotbridge_trigger_action_exectime_count{container=~\"$service\", type=~\"$type\"}[1m]))",
+                        "expr": "sum by (type)(increase(iotbridge_trigger_action_exectime_count{container=~\"${service:regex}\", type=~\"${type:regex}\", accountId=~\"${accountId:regex}\"}[1m]))",
                         "instant": false,
                         "interval": "",
                         "legendFormat": "__auto",
@@ -363,7 +363,7 @@
                             "uid": "prometheus"
                         },
                         "editorMode": "code",
-                        "expr": "sum by (container,type)(avg_over_time(iotbridge_trigger_action_delay{container=~\"$service\", type=~\"$type\"}[$__interval]))",
+                        "expr": "sum by (container,type)(avg_over_time(iotbridge_trigger_action_delay{container=~\"${service:regex}\", type=~\"${type:regex}\"}[$__interval]))",
                         "instant": false,
                         "legendFormat": "{{container}}/{{type}}",
                         "range": true,
@@ -447,7 +447,7 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{container=~\"$service\", type=~\"$type\"}[1m])) by (le)",
+                        "expr": "sum(rate(iotbridge_trigger_action_exectime_bucket{container=~\"${service:regex}\", type=~\"${type:regex}\", accountId=~\"${accountId:regex}\"}[1m])) by (le)",
                         "format": "heatmap",
                         "interval": "",
                         "legendFormat": "{{le}}",
@@ -547,7 +547,7 @@
                             "uid": "prometheus"
                         },
                         "editorMode": "code",
-                        "expr": "sum by (container)(increase(iotbridge_trigger_action_receive{container=~\"$service\"}[1m]))",
+                        "expr": "sum by (container)(increase(iotbridge_trigger_action_receive{container=~\"${service:regex}\"}[1m]))",
                         "instant": false,
                         "interval": "",
                         "legendFormat": "__auto",
@@ -568,6 +568,33 @@
         "templating": {
             "list": [
                 {
+                    "allValue": ".*",
+                    "current": {
+                        "text": [
+                            "All"
+                        ],
+                        "value": [
+                            "$__all"
+                        ]
+                    },
+                    "definition": "query_result(max by (accountId, accountName) (iotbridge_account_map))",
+                    "description": "Filter by configured account",
+                    "includeAll": true,
+                    "label": "Account",
+                    "multi": true,
+                    "name": "accountId",
+                    "options": [],
+                    "query": {
+                        "qryType": 3,
+                        "query": "query_result(max by (accountId, accountName) (iotbridge_account_map))",
+                        "refId": "PrometheusVariableQueryEditor-VariableQuery"
+                    },
+                    "refresh": 1,
+                    "sort": 5,
+                    "type": "query",
+                    "regex": "/.*accountId=\"(?<value>[^\"]+)\".*accountName=\"(?<text>[^\"]+)\".*/"
+                },
+                {
                     "current": {
                         "text": [
                             "svc-azure-servicebus"
@@ -580,20 +607,21 @@
                         "type": "prometheus",
                         "uid": "prometheus"
                     },
-                    "definition": "label_values(iotbridge_trigger_action_exectime_count,container)",
+                    "definition": "label_values(iotbridge_trigger_action_exectime_count{accountId=~\"${accountId:regex}\"},container)",
                     "includeAll": true,
-                    "label": "Service",
+                    "label": "Runtime service",
                     "multi": true,
                     "name": "service",
                     "options": [],
                     "query": {
-                        "query": "label_values(iotbridge_trigger_action_exectime_count,container)",
+                        "query": "label_values(iotbridge_trigger_action_exectime_count{accountId=~\"${accountId:regex}\"},container)",
                         "refId": "PrometheusVariableQueryEditor-VariableQuery"
                     },
                     "refresh": 1,
                     "regex": "",
                     "sort": 1,
-                    "type": "query"
+                    "type": "query",
+                    "allValue": ".*"
                 },
                 {
                     "current": {
@@ -604,19 +632,20 @@
                         "type": "prometheus",
                         "uid": "prometheus"
                     },
-                    "definition": "label_values(iotbridge_trigger_action_exectime_count{container=~\"$service\"},type)",
+                    "definition": "label_values(iotbridge_trigger_action_exectime_count{accountId=~\"${accountId:regex}\", container=~\"${service:regex}\"},type)",
                     "includeAll": true,
                     "label": "Type",
                     "multi": true,
                     "name": "type",
                     "options": [],
                     "query": {
-                        "query": "label_values(iotbridge_trigger_action_exectime_count{container=~\"$service\"},type)",
+                        "query": "label_values(iotbridge_trigger_action_exectime_count{accountId=~\"${accountId:regex}\", container=~\"${service:regex}\"},type)",
                         "refId": "PrometheusVariableQueryEditor-VariableQuery"
                     },
                     "refresh": 1,
                     "regex": "",
-                    "type": "query"
+                    "type": "query",
+                    "allValue": ".*"
                 }
             ]
         },

@@ -138,14 +138,14 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum (increase(iotbridge_lwm2m_operations[1m]))",
+                        "expr": "sum (increase(iotbridge_lwm2m_operations{accountId=~\"${accountId:regex}\"}[1m]))",
                         "interval": "",
                         "legendFormat": "{{op}}",
                         "range": true,
                         "refId": "A"
                     }
                 ],
-                "title": "lwm2m ops per minute",
+                "title": "LWM2M operations/min",
                 "type": "stat"
             },
             {
@@ -205,7 +205,7 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum(iotbridge_lwm2m_sessions{})",
+                        "expr": "sum(iotbridge_lwm2m_sessions{accountId=~\"${accountId:regex}\"})",
                         "interval": "",
                         "legendFormat": "{{pod}}",
                         "refId": "A"
@@ -272,7 +272,7 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum by (pod)(increase(iotbridge_lwm2m_operations{}[1m]))",
+                        "expr": "sum by (pod)(increase(iotbridge_lwm2m_operations{accountId=~\"${accountId:regex}\"}[1m]))",
                         "interval": "",
                         "legendFormat": "{{pod}}",
                         "range": true,
@@ -339,7 +339,7 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum by (pod)(iotbridge_lwm2m_sessions{})",
+                        "expr": "sum by (pod)(iotbridge_lwm2m_sessions{accountId=~\"${accountId:regex}\"})",
                         "interval": "",
                         "legendFormat": "{{pod}}",
                         "refId": "A"
@@ -406,14 +406,14 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum by (op)(increase(iotbridge_lwm2m_operations[1m]))",
+                        "expr": "sum by (op)(increase(iotbridge_lwm2m_operations{accountId=~\"${accountId:regex}\"}[1m]))",
                         "interval": "",
                         "legendFormat": "{{op}}",
                         "range": true,
                         "refId": "A"
                     }
                 ],
-                "title": "lwm2m ops per minute",
+                "title": "operations/min by type",
                 "type": "stat"
             },
             {
@@ -506,7 +506,7 @@
                         },
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum by (pod,op)(increase(iotbridge_lwm2m_operations[1m]))",
+                        "expr": "sum by (pod,op)(increase(iotbridge_lwm2m_operations{accountId=~\"${accountId:regex}\"}[1m]))",
                         "interval": "",
                         "legendFormat": "{{pod}}/{{op}}",
                         "range": true,
@@ -801,7 +801,7 @@
                             "uid": "prometheus"
                         },
                         "exemplar": true,
-                        "expr": "sum without (accountId,instance)(iotbridge_lwm2m_sessions)",
+                        "expr": "sum without (accountId,instance)(iotbridge_lwm2m_sessions{accountId=~\"${accountId:regex}\"})",
                         "interval": "",
                         "legendFormat": "{{pod}}/{{mode}}",
                         "refId": "A"
@@ -986,7 +986,35 @@
             "tartabit-iot-bridge"
         ],
         "templating": {
-            "list": []
+            "list": [
+                {
+                    "allValue": ".*",
+                    "current": {
+                        "text": [
+                            "All"
+                        ],
+                        "value": [
+                            "$__all"
+                        ]
+                    },
+                    "definition": "query_result(max by (accountId, accountName) (iotbridge_account_map))",
+                    "description": "Filter by configured account",
+                    "includeAll": true,
+                    "label": "Account",
+                    "multi": true,
+                    "name": "accountId",
+                    "options": [],
+                    "query": {
+                        "qryType": 3,
+                        "query": "query_result(max by (accountId, accountName) (iotbridge_account_map))",
+                        "refId": "PrometheusVariableQueryEditor-VariableQuery"
+                    },
+                    "refresh": 1,
+                    "sort": 5,
+                    "type": "query",
+                    "regex": "/.*accountId=\"(?<value>[^\"]+)\".*accountName=\"(?<text>[^\"]+)\".*/"
+                }
+            ]
         },
         "time": {
             "from": "now-3h",

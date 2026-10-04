@@ -1,0 +1,371 @@
+{
+  "meta": {
+    "folderUid": "G6bUnD54k",
+    "folderTitle": "IoT Bridge"
+  },
+  "dashboard": {
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": {"type": "datasource", "uid": "grafana"},
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "target": {"limit": 100, "matchAny": false, "tags": [], "type": "dashboard"},
+          "type": "dashboard"
+        }
+      ]
+    },
+    "editable": true,
+    "fiscalYearStartMonth": 0,
+    "graphTooltip": 1,
+    "id": null,
+    "links": [
+      {
+        "asDropdown": true,
+        "icon": "external link",
+        "includeVars": true,
+        "keepTime": true,
+        "tags": ["tartabit-iot-bridge"],
+        "targetBlank": false,
+        "title": "IoT Bridge",
+        "tooltip": "",
+        "type": "dashboards",
+        "url": ""
+      }
+    ],
+    "panels": [
+      {
+        "collapsed": false,
+        "gridPos": {"h": 1, "w": 24, "x": 0, "y": 0},
+        "id": 1,
+        "panels": [],
+        "title": "Current health",
+        "type": "row"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "description": "Lowest NATS connection state reported by an IoT Bridge process. One disconnected process makes this zero.",
+        "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "mappings": [{"options": {"0": {"color": "red", "index": 0, "text": "Disconnected"}, "1": {"color": "green", "index": 1, "text": "Connected"}}, "type": "value"}], "thresholds": {"mode": "absolute", "steps": [{"color": "red", "value": null}, {"color": "green", "value": 1}]}, "unit": "none"}, "overrides": []},
+        "gridPos": {"h": 5, "w": 4, "x": 0, "y": 1},
+        "id": 2,
+        "options": {"colorMode": "value", "graphMode": "none", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+        "targets": [{"editorMode": "code", "expr": "min(iotbridge_nats_connected)", "instant": true, "legendFormat": "NATS", "range": false, "refId": "A"}],
+        "title": "All clients connected",
+        "type": "stat"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}]}, "unit": "short"}, "overrides": []},
+        "gridPos": {"h": 5, "w": 4, "x": 4, "y": 1},
+        "id": 3,
+        "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+        "targets": [{"editorMode": "code", "expr": "sum(max by (stream) (iotbridge_nats_stream_messages{stream=~\"$stream\"}))", "instant": true, "legendFormat": "messages", "range": false, "refId": "A"}],
+        "title": "Stream messages",
+        "type": "stat"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 1}]}, "unit": "short"}, "overrides": []},
+        "gridPos": {"h": 5, "w": 4, "x": 8, "y": 1},
+        "id": 4,
+        "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+        "targets": [{"editorMode": "code", "expr": "sum(max by (stream, consumer) (iotbridge_nats_consumer_pending{stream=~\"$stream\",consumer=~\"$consumer\"}))", "instant": true, "legendFormat": "pending", "range": false, "refId": "A"}],
+        "title": "Consumer pending",
+        "type": "stat"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 1}]}, "unit": "short"}, "overrides": []},
+        "gridPos": {"h": 5, "w": 4, "x": 12, "y": 1},
+        "id": 5,
+        "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+        "targets": [{"editorMode": "code", "expr": "sum(max by (stream, consumer) (iotbridge_nats_consumer_ack_pending{stream=~\"$stream\",consumer=~\"$consumer\"}))", "instant": true, "legendFormat": "ack pending", "range": false, "refId": "A"}],
+        "title": "ACK pending",
+        "type": "stat"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 10000}, {"color": "red", "value": 25000}]}, "unit": "ms"}, "overrides": []},
+        "gridPos": {"h": 5, "w": 4, "x": 16, "y": 1},
+        "id": 6,
+        "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+        "targets": [{"editorMode": "code", "expr": "max(histogram_quantile(0.95, sum by (le, stream, consumer) (rate(iotbridge_trigger_event_queue_delay_milliseconds_bucket{stream=~\"$stream\",consumer=~\"$consumer\"}[5m]))))", "instant": true, "legendFormat": "p95", "range": false, "refId": "A"}],
+        "title": "Worst queue delay p95",
+        "type": "stat"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "max": 100, "min": 0, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 80}, {"color": "red", "value": 95}]}, "unit": "percent"}, "overrides": []},
+        "gridPos": {"h": 5, "w": 4, "x": 20, "y": 1},
+        "id": 7,
+        "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+        "targets": [{"editorMode": "code", "expr": "100 * sum(iotbridge_trigger_event_workers_active{stream=~\"$stream\",consumer=~\"$consumer\"}) / clamp_min(sum(iotbridge_trigger_event_worker_limit{stream=~\"$stream\",consumer=~\"$consumer\"}), 1)", "instant": true, "legendFormat": "utilization", "range": false, "refId": "A"}],
+        "title": "Worker utilization",
+        "type": "stat"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {"h": 1, "w": 24, "x": 0, "y": 6},
+        "id": 8,
+        "panels": [],
+        "title": "Throughput and backlog",
+        "type": "row"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 10, "lineInterpolation": "linear", "lineWidth": 1, "showPoints": "never", "spanNulls": false}, "unit": "ops"}, "overrides": []},
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 7},
+        "id": 9,
+        "options": {"legend": {"calcs": ["lastNotNull", "mean"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}},
+        "targets": [
+          {"editorMode": "code", "expr": "sum by (publisher, type) (rate(iotbridge_trigger_event_published[5m]))", "legendFormat": "published {{publisher}} {{type}}", "range": true, "refId": "A"},
+          {"editorMode": "code", "expr": "sum by (consumer, type) (rate(iotbridge_trigger_event_delivered{stream=~\"$stream\",consumer=~\"$consumer\"}[5m]))", "legendFormat": "delivered {{consumer}} {{type}}", "range": true, "refId": "B"},
+          {"editorMode": "code", "expr": "sum by (consumer, type) (rate(iotbridge_trigger_event_acked{stream=~\"$stream\",consumer=~\"$consumer\"}[5m]))", "legendFormat": "acked {{consumer}} {{type}}", "range": true, "refId": "C"}
+        ],
+        "title": "Event production, delivery, and ACK rate",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 10, "lineInterpolation": "linear", "lineWidth": 1, "showPoints": "never", "spanNulls": false}, "unit": "short"}, "overrides": []},
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 15},
+        "id": 10,
+        "options": {"legend": {"calcs": ["lastNotNull"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}},
+        "targets": [
+          {"editorMode": "code", "expr": "max by (stream, consumer) (iotbridge_nats_consumer_pending{stream=~\"$stream\",consumer=~\"$consumer\"})", "legendFormat": "pending {{stream}} {{consumer}}", "range": true, "refId": "A"},
+          {"editorMode": "code", "expr": "max by (stream, consumer) (iotbridge_nats_consumer_ack_pending{stream=~\"$stream\",consumer=~\"$consumer\"})", "legendFormat": "ack pending {{stream}} {{consumer}}", "range": true, "refId": "B"}
+        ],
+        "title": "Consumer pending and ACK-pending",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 10, "lineInterpolation": "linear", "lineWidth": 1, "showPoints": "never", "spanNulls": false}, "unit": "ops"}, "overrides": []},
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 15},
+        "id": 11,
+        "options": {"legend": {"calcs": ["lastNotNull", "mean"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}},
+        "targets": [
+          {"editorMode": "code", "expr": "max by (stream, consumer) (clamp_min(deriv(iotbridge_nats_consumer_delivered_sequence{stream=~\"$stream\",consumer=~\"$consumer\"}[5m]), 0))", "legendFormat": "delivered {{stream}} {{consumer}}", "range": true, "refId": "A"},
+          {"editorMode": "code", "expr": "max by (stream, consumer) (clamp_min(deriv(iotbridge_nats_consumer_ack_floor_sequence{stream=~\"$stream\",consumer=~\"$consumer\"}[5m]), 0))", "legendFormat": "ack floor {{stream}} {{consumer}}", "range": true, "refId": "B"}
+        ],
+        "title": "Consumer delivery and ACK-floor rate",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "description": "Positive values mean pending messages are accumulating; negative values mean the consumer is draining its backlog.",
+        "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 10, "lineInterpolation": "linear", "lineWidth": 1, "showPoints": "never", "spanNulls": false}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "orange", "value": 0.1}]}, "unit": "ops"}, "overrides": []},
+        "gridPos": {"h": 7, "w": 8, "x": 0, "y": 23},
+        "id": 12,
+        "options": {"legend": {"calcs": ["lastNotNull", "mean"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}},
+        "targets": [{"editorMode": "code", "expr": "max by (stream, consumer) (deriv(iotbridge_nats_consumer_pending{stream=~\"$stream\",consumer=~\"$consumer\"}[5m]))", "legendFormat": "{{stream}} {{consumer}}", "range": true, "refId": "A"}],
+        "title": "Net backlog change / second",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "description": "Current pending messages divided by the five-minute ACK rate. A consumer with no measurable ACK rate is clamped to avoid division by zero.",
+        "fieldConfig": {"defaults": {"color": {"mode": "thresholds"}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 600}, {"color": "red", "value": 1800}]}, "unit": "s"}, "overrides": []},
+        "gridPos": {"h": 7, "w": 8, "x": 8, "y": 23},
+        "id": 13,
+        "options": {"colorMode": "value", "graphMode": "area", "justifyMode": "auto", "orientation": "auto", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}, "textMode": "auto", "wideLayout": true},
+        "targets": [{"editorMode": "code", "expr": "max by (stream, consumer) (iotbridge_nats_consumer_pending{stream=~\"$stream\",consumer=~\"$consumer\"}) / clamp_min(sum by (stream, consumer) (rate(iotbridge_trigger_event_acked{stream=~\"$stream\",consumer=~\"$consumer\"}[5m])), 0.001)", "instant": true, "legendFormat": "{{stream}} {{consumer}}", "range": false, "refId": "A"}],
+        "title": "Estimated drain time",
+        "type": "stat"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 10, "lineInterpolation": "linear", "lineWidth": 1, "showPoints": "never", "spanNulls": false}, "unit": "short"}, "overrides": []},
+        "gridPos": {"h": 7, "w": 8, "x": 16, "y": 23},
+        "id": 14,
+        "options": {"legend": {"calcs": ["lastNotNull"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}},
+        "targets": [
+          {"editorMode": "code", "expr": "sum by (stream, consumer) (iotbridge_trigger_event_workers_active{stream=~\"$stream\",consumer=~\"$consumer\"})", "legendFormat": "active {{stream}} {{consumer}}", "range": true, "refId": "A"},
+          {"editorMode": "code", "expr": "sum by (stream, consumer) (iotbridge_trigger_event_worker_limit{stream=~\"$stream\",consumer=~\"$consumer\"})", "legendFormat": "limit {{stream}} {{consumer}}", "range": true, "refId": "B"},
+          {"editorMode": "code", "expr": "sum by (stream, consumer) (iotbridge_trigger_event_workers_available{stream=~\"$stream\",consumer=~\"$consumer\"})", "legendFormat": "available {{stream}} {{consumer}}", "range": true, "refId": "C"}
+        ],
+        "title": "Worker capacity",
+        "type": "timeseries"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {"h": 1, "w": 24, "x": 0, "y": 30},
+        "id": 15,
+        "panels": [],
+        "title": "Latency and failures",
+        "type": "row"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 10, "lineInterpolation": "linear", "lineWidth": 1, "showPoints": "never", "spanNulls": false}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 10000}, {"color": "red", "value": 25000}]}, "unit": "ms"}, "overrides": []},
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 31},
+        "id": 16,
+        "options": {"legend": {"calcs": ["lastNotNull", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}},
+        "targets": [{"editorMode": "code", "expr": "histogram_quantile(0.95, sum by (le, stream, consumer) (rate(iotbridge_trigger_event_queue_delay_milliseconds_bucket{stream=~\"$stream\",consumer=~\"$consumer\"}[5m])))", "legendFormat": "{{stream}} {{consumer}}", "range": true, "refId": "A"}],
+        "title": "Trigger queue delay p95",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 10, "lineInterpolation": "linear", "lineWidth": 1, "showPoints": "never", "spanNulls": false}, "unit": "ms"}, "overrides": []},
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 31},
+        "id": 17,
+        "options": {"legend": {"calcs": ["lastNotNull", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}},
+        "targets": [{"editorMode": "code", "expr": "histogram_quantile(0.95, sum by (le, stream, consumer) (rate(iotbridge_trigger_event_handler_duration_milliseconds_bucket{stream=~\"$stream\",consumer=~\"$consumer\"}[5m])))", "legendFormat": "{{stream}} {{consumer}}", "range": true, "refId": "A"}],
+        "title": "Trigger handler duration p95",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 10, "lineInterpolation": "linear", "lineWidth": 1, "showPoints": "never", "spanNulls": false}, "unit": "ops"}, "overrides": []},
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 39},
+        "id": 18,
+        "options": {"legend": {"calcs": ["lastNotNull", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}},
+        "targets": [
+          {"editorMode": "code", "expr": "sum by (stream, consumer) (rate(iotbridge_trigger_event_fetch_failures{stream=~\"$stream\",consumer=~\"$consumer\"}[5m]))", "legendFormat": "fetch failures {{stream}} {{consumer}}", "range": true, "refId": "A"},
+          {"editorMode": "code", "expr": "sum by (stream, consumer) (rate(iotbridge_trigger_event_ack_failures{stream=~\"$stream\",consumer=~\"$consumer\"}[5m]))", "legendFormat": "ACK failures {{stream}} {{consumer}}", "range": true, "refId": "B"},
+          {"editorMode": "code", "expr": "sum by (stream, consumer) (rate(iotbridge_trigger_event_redelivered{stream=~\"$stream\",consumer=~\"$consumer\"}[5m]))", "legendFormat": "redelivered {{stream}} {{consumer}}", "range": true, "refId": "C"}
+        ],
+        "title": "Fetch, ACK, and redelivery rates",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 10, "lineInterpolation": "linear", "lineWidth": 1, "showPoints": "never", "spanNulls": false}, "unit": "ops"}, "overrides": []},
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 39},
+        "id": 19,
+        "options": {"legend": {"calcs": ["lastNotNull", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}},
+        "targets": [
+          {"editorMode": "code", "expr": "sum by (publisher, type, outcome) (rate(iotbridge_trigger_event_reply[5m]))", "legendFormat": "{{publisher}} {{type}} {{outcome}}", "range": true, "refId": "A"},
+          {"editorMode": "code", "expr": "sum by (service) (rate(iotbridge_trigger_event_late_reply[5m]))", "legendFormat": "late reply {{service}}", "range": true, "refId": "B"},
+          {"editorMode": "code", "expr": "sum(rate(iotbridge_coap_operations{result=\"bad-triger-reply\"}[5m]))", "legendFormat": "legacy CoAP bad-triger-reply", "range": true, "refId": "C"}
+        ],
+        "title": "Trigger reply outcomes",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 10, "lineInterpolation": "linear", "lineWidth": 1, "showPoints": "never", "spanNulls": false}, "unit": "ms"}, "overrides": []},
+        "gridPos": {"h": 8, "w": 8, "x": 0, "y": 47},
+        "id": 20,
+        "options": {"legend": {"calcs": ["lastNotNull", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}},
+        "targets": [{"editorMode": "code", "expr": "histogram_quantile(0.95, sum by (le, stream, consumer) (rate(iotbridge_trigger_event_dispatch_wait_milliseconds_bucket{stream=~\"$stream\",consumer=~\"$consumer\"}[5m])))", "legendFormat": "{{stream}} {{consumer}}", "range": true, "refId": "A"}],
+        "title": "Worker dispatch wait p95",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 10, "lineInterpolation": "linear", "lineWidth": 1, "showPoints": "never", "spanNulls": false}, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "yellow", "value": 10000}, {"color": "red", "value": 25000}]}, "unit": "ms"}, "overrides": []},
+        "gridPos": {"h": 8, "w": 8, "x": 8, "y": 47},
+        "id": 26,
+        "options": {"legend": {"calcs": ["lastNotNull", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}},
+        "targets": [{"editorMode": "code", "expr": "histogram_quantile(0.95, sum by (le, type) (rate(iotbridge_trigger_event_replytime_bucket[5m])))", "legendFormat": "{{type}}", "range": true, "refId": "A"}],
+        "title": "Trigger reply latency p95",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 10, "lineInterpolation": "linear", "lineWidth": 1, "showPoints": "never", "spanNulls": false}, "unit": "short"}, "overrides": []},
+        "gridPos": {"h": 8, "w": 8, "x": 16, "y": 47},
+        "id": 21,
+        "options": {"legend": {"calcs": ["lastNotNull", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}},
+        "targets": [
+          {"editorMode": "code", "expr": "max by (stream, consumer) (iotbridge_nats_consumer_waiting{stream=~\"$stream\",consumer=~\"$consumer\"})", "legendFormat": "waiting pulls {{stream}} {{consumer}}", "range": true, "refId": "A"},
+          {"editorMode": "code", "expr": "max by (stream, consumer) (iotbridge_nats_consumer_redelivered{stream=~\"$stream\",consumer=~\"$consumer\"})", "legendFormat": "current redelivered {{stream}} {{consumer}}", "range": true, "refId": "B"}
+        ],
+        "title": "Consumer waiting pulls and redeliveries",
+        "type": "timeseries"
+      },
+      {
+        "collapsed": false,
+        "gridPos": {"h": 1, "w": 24, "x": 0, "y": 55},
+        "id": 22,
+        "panels": [],
+        "title": "NATS connection and stream storage",
+        "type": "row"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 10, "lineInterpolation": "linear", "lineWidth": 1, "showPoints": "never", "spanNulls": false}, "unit": "short"}, "overrides": []},
+        "gridPos": {"h": 8, "w": 8, "x": 0, "y": 56},
+        "id": 23,
+        "options": {"legend": {"calcs": ["lastNotNull", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}},
+        "targets": [{"editorMode": "code", "expr": "max by (stream) (iotbridge_nats_stream_messages{stream=~\"$stream\"})", "legendFormat": "{{stream}}", "range": true, "refId": "A"}],
+        "title": "Stream message count",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 10, "lineInterpolation": "linear", "lineWidth": 1, "showPoints": "never", "spanNulls": false}, "unit": "bytes"}, "overrides": []},
+        "gridPos": {"h": 8, "w": 8, "x": 8, "y": 56},
+        "id": 24,
+        "options": {"legend": {"calcs": ["lastNotNull", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}},
+        "targets": [{"editorMode": "code", "expr": "max by (stream) (iotbridge_nats_stream_bytes{stream=~\"$stream\"})", "legendFormat": "{{stream}}", "range": true, "refId": "A"}],
+        "title": "Stream storage",
+        "type": "timeseries"
+      },
+      {
+        "datasource": {"type": "prometheus", "uid": "prometheus"},
+        "fieldConfig": {"defaults": {"color": {"mode": "palette-classic"}, "custom": {"drawStyle": "line", "fillOpacity": 10, "lineInterpolation": "linear", "lineWidth": 1, "showPoints": "never", "spanNulls": false}, "unit": "short"}, "overrides": []},
+        "gridPos": {"h": 8, "w": 8, "x": 16, "y": 56},
+        "id": 25,
+        "options": {"legend": {"calcs": ["lastNotNull", "max"], "displayMode": "table", "placement": "bottom", "showLegend": true}, "tooltip": {"hideZeros": false, "mode": "multi", "sort": "desc"}},
+        "targets": [
+          {"editorMode": "code", "expr": "clamp_min(delta(iotbridge_nats_reconnects[5m]), 0)", "legendFormat": "reconnects {{job}} {{instance}}", "range": true, "refId": "A"},
+          {"editorMode": "code", "expr": "1 - iotbridge_nats_connected", "legendFormat": "disconnected {{job}} {{instance}}", "range": true, "refId": "B"}
+        ],
+        "title": "Client reconnects and disconnects",
+        "type": "timeseries"
+      }
+    ],
+    "refresh": "30s",
+    "schemaVersion": 41,
+    "tags": ["tartabit-iot-bridge", "nats", "jetstream", "triggers"],
+    "templating": {
+      "list": [
+        {
+          "allValue": ".*",
+          "current": {"text": ["All"], "value": ["$__all"]},
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "definition": "label_values(iotbridge_nats_consumer_pending, stream)",
+          "includeAll": true,
+          "label": "Stream",
+          "multi": true,
+          "name": "stream",
+          "options": [],
+          "query": {"query": "label_values(iotbridge_nats_consumer_pending, stream)", "refId": "stream"},
+          "refresh": 1,
+          "regex": "",
+          "sort": 1,
+          "type": "query"
+        },
+        {
+          "allValue": ".*",
+          "current": {"text": ["All"], "value": ["$__all"]},
+          "datasource": {"type": "prometheus", "uid": "prometheus"},
+          "definition": "label_values(iotbridge_nats_consumer_pending{stream=~\"$stream\"}, consumer)",
+          "includeAll": true,
+          "label": "Consumer",
+          "multi": true,
+          "name": "consumer",
+          "options": [],
+          "query": {"query": "label_values(iotbridge_nats_consumer_pending{stream=~\"$stream\"}, consumer)", "refId": "consumer"},
+          "refresh": 1,
+          "regex": "",
+          "sort": 1,
+          "type": "query"
+        }
+      ]
+    },
+    "time": {"from": "now-6h", "to": "now"},
+    "timepicker": {},
+    "timezone": "browser",
+    "title": "IoT Bridge / System / NATS",
+    "uid": "iotbridge-system-nats",
+    "version": 1,
+    "weekStart": ""
+  }
+}

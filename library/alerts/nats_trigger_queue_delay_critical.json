@@ -1,0 +1,35 @@
+{
+  "uid": "iotb-nats-queue-delay-critical",
+  "orgID": 1,
+  "folderUID": "G6bUnD54k",
+  "ruleGroup": "iot-bridge-nats",
+  "title": "NATS trigger queue delay critical",
+  "condition": "C",
+  "data": [
+    {
+      "refId": "A",
+      "queryType": "",
+      "relativeTimeRange": {"from": 600, "to": 0},
+      "datasourceUid": "prometheus",
+      "model": {"editorMode": "code", "exemplar": false, "expr": "histogram_quantile(0.95, sum by (le, stream, consumer) (rate(iotbridge_trigger_event_queue_delay_milliseconds_bucket[5m])))", "format": "time_series", "instant": true, "intervalMs": 1000, "legendFormat": "{{stream}} {{consumer}}", "maxDataPoints": 43200, "range": false, "refId": "A"}
+    },
+    {
+      "refId": "C",
+      "queryType": "",
+      "relativeTimeRange": {"from": 600, "to": 0},
+      "datasourceUid": "__expr__",
+      "model": {"conditions": [{"evaluator": {"params": [25000], "type": "gt"}, "operator": {"type": "and"}, "query": {"params": ["C"]}, "reducer": {"params": [], "type": "last"}, "type": "query"}], "datasource": {"type": "__expr__", "uid": "__expr__"}, "expression": "A", "intervalMs": 1000, "maxDataPoints": 43200, "refId": "C", "type": "threshold"}
+    }
+  ],
+  "updated": "2026-08-30T00:00:00Z",
+  "noDataState": "OK",
+  "execErrState": "Error",
+  "for": "5m",
+  "keep_firing_for": "5m",
+  "annotations": {"description": "The p95 trigger queue delay is above 25 seconds and is approaching the 30-second CoAP reply timeout. Treat this as an active reply-path incident.", "summary": "NATS trigger queue delay is near the CoAP timeout for {{ $labels.consumer }} on {{ $labels.stream }}."},
+  "labels": {"severity": "critical", "component": "tartabit-iot-bridge", "category": "nats"},
+  "provenance": "api",
+  "isPaused": false,
+  "notification_settings": null,
+  "record": null
+}
